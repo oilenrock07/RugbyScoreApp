@@ -1,7 +1,26 @@
 <ion-view view-title="New Match">
-  <ion-content>
-    <h1>New Match</h1>
-  </ion-content>
+    <ion-content has-footer="true" has-tabs="true">
+        <div class="list" ng-controller="MatchController">
+            <label class="item item-input item-stacked-label">
+            <span class="input-label">Team A</span>
+            <input type="text" placeholder="Enter Team Name A" ng-model="team1">
+        </label>
+            <ion-checkbox ng-change="newMatchMyTeamClick()" ng-model="isMyTeam">My Team</ion-checkbox>
+            <label class="item item-input item-stacked-label">
+            <span class="input-label">Team B</span>
+            <input type="text" placeholder="Enter Team Name B" ng-model="team2">
+        </label>
+            <label class="item item-input item-stacked-label">
+            <span class="input-label">Match Location</span>
+            <input type="text" placeholder="Enter Match Location"  ng-model="location">
+        </label>
+        </div>
 
-    <div ng-include="'templates/footer.html'"></div> 
+    </ion-content>
+
+
+    <div class="bar bar-footer bar-stable sub-footer">
+        <div class="title">Start Tracking</div>
+    </div>
+    <div ng-include="'templates/tabs.html'"></div>
 </ion-view>
