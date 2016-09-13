@@ -55,5 +55,15 @@ angular.module('rugbyapp', ['ionic', 'rugbyapp.controllers', 'ngCordova'])
         }
       })
 
+      .state('app.match', {
+        url: '/match',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/match/match.html',
+            controller: 'MatchController'
+          }
+        }
+      })
+
     $urlRouterProvider.otherwise('/app/newmatch');
   });

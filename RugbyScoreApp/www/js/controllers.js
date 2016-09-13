@@ -4,7 +4,7 @@ angular.module('rugbyapp.controllers', [])
 
 })
 
-.controller('MatchController', function ($scope){
+.controller('MatchController', function ($scope, $state){
     $scope.matchId = 0;
     $scope.team1 = '';
     $scope.team2 = '';
@@ -13,6 +13,7 @@ angular.module('rugbyapp.controllers', [])
     $scope.team2Score = 0;
     $scope.matchTime = '';
     $scope.isMyTeam = false;
+
 
     $scope.newMatchMyTeamClick = function() {
         if ($scope.isMyTeam) {

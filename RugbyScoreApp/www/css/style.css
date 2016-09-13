@@ -5,3 +5,16 @@
 .sub-footer{
     bottom:50px !important;
 }
+
+.match-score {
+    border: 1px solid dimgray;
+    background-color: gray;
+    height: 45px;
+    vertical-align: middle;
+    font-size: 30px;
+    color: white;
+}
+
+.match-label {
+    font-size: 11px;
+}
