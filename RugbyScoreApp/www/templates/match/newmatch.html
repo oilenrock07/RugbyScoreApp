@@ -1,5 +1,5 @@
 <ion-view view-title="New Match">
-    <ion-content has-footer="true" has-tabs="true">
+    <ion-content has-footer="true" has-tabs="true" ng-controller="MatchController">
         <div class="list">
             <label class="item item-input item-stacked-label">
             <span class="input-label">Team A</span>
@@ -16,9 +16,13 @@
         </label>
         </div>
 
-        <button class="button button-positive button-full icon icon-right ion-chevron-right"ui-sref="app.match">
+        <button class="button button-positive button-full icon icon-right ion-chevron-right" ng-click="startMatch()">
             Start Tracking
         </button>
+
+        <!--<button class="button button-positive button-full icon icon-right ion-chevron-right"ui-sref="app.match">
+            Start Tracking
+        </button>-->
 
     </ion-content>
 
