@@ -1,9 +1,72 @@
+/** Footer **/
 .has-footer.has-tabs {
     bottom: 93px;
 }
 
 .sub-footer{
     bottom:50px !important;
+}
+
+.tabs{
+    height: 75px;
+}
+
+.tabs-positive > .tabs, .tabs.tabs-positive{
+    border-color: #d6a7c2;
+    background-color: #92185d;
+    background-image: linear-gradient(0deg, #92145c, #92145c 50%, transparent 50%);
+}
+
+.tab-item .icon{
+    height: 45px;
+    background-size: 40px;
+    margin-top: 5px;
+}
+
+.my-team-icon-white{
+    background: url(/img/my-team-white.png) no-repeat center;
+}
+
+.my-team-icon-white-on{
+    background: url(/img/my-team-white.png) no-repeat center;
+}
+
+.new-match-icon-white{
+    background: url(/img/new-match-white.png) no-repeat center;
+}
+
+.teams-icon-white{
+    background: url(/img/team-white.png) no-repeat center;
+}
+
+.save-icon-white{
+    background: url(/img/save-white.png) no-repeat center;
+}
+
+.results-icon-white{
+    background: url(/img/result-white.png) no-repeat center;
+}
+
+
+/** Headers **/
+.bar.bar-stable{
+    border-color: #FBAE17;
+    border-bottom-width: 3px;
+}
+
+.bar-stable .button.button-icon{
+    color: #92145c;
+}
+
+.bar-stable .button.button-icon.new-match-icon{
+    width: 40px;
+    background: url(/img/new-match.png) no-repeat center;
+    background-size: 25px;
+}
+
+/** Match **/
+.match-label {
+    font-size: 11px;
 }
 
 .match-score {
@@ -13,8 +76,4 @@
     vertical-align: middle;
     font-size: 30px;
     color: white;
-}
-
-.match-label {
-    font-size: 11px;
 }
