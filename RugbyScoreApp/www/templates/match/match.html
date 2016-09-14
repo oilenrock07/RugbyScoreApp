@@ -4,42 +4,42 @@
             <div class="col text-center" ng-bind-html="team1"></div>
         </div>
         <div class="row">
-            <div class="col text-center match-score">Score</div>
+            <div class="col text-center match-score" ng-bind-html="team1Score"></div>
         </div>
         <div class="row text-center">
             <div class="col col-25">
                 <br>
-                <button class="button button-balanced">-</button>
+                <button class="button button-balanced" ng-click="addScoreTeam1(-5)">-</button>
             </div>
             <div class="col col-25">
                 <span class="match-label">TRY<span><br>
-                <button class="button button-positive">+ 5pts</button>
+                <button class="button button-positive" ng-click="addScoreTeam1(5)">+ 5pts</button>
             </div>
             <div class="col col-25">
                 <span class="match-label">CONVERSION<span><br>
-                <button class="button button-positive">+ 2pts</button>
+                <button class="button button-positive" ng-click="addScoreTeam1(2)">+ 2pts</button>
             </div>
             <div class="col col-25">
                 <br>
-                <button class="button button-balanced">-</button>
+                <button class="button button-balanced" ng-click="addScoreTeam1(-2)">-</button>
             </div>
         </div>
         <div class="row text-center">
             <div class="col col-25">
                 <br>
-                <button class="button button-balanced">-</button>
+                <button class="button button-balanced" ng-click="addScoreTeam1(-3)">-</button>
             </div>
             <div class="col col-25">
                 <span class="match-label">PENALTY<span><br>
-                <button class="button button-positive">+ 3pts</button>
+                <button class="button button-positive" ng-click="addScoreTeam1(3)">+ 3pts</button>
             </div>
             <div class="col col-25">
                 <span class="match-label">DROP GOAL<span><br>
-                <button class="button button-positive">+ 3pts</button>
+                <button class="button button-positive" ng-click="addScoreTeam1(3)">+ 3pts</button>
             </div>
             <div class="col col-25">
                 <br>
-                <button class="button button-balanced">-</button>
+                <button class="button button-balanced" ng-click="addScoreTeam1(-3)">-</button>
             </div>
         </div>
 
@@ -47,45 +47,45 @@
 
 
 <div class="row">
-            <div class="col text-center">Team B</div>
+            <div class="col text-center" ng-bind-html="team2"></div>
         </div>
         <div class="row">
-            <div class="col text-center match-score">Score</div>
+            <div class="col text-center match-score" ng-bind-html="team2Score"></div>
         </div>
         <div class="row text-center">
             <div class="col col-25">
                 <br>
-                <button class="button button-balanced">-</button>
+                <button class="button button-balanced" ng-click="addScoreTeam2(-5)">-</button>
             </div>
             <div class="col col-25">
                 <span class="match-label">TRY<span><br>
-                <button class="button button-positive">+ 5pts</button>
+                <button class="button button-positive" ng-click="addScoreTeam2(5)">+ 5pts</button>
             </div>
             <div class="col col-25">
                 <span class="match-label">CONVERSION<span><br>
-                <button class="button button-positive">+ 2pts</button>
+                <button class="button button-positive" ng-click="addScoreTeam2(2)">+ 2pts</button>
             </div>
             <div class="col col-25">
                 <br>
-                <button class="button button-balanced">-</button>
+                <button class="button button-balanced" ng-click="addScoreTeam2(-2)">-</button>
             </div>
         </div>
         <div class="row text-center">
             <div class="col col-25">
                 <br>
-                <button class="button button-balanced">-</button>
+                <button class="button button-balanced" ng-click="addScoreTeam2(-3)">-</button>
             </div>
             <div class="col col-25">
                 <span class="match-label">PENALTY<span><br>
-                <button class="button button-positive">+ 3pts</button>
+                <button class="button button-positive" ng-click="addScoreTeam2(3)">+ 3pts</button>
             </div>
             <div class="col col-25">
                 <span class="match-label">DROP GOAL<span><br>
-                <button class="button button-positive">+ 3pts</button>
+                <button class="button button-positive" ng-click="addScoreTeam2(3)">+ 3pts</button>
             </div>
             <div class="col col-25">
                 <br>
-                <button class="button button-balanced">-</button>
+                <button class="button button-balanced" ng-click="addScoreTeam2(-3)">-</button>
             </div>
         </div>
 

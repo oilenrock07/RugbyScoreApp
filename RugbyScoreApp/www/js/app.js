@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('rugbyapp', ['ionic', 'rugbyapp.controllers', 'ngCordova'])
+angular.module('rugbyapp', ['ionic', 'rugbyapp.controllers', 'rugbyapp.factories', 'ngCordova'])
 
   .run(function ($ionicPlatform, $cordovaSQLite) {
     $ionicPlatform.ready(function () {
@@ -66,19 +66,4 @@ angular.module('rugbyapp', ['ionic', 'rugbyapp.controllers', 'ngCordova'])
       })
 
     $urlRouterProvider.otherwise('/app/newmatch');
-  })
-
-
-  .factory('MatchFactory', function () {
-    match = {};
-    match.matchId = 0;
-    match.team1 = '';
-    match.team2 = '';
-    match.location = '';
-    match.team1Score = 0;
-    match.team2Score = 0;
-    match.matchTime = '';
-    match.isMyTeam = false;
-
-    return match;
   });
