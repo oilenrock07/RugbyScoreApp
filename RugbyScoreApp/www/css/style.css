@@ -77,3 +77,8 @@
     font-size: 30px;
     color: white;
 }
+
+
+.error {
+    color: #f53d3d;
+}
