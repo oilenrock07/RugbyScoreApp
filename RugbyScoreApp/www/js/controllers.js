@@ -53,6 +53,10 @@ angular.module('rugbyapp.controllers', [])
         }
     })
 
-    .controller('TeamController', function ($scope) {
+    .controller('TeamController', function ($scope, $state) {
 
+        //redirects to add new team page
+        $scope.addNewTeam = function() {
+            $state.go('app.addteam');
+        }
     });
