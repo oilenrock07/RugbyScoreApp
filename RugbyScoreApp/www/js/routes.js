@@ -12,7 +12,7 @@ angular.module('rugbyapp.routes', [])
             .state('app.newmatch', {
                 url: '/newmatch',
                 views: {
-                    'newmatch': {
+                    'match': {
                         templateUrl: 'templates/match/newmatch.html',
                         controller: 'MatchController'
                     }
