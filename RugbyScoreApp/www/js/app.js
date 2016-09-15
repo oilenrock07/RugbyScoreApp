@@ -48,7 +48,7 @@ angular.module('rugbyapp', ['ionic', 'rugbyapp.controllers', 'rugbyapp.factories
       .state('app.newmatch', {
         url: '/newmatch',
         views: {
-          'menuContent': {
+          'newmatch': {
             templateUrl: 'templates/match/newmatch.html',
             controller: 'MatchController'
           }
@@ -58,7 +58,7 @@ angular.module('rugbyapp', ['ionic', 'rugbyapp.controllers', 'rugbyapp.factories
       .state('app.match', {
         url: '/match',
         views: {
-          'menuContent': {
+          'match': {
             templateUrl: 'templates/match/match.html',
             controller: 'MatchController'
           }
