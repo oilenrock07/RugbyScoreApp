@@ -32,6 +32,7 @@ angular.module('rugbyapp', ['ionic', 'rugbyapp.controllers', 'rugbyapp.factories
       //   alert(ex);
       // }
 
+      //load user setting here
 
     });
   });

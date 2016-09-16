@@ -1,7 +1,15 @@
 angular.module('rugbyapp.controllers', [])
 
-    .controller('AppController', function ($scope) {
+    .controller('AppController', function ($scope, $state, MatchFactory) {
+        $scope.showMatch = function() { 
+            MatchFactory.team1 = '';
+            MatchFactory.team2 = '';
+            $state.go('app.newmatch');
+        }
 
+        $scope.showTeams = function() {
+            $state.go('app.teams');
+        }
     })
 
     .controller('MatchController', function ($scope, $state, MatchFactory) {
@@ -27,8 +35,8 @@ angular.module('rugbyapp.controllers', [])
         //functions
         $scope.startMatch = function () {
             MatchFactory.team1 = 0;
-            MatchFactory.team1 = $scope.team1;
-            MatchFactory.team2 = $scope.team2;
+            MatchFactory.team1 = $scope.team1 != '' ? $scope.team1 : 'TEAM A';
+            MatchFactory.team2 = $scope.team2 != '' ? $scope.team2 : 'TEAM A';
             MatchFactory.location = $scope.location;
             MatchFactory.isMyTeam = $scope.isMyTeam;
 
@@ -109,7 +117,9 @@ angular.module('rugbyapp.controllers', [])
         }
     })
 
-    .controller('TeamController', function ($scope, $state) {
+    .controller('TeamController', function ($scope, $state, TeamFactory) {
+
+        $scope.teams = TeamFactory.all();
 
         //redirects to add new team page
         $scope.addNewTeam = function () {

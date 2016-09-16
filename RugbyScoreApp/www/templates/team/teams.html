@@ -1,5 +1,5 @@
 <ion-view view-title="Teams">
-    <ion-content>
+    <ion-content ng-controller="TeamController">
 
         <div class="bar bar-header">
             <button class="button button-clear button-positive" ng-click="addNewTeam()">Add Team</button>
@@ -10,13 +10,23 @@
         <div class="list">
 
             <div class="item item-divider">
-                Candy Bars
+                Teams
             </div>
 
-            <a class="item" href="#">Butterfinger</a>
-            <a class="item" href="#">Test</a>
-
+            <div class="item row row-bottom" ng-repeat="team in teams">
+                <div class="col col-80">
+                    <span class="team-label">Team Name</span><br/>
+                    <span>{{team.fullTeamName}}</span><br/>
+                    <span class="team-label team-location">Location</span><br/>
+                    <span>{{team.location}}</span>
+                </div>
+                <div class="col col-20">
+                    <span class="team-list-result">Team Results
+                        <i class="icon ion-chevron-right"></i>
+                    </span>
+                </div>
+            </div>
         </div>
-
+<br>
     </ion-content>
 </ion-view>

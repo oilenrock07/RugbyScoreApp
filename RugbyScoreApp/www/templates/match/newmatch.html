@@ -1,24 +1,21 @@
 <ion-view view-title="New Match">
-    <ion-content >
+    <ion-content ng-controller="MatchController">
         <form class="list" name="matchform" novalidate>
             <label class="item item-input item-stacked-label">
                 <span class="input-label">Team A</span>
-                <input type="text" placeholder="Enter Team Name A" ng-model="team1" name="team1" ng-required="true" autocomplete="off">
-                <div ng-if="matchform.team1.$error.required && matchform.team1.$dirty" class="error">Team A cannot be empty</div>
+                <input type="text" placeholder="Enter Team Name A" ng-model="team1" autocomplete="off">
             </label>
             <ion-checkbox ng-change="newMatchMyTeamClick()" ng-model="isMyTeam">My Team</ion-checkbox>
             <label class="item item-input item-stacked-label">
                 <span class="input-label">Team B</span>
-                <input type="text" placeholder="Enter Team Name B" ng-model="team2"  name="team2" ng-required="true" autocomplete="off">
-                <div ng-if="matchform.team2.$error.required && matchform.team2.$dirty" class="error">Team B cannot be empty</div>
+                <input type="text" placeholder="Enter Team Name B" ng-model="team2"  autocomplete="off">
             </label>
             <label class="item item-input item-stacked-label">
                 <span class="input-label">Match Location</span>
-                <input type="text" placeholder="Enter Match Location"  ng-model="location" name="location" ng-required="true" autocomplete="off">
+                <input type="text" placeholder="Enter Match Location"  ng-model="location" autocomplete="off">
             </label>
-            <div ng-if="matchform.location.$error.required && matchform.location.$dirty" class="error">Location cannot be empty</div>
 
-            <button class="button button-positive button-full icon icon-right ion-chevron-right" ng-disabled="!matchform.$valid" ng-click="startMatch()">
+            <button class="button button-positive button-full icon icon-right ion-chevron-right" ng-click="startMatch()">
                 Start Tracking
             </button>           
         </form>

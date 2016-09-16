@@ -82,3 +82,20 @@
 .error {
     color: #f53d3d;
 }
+
+.team-label {
+    color: blue;
+}
+
+.pull-right {
+    float: right;
+}
+
+.team-list-result {
+    float: right;
+    font-size: 14px;
+}
+
+.team-location {
+    margin-top: 25px;
+}
