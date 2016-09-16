@@ -25,15 +25,17 @@ angular.module('rugbyapp.factories', [])
 
   .factory('SettingFactory', function () {
     setting = {};
-    setting.teamId = 0;
+    setting.myTeam = null;
 
     return setting;
   })
 
   .factory('TeamFactory', function () {
-    teams = {};
-
+    var teams = {};
+  
     //replace this by the actual data
+    //sort by team name
+
     teams = [{
       teamId: 1,
       fullTeamName : 'Chicago Bulls',
@@ -82,13 +84,23 @@ angular.module('rugbyapp.factories', [])
         return teams;
       },
       get: function(teamId) {
-        for (var i = 0; i < chats.length; i++) {
-          if (chats[i].id === parseInt(chatId)) {
-            return chats[i];
+        for (var i = 0; i < teams.length; i++) {
+          if (teams[i].teamId === parseInt(teamId)) {
+            return teams[i];
           }
         }
 
         return null;
+      },
+      saveTeam: function(team) {
+        teams.push({
+          teamId: 100, //this should be autopopulated in sqlite
+          fullTeamName: team.fullTeamName,
+          location: team.country
+        }); 
+
+        //if (ismy team)
+        //get the last id and insert it to settings       
       }
     }
 

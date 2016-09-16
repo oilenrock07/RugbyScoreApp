@@ -8,6 +8,17 @@ angular.module('rugbyapp.routes', [])
                 controller: 'AppController'
             })
 
+            //about
+            .state('app.aboutmain', {
+                url: '/aboutmain',
+                views: {
+                    'match': {
+                        templateUrl: 'templates/about/main.html',
+                        //controller: 'AppController'
+                    }
+                }
+            })
+
             //match
             .state('app.newmatch', {
                 url: '/newmatch',
@@ -36,13 +47,26 @@ angular.module('rugbyapp.routes', [])
                 views: {
                     'teams': {
                         templateUrl: 'templates/team/teams.html',
-                        controller: 'TeamController'
+                        //controller: 'TeamController'
+                    }
+                }
+            })
+
+            .state('app.myteam', {
+                url: '/myteam',
+                views: {
+                    'teams': {
+                        templateUrl: 'templates/team/myteam.html',
+                        //controller: 'TeamController'
                     }
                 }
             })
 
             .state('app.addteam', {
                 url: '/addteam',
+                params: {
+                    isMyTeam : false
+                }, 
                 views: {
                     'teams': {
                         templateUrl: 'templates/team/addteam.html',

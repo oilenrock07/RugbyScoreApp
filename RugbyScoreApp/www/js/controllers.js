@@ -1,10 +1,11 @@
 angular.module('rugbyapp.controllers', [])
 
-    .controller('AppController', function ($scope, $state, MatchFactory) {
+    .controller('AppController', function ($scope, $ionicConfig, $state, MatchFactory) {
 
         $scope.icon = 'new-match-icon';
 
         $scope.showMatch = function() { 
+            $ionicConfig.views.transition('platform');
             $scope.icon = 'new-match-icon';
             MatchFactory.team1 = '';
             MatchFactory.team2 = '';
@@ -12,12 +13,17 @@ angular.module('rugbyapp.controllers', [])
         }
 
         $scope.showTeams = function() {
+            $ionicConfig.views.transition('platform');
             $scope.icon = 'my-team-icon';
             $state.go('app.teams');
         }
+
+        $scope.showAboutMain = function () {
+            $state.go('app.aboutmain');
+        }
     })
 
-    .controller('MatchController', function ($scope, $state, MatchFactory) {
+    .controller('MatchController', function ($scope, $state, MatchFactory, TeamFactory, SettingFactory) {
         //properties
         $scope.matchId = MatchFactory.matchId;
         $scope.team1 = MatchFactory.team1;
@@ -111,23 +117,63 @@ angular.module('rugbyapp.controllers', [])
         }
 
 
-        $scope.newMatchMyTeamClick = function () {
+        $scope.useMyTeam = function () {
             if ($scope.isMyTeam) {
-                //populate the team textbox
-                $scope.team1 = 'Test';
+                if (SettingFactory.myTeam == null) {
+                    $state.go('app.addteam', {isMyTeam: true});
+                }
+                else {
+                    //display my team
+                    var myTeam = TeamFactory.get(TeamFactory.myTeam);
+                    $scope.teamId = myTeam.teamId;
+                    $scope.team1 = myTeam.fullTeamName;
+                }
             }
             else {
+                $scope.teamId = 0;
                 $scope.team1 = '';
             }
         }
     })
 
-    .controller('TeamController', function ($scope, $state, TeamFactory) {
 
+    //Team Controller
+    .controller('TeamController', function ($scope, $state, TeamFactory) {
+        $scope.isMyTeam = $state.params.isMyTeam;
         $scope.teams = TeamFactory.all();
+
+        $scope.teamId = 0;
+        $scope.abbrTeamName = '';
+        $scope.fullTeamName = '';
+        $scope.clubAddress = '';
+        $scope.townCity = '';
+        $scope.country = '';
+        $scope.postCode = '';
 
         //redirects to add new team page
         $scope.addNewTeam = function () {
-            $state.go('app.addteam');
+            $state.go('app.addteam', {isMyTeam: false});
+        }
+
+        $scope.saveTeam = function() {
+
+            var team = {
+                isMyTeam : $scope.isMyTeam,
+                fullTeamName: $scope.fullTeamName,
+                abbrTeamName: $scope.abbrTeamName,
+                clubAddress: $scope.clubAddress,
+                townCity: $scope.townCity,
+                country: $scope.country,
+                postCode: $scope.postCode
+            };
+
+            TeamFactory.saveTeam(team);
+
+            if ($scope.isMyTeam) {
+                $state.go('app.myteam');
+            }
+            else {
+                $state.go('app.teams');
+            }
         }
     });
