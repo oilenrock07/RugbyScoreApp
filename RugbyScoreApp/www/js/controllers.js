@@ -1,13 +1,18 @@
 angular.module('rugbyapp.controllers', [])
 
     .controller('AppController', function ($scope, $state, MatchFactory) {
+
+        $scope.icon = 'new-match-icon';
+
         $scope.showMatch = function() { 
+            $scope.icon = 'new-match-icon';
             MatchFactory.team1 = '';
             MatchFactory.team2 = '';
             $state.go('app.newmatch');
         }
 
         $scope.showTeams = function() {
+            $scope.icon = 'my-team-icon';
             $state.go('app.teams');
         }
     })

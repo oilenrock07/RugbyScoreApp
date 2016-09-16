@@ -5,7 +5,7 @@
       </ion-nav-back-button>
 
       <ion-nav-buttons side="left">
-        <button class="button button-icon button-clear new-match-icon">
+        <button class="button button-icon button-clear {{icon}}">
         </button>
       </ion-nav-buttons>
       <ion-nav-buttons side="right">
@@ -16,26 +16,4 @@
     <div ng-include="'templates/tabs.html'"></div>
   </ion-side-menu-content>
 
-
-  <ion-side-menu side="right">
-    <ion-header-bar class="bar-stable">
-      <h1 class="title">Rugby Score App</h1>
-    </ion-header-bar>
-    <ion-content>
-      <ion-list>
-        <ion-item menu-close href="#/app/savescore">
-          Save Score
-        </ion-item>
-        <ion-item menu-close href="#/app/search">
-          Search Teams
-        </ion-item>
-        <ion-item menu-close href="#/app/email">
-          Email Score
-        </ion-item>
-        <ion-item menu-close href="#/app/charity">
-          Charity
-        </ion-item>
-      </ion-list>
-    </ion-content>
-  </ion-side-menu>
 </ion-side-menus>
