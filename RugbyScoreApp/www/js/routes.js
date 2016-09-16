@@ -25,7 +25,7 @@ angular.module('rugbyapp.routes', [])
                 views: {
                     'match': {
                         templateUrl: 'templates/match/newmatch.html',
-                        controller: 'MatchController'
+                        //controller: 'MatchController'
                     }
                 }
             })
@@ -35,7 +35,7 @@ angular.module('rugbyapp.routes', [])
                 views: {
                     'match': {
                         templateUrl: 'templates/match/match.html',
-                        controller: 'MatchController'
+                        //controller: 'MatchController'
                     }
                 }
             })
@@ -45,9 +45,9 @@ angular.module('rugbyapp.routes', [])
             .state('app.teams', {
                 url: '/teams',
                 views: {
-                    'teams': {
+                    'myteam': {
                         templateUrl: 'templates/team/teams.html',
-                        //controller: 'TeamController'
+                        controller: 'TeamController'
                     }
                 }
             })
@@ -57,7 +57,7 @@ angular.module('rugbyapp.routes', [])
                 views: {
                     'teams': {
                         templateUrl: 'templates/team/myteam.html',
-                        //controller: 'TeamController'
+                        controller: 'TeamController'
                     }
                 }
             })

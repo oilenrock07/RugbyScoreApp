@@ -1,5 +1,22 @@
 <ion-view view-title="My Team" hide-back-button="true">
+    <ion-header-bar class="bar-positive"></ion-header-bar>
+    <ion-header-bar class="bar-stable bar-subheader">
+        <button class="button button-clear button-positive" ng-click="addNewTeam()">Edit My Team</button>
+    </ion-header-bar>
+
     <ion-content ng-controller="TeamController">
-        My Team
+
+        <div class="row">
+            <div class="team-label">Abbreviated Team Name</div>
+            <div ng-bind-html="abbrTeamName"></div>
+        </div>
+
+        <div class="row">
+            <div class="team-label">Team Name</div>
+            <div ng-bind-html="fullTeamName"></div>
+        </div>
+
+
+
     </ion-content>
 </ion-view>

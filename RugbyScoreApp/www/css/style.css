@@ -70,6 +70,13 @@
     background-size: 25px;
 }
 
+.bar-stable .button.button-icon.team-icon{
+    width: 40px;
+    background: url(/img/team.png) no-repeat center;
+    background-size: 25px;
+}
+
+
 /** Match **/
 .match-label {
     font-size: 11px;

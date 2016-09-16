@@ -1,18 +1,13 @@
 <ion-view view-title="Teams" hide-back-button="true">
-    <ion-content ng-controller="TeamController">
 
-        <div class="bar bar-header">
-            <button class="button button-clear button-positive" ng-click="addNewTeam()">Add Team</button>
-            <button class="button button-clear button-positive">Search</button>
-        </div>
+    <ion-header-bar class="bar-positive"></ion-header-bar>
+    <ion-header-bar class="bar-stable bar-subheader">
+        <button class="button button-clear button-positive" ng-click="addNewTeam()">Add Team</button>
+        <button class="button button-clear button-positive">Search</button>
+    </ion-header-bar>
 
-
+    <ion-content>
         <div class="list">
-
-            <div class="item item-divider">
-                Teams
-            </div>
-
             <div class="item row row-bottom" ng-repeat="team in teams">
                 <div class="col col-80">
                     <span class="team-label">Team Name</span><br/>
@@ -27,6 +22,6 @@
                 </div>
             </div>
         </div>
-<br>
+        <br>
     </ion-content>
 </ion-view>
