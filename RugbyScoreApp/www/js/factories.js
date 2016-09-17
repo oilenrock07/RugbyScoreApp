@@ -1,7 +1,7 @@
 
-angular.module('rugbyapp.factories', [])
-
+angular.module('rugbyapp.factories', ['ngCordova'])
   .factory('MatchFactory', function () {
+
     //entities
     match = {};
     match.matchId = 0;
@@ -21,7 +21,20 @@ angular.module('rugbyapp.factories', [])
     match.team2Conversion = 0;
     match.team2DropGoal = 0;
 
-    return match;
+    var matches = [{
+      matchId: 1,
+      team1: 2,
+      team2: 1,
+      matchDate: '',
+
+    }];
+
+    return {
+      match: match,
+      getLastMatch: function () {
+        return '';
+      }
+    };
   })
 
   .factory('SettingFactory', function () {
@@ -33,7 +46,9 @@ angular.module('rugbyapp.factories', [])
   })
 
 
-  .factory('TeamFactory', function () {
+  .factory('TeamFactory', function ($cordovaSQLite, $ionicPlatform, DataFactory) {
+    var teams = {};  
+
     //entities
     var team = {};
     team.teamId = 0;
@@ -45,77 +60,17 @@ angular.module('rugbyapp.factories', [])
     team.postCode = '';
     team.isMyTeam = false;
 
-    //replace this by the actual data
-    //sort by team name
-
-    var teams = {};
-    teams = [{
-      teamId: 1,
-      fullTeamName: 'Chicago Bulls',
-      location: 'Chicago'
-    }, {
-        teamId: 2,
-        fullTeamName: 'Detroit Pistons',
-        location: 'Detroit'
-      },
-      {
-        teamId: 3,
-        fullTeamName: 'Newyork Knicks',
-        location: 'Newyork'
-      },
-      {
-        teamId: 4,
-        fullTeamName: 'Dallas Maverics',
-        location: 'Dallas'
-      }, {
-        teamId: 5,
-        fullTeamName: 'Gilas Pilipinas',
-        location: 'Philippines'
-      },
-      {
-        teamId: 6,
-        fullTeamName: 'San Antonio Spurs',
-        location: 'San Antonio'
-      },
-      {
-        teamId: 7,
-        fullTeamName: 'Miami Heat',
-        location: 'Miami'
-      }, {
-        teamId: 8,
-        fullTeamName: 'Golden State Warriors',
-        location: 'Washington'
-      },
-      {
-        teamId: 9,
-        fullTeamName: 'Ginebra',
-        location: 'Manila'
-      }];
-
-    return {
-      all: function () {
-        return teams;
-      },
-      get: function (teamId) {
-        for (var i = 0; i < teams.length; i++) {
-          if (teams[i].teamId === parseInt(teamId)) {
-            return teams[i];
-          }
+    var getbyTeamId = function (teamId) {
+      for (var i = 0; i < teams.length; i++) {
+        if (teams[i].teamId === parseInt(teamId)) {
+          return teams[i];
         }
+      }
 
-        return null;
-      },
-      saveTeam: function () {
-        teams.push({
-          teamId: 100, //this should be autopopulated in sqlite
-          fullTeamName: team.fullTeamName,
-          location: team.country
-        });
+      return null;
+    }
 
-        //if (ismy team)
-        //get the last id and insert it to settings       
-      },
-      mapEntity: function(param) {
+    var mapTeam = function(param) {
         team.teamId = param.teamId;
         team.abbrTeamName = param.abbrTeamName;
         team.fullTeamName = param.fullTeamName;
@@ -124,8 +79,30 @@ angular.module('rugbyapp.factories', [])
         team.country = param.country;
         team.postCode = param.postCode;
         team.isMyTeam = param.isMyTeam;
-      }, 
-      team: team
+    }
+
+    var saveTeam = function() {
+        teams.push({
+          teamId: 100, //this should be autopopulated in sqlite
+          fullTeamName: team.fullTeamName,
+          location: team.country
+        });
+
+        //if (ismy team)
+        //get the last id and insert it to settings 
+    }
+
+    //load teams
+    $ionicPlatform.ready(function () {
+      teams = DataFactory.team.loadTeams();
+    });
+
+    return {
+      teams: teams,
+      team: team,
+      get: getbyTeamId,
+      saveTeam: saveTeam,
+      mapEntity: mapTeam,
     }
 
 

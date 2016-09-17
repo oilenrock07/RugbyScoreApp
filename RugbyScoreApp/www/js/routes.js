@@ -52,11 +52,14 @@ angular.module('rugbyapp.routes', [])
                 }
             })
 
-            .state('app.myteam', {
-                url: '/myteam',
+            .state('app.team', {
+                url: '/team',
+                params: {
+                    isMyTeam : false
+                },
                 views: {
                     'teams': {
-                        templateUrl: 'templates/team/myteam.html',
+                        templateUrl: 'templates/team/team.html',
                         controller: 'TeamController'
                     }
                 }
