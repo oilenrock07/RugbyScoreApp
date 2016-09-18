@@ -1,40 +1,4 @@
-<ion-view view-title="{{isMyTeam ? 'Add My Team' : 'Add Team'}}" hide-back-button="true">
-    <ion-content ng-controller="TeamController">
-        <form class="list" name="matchform" novalidate>
-            <label class="item item-input item-stacked-label">
-                <span class="input-label">Abbreviated Team Name</span>
-                <input type="text" placeholder="Enter Short Team Name" ng-model="abbrTeamName" autocomplete="off">
-            </label>
-            <label class="item item-input item-stacked-label">
-                <span class="input-label">Full Team Name</span>
-                <input type="text" placeholder="Full Team Name" ng-model="fullTeamName" autocomplete="off">
-            </label>
+<ion-view view-title="{{isEdit ? 'Add My Team' : 'Add Team'}}" hide-back-button="true">
+    <div ng-include="'templates/team/_addteam.html'"></div>
 
-            <label class="item item-input item-stacked-label">
-                <span class="input-label">Club Address</span>
-                <input type="text" placeholder="Enter Address" ng-model="clubAddress" autocomplete="off">
-            </label>
-
-            <label class="item item-input item-stacked-label">
-                <span class="input-label">Town / City</span>
-                <input type="text" placeholder="Enter Town/City" ng-model="townCity" autocomplete="off">
-            </label>
-
-            <label class="item item-input item-stacked-label">
-                <span class="input-label">County</span>
-                <input type="text" placeholder="Enter Address" ng-model="country" autocomplete="off">
-            </label>
-
-            <label class="item item-input item-stacked-label">
-                <span class="input-label">Post Code</span>
-                <input type="text" placeholder="Enter Postcode" ng-model="postCode" autocomplete="off">
-            </label>
-
-
-            <button class="button button-positive button-full icon icon-right ion-chevron-right" ng-click="saveTeam()">
-                Save Team
-            </button>
-
-        </form>
-    </ion-content>
 </ion-view>

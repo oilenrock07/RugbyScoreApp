@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 var app = angular.module('rugbyapp', ['ionic', 'rugbyapp.controllers', 'rugbyapp.factories', 'rugbyapp.routes', 'rugbyapp.data', 'ngCordova'])
 
-  .run(function ($ionicPlatform, $cordovaSQLite, DataFactory) {
+  .run(function ($ionicPlatform, $cordovaSQLite, DataFactory, SettingFactory, MatchFactory, TeamFactory) {
     $ionicPlatform.ready(function () {
       if (window.cordova && window.cordova.plugins.Keyboard) {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -23,7 +23,19 @@ var app = angular.module('rugbyapp', ['ionic', 'rugbyapp.controllers', 'rugbyapp
       }
 
       DataFactory.initialize();
-      DataFactory.team.loadTeams();
+
+      //load data
+      DataFactory.team.loadTeams(function (rs) {
+        for (var i = 0; i < rs.rows.length; i++) {
+          TeamFactory.teams.push(rs.rows.item(i));
+        }
+      });
+
+      DataFactory.setting.loadSetting(function (rs) {
+        if (rs.rows.length > 0) {
+          SettingFactory.myTeam = rs.rows.item(0).teamId
+        }
+      });
 
     });
   });

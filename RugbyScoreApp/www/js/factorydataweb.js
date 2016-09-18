@@ -14,14 +14,15 @@ angular.module('rugbyapp.data', [])
                 }
             };
 
-            return callBack(rs);
+            if (typeof(callBack)== 'function')
+                return callBack(rs);
         }
 
         var loadTeams = function (callBack) {
             var teams = [{
                 teamId: 1,
                 fullTeamName: 'Chicago Bulls',
-                location: 'Chicago'
+                townCity: 'Chicago'
             }];
 
             return selectCallBack(teams, callBack);
@@ -35,15 +36,25 @@ angular.module('rugbyapp.data', [])
 
         }
 
+        var updateTeam = function () {
+
+        }
+
+        var loadSetting = function () {
+            
+        }
+
         return {
             database: null,
             initialize: function () { },
             team: {
                 loadTeams: loadTeams,
-                createTeam: createTeam
+                createTeam: createTeam,
+                updateTeam: updateTeam
             },
             setting: {
-                saveMyTeam: saveMyTeam
+                saveMyTeam: saveMyTeam,
+                loadSetting: loadSetting
             }
         };
     })

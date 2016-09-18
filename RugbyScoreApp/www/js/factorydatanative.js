@@ -39,10 +39,38 @@ angular.module('rugbyapp.data', ['ngCordova'])
             }
         }
 
+        var update = function (query, params, callBack) {
+            try {
+                database.executeSql(query, params, function (rs) {
+                    callBack(rs);
+                }, function (error) {
+                    alert(error);
+                });
+            }
+            catch (ex) {
+                alert(ex);
+            }
+
+        }
+
         //SETTINGS****************************************************************
         var saveMyTeam = function (id) {
-            var query = "INSERT INTO settings (TeamId) VALUES (?)";
-            insert(query, [id], null);
+            var selectQuery = "SELECT COUNT(*) as Count FROM settings";
+            select(selectQuery, [], function (rs) {
+
+                if (parseInt(rs.rows.item(0).Count) > 0) {
+                    var updateQuery = "UPDATE settings SET teamId = ?";
+                    update(updateQuery, [], function () { });
+                }
+                else {
+                    var query = "INSERT INTO settings (teamId) VALUES (?)";
+                    insert(query, [id], null);
+                }
+            });
+        }
+
+        var loadSetting = function (callBack) {
+            select('SELECT * FROM settings', [], callBack);
         }
 
         //TEAMS********************************************************************
@@ -51,8 +79,13 @@ angular.module('rugbyapp.data', ['ngCordova'])
         }
 
         var createTeam = function (team, callBack) {
-            var query = "INSERT INTO team (AbbrTeamName, FullTeamName, ClubAddress, TownCity, Country, PostCode) VALUES (?,?,?,?,?,?)";
+            var query = "INSERT INTO team (abbrTeamName, fullTeamName, clubAddress, townCity, country, postCode) VALUES (?,?,?,?,?,?)";
             insert(query, [team.abbrTeamName, team.fullTeamName, team.clubAddress, team.townCity, team.country, team.postCode], callBack);
+        }
+
+        var updateTeam = function (team, callBack) {
+            var query = "UPDATE team SET abbrTeamName = ?, fullTeamName = ?, clubAddress = ?, townCity = ?, country=?, postCode=? WHERE teamId=?";
+            update(query, [team.abbrTeamName, team.fullTeamName, team.clubAddress, team.townCity, team.country, team.postCode, team.teamId], callBack);
         }
 
         return {
@@ -60,10 +93,12 @@ angular.module('rugbyapp.data', ['ngCordova'])
             initialize: initialize,
             team: {
                 loadTeams: loadTeams,
-                createTeam: createTeam
+                createTeam: createTeam,
+                updateTeam: updateTeam
             },
             setting: {
-                saveMyTeam: saveMyTeam
+                saveMyTeam: saveMyTeam,
+                loadSetting: loadSetting
             }
         };
     })

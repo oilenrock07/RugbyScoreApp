@@ -14,8 +14,8 @@ angular.module('rugbyapp.controllers', [])
                     TeamFactory.mapEntity(team);
                 }
             }
-            
-            $state.go('app.team', { isMyTeam: true } );
+
+            $state.go('app.myteam');
         }
 
         $scope.showMatch = function () {
@@ -132,7 +132,7 @@ angular.module('rugbyapp.controllers', [])
         $scope.useMyTeam = function () {
             if ($scope.isMyTeam) {
                 if (SettingFactory.myTeam == null) {
-                    $state.go('app.addteam', { isMyTeam: true });
+                    $state.go('app.addmyteam');
                 }
                 else {
                     //display my team
@@ -150,9 +150,10 @@ angular.module('rugbyapp.controllers', [])
 
 
     //Team Controller
-    .controller('TeamController', function ($scope, $state, TeamFactory) {
+    .controller('TeamController', function ($scope, $state, TeamFactory, SettingFactory) {
         $scope.isMyTeam = $state.params.isMyTeam;
         $scope.teams = TeamFactory.teams;
+        $scope.isEdit = $state.params.isEdit;
 
         $scope.teamId = TeamFactory.team.teamId;
         $scope.abbrTeamName = TeamFactory.team.abbrTeamName;
@@ -163,30 +164,33 @@ angular.module('rugbyapp.controllers', [])
         $scope.postCode = TeamFactory.team.postCode;
 
         //redirects to add new team page
-        $scope.addNewTeam = function () {
-            $state.go('app.addteam', { isMyTeam: false });
+        $scope.addNewTeam = function (isMyTeam, isEdit) {
+            var state = isMyTeam ? 'app.addmyteam' : 'app.addteam';
+            $state.go(state, { isEdit: isEdit });
         }
 
         $scope.saveTeam = function () {
 
             var team = {
-                teamId: 0,
-                isMyTeam : $scope.isMyTeam,
-                fullTeamName : $scope.fullTeamName,
-                abbrTeamName : $scope.abbrTeamName,
-                clubAddress : $scope.clubAddress,
-                townCity : $scope.townCity,
-                country : $scope.country,
-                postCode : $scope.postCode
+                teamId: $scope.teamId,
+                isMyTeam: $scope.isMyTeam,
+                fullTeamName: $scope.fullTeamName,
+                abbrTeamName: $scope.abbrTeamName,
+                clubAddress: $scope.clubAddress,
+                townCity: $scope.townCity,
+                country: $scope.country,
+                postCode: $scope.postCode
             };
 
-            TeamFactory.saveTeam(team);
-
-            if ($scope.isMyTeam) {
-                $state.go('app.myteam');
-            }
-            else {
-                $state.go('app.teams');
-            }
+            TeamFactory.saveTeam(team, $scope.isEdit, function () {
+                if ($scope.isMyTeam) {
+                    var myTeam = TeamFactory.get(SettingFactory.myTeam);
+                    TeamFactory.mapEntity(team);
+                    $state.go('app.myteam');
+                }
+                else {
+                    $state.go('app.teams');
+                }
+            })
         }
     });

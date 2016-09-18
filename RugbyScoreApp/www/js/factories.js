@@ -81,28 +81,43 @@ angular.module('rugbyapp.factories', ['ngCordova'])
       team.isMyTeam = param.isMyTeam;
     }
 
-    var saveTeam = function (param) {
+    var saveTeam = function (param, isEdit, callBack) {
+      if (!isEdit) {
+        var id = DataFactory.team.createTeam(param, function (id) {
+          if (id > 0) {
+            param.teamId = id;
+            teams.push(param);
 
-      var id = DataFactory.team.createTeam(param, function (id) {
-        if (id > 0) {
-          param.teamId = id;
-          teams.push(param);
-          if (param.isMyTeam) {
-            DataFactory.setting.saveTeam(id);
-            SettingFactory.myTeam = id;
+            if (param.isMyTeam) {
+              DataFactory.setting.saveMyTeam(id);
+              SettingFactory.myTeam = id;
+            }
+
+            callBack();
           }
-        }
-      });
-    }
+        });
+      }
+      else {
+        DataFactory.team.updateTeam(param, function (rs) {
+          
+           for (var i in teams) {
+            if (teams[i].teamId == param.teamId) {
+                teams[i].fullTeamName = param.fullTeamName;
+                teams[i].abbrTeamName = param.abbrTeamName;
+                teams[i].clubAddress = param.clubAddress;
+                teams[i].townCity = param.townCity;
+                teams[i].country = param.country;
+                teams[i].postCode = param.postCode;
+                break;
+            }
+          }
 
-    //load teams
-    $ionicPlatform.ready(function () {
-      DataFactory.team.loadTeams(function (rs) {
-        for (var i = 0; i < rs.rows.length; i++) {
-          teams.push(rs.rows.item(i));
-        }
-      });
-    });
+          callBack();
+        });
+      }
+
+
+    }
 
     return {
       teams: teams,
