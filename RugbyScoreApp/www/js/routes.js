@@ -21,7 +21,7 @@ angular.module('rugbyapp.routes', [])
 
             //match
             .state('app.newmatch', {
-                url: '/newmatch',
+                url: '/newmatch',                
                 views: {
                     'match': {
                         templateUrl: 'templates/match/newmatch.html',
@@ -32,6 +32,7 @@ angular.module('rugbyapp.routes', [])
 
             .state('app.match', {
                 url: '/match',
+                cache: false,
                 views: {
                     'match': {
                         templateUrl: 'templates/match/match.html',

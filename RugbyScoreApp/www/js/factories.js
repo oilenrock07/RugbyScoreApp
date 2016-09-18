@@ -40,14 +40,14 @@ angular.module('rugbyapp.factories', ['ngCordova'])
   .factory('SettingFactory', function () {
     //entities
     setting = {};
-    setting.myTeam = 2;
+    setting.myTeam = null;
 
     return setting;
   })
 
 
-  .factory('TeamFactory', function ($cordovaSQLite, $ionicPlatform, DataFactory) {
-    var teams = {};  
+  .factory('TeamFactory', function ($cordovaSQLite, $ionicPlatform, DataFactory, SettingFactory) {
+    var teams = [];
 
     //entities
     var team = {};
@@ -70,31 +70,38 @@ angular.module('rugbyapp.factories', ['ngCordova'])
       return null;
     }
 
-    var mapTeam = function(param) {
-        team.teamId = param.teamId;
-        team.abbrTeamName = param.abbrTeamName;
-        team.fullTeamName = param.fullTeamName;
-        team.clubAddress = param.clubAddress;
-        team.townCity = param.townCity;
-        team.country = param.country;
-        team.postCode = param.postCode;
-        team.isMyTeam = param.isMyTeam;
+    var mapTeam = function (param) {
+      team.teamId = param.teamId;
+      team.abbrTeamName = param.abbrTeamName;
+      team.fullTeamName = param.fullTeamName;
+      team.clubAddress = param.clubAddress;
+      team.townCity = param.townCity;
+      team.country = param.country;
+      team.postCode = param.postCode;
+      team.isMyTeam = param.isMyTeam;
     }
 
-    var saveTeam = function() {
-        teams.push({
-          teamId: 100, //this should be autopopulated in sqlite
-          fullTeamName: team.fullTeamName,
-          location: team.country
-        });
+    var saveTeam = function (param) {
 
-        //if (ismy team)
-        //get the last id and insert it to settings 
+      var id = DataFactory.team.createTeam(param, function (id) {
+        if (id > 0) {
+          param.teamId = id;
+          teams.push(param);
+          if (param.isMyTeam) {
+            DataFactory.setting.saveTeam(id);
+            SettingFactory.myTeam = id;
+          }
+        }
+      });
     }
 
     //load teams
     $ionicPlatform.ready(function () {
-      teams = DataFactory.team.loadTeams();
+      DataFactory.team.loadTeams(function (rs) {
+        for (var i = 0; i < rs.rows.length; i++) {
+          teams.push(rs.rows.item(i));
+        }
+      });
     });
 
     return {

@@ -3,9 +3,9 @@ angular.module('rugbyapp.data', ['ngCordova'])
         database = null;
 
         var createTables = function () {
-            $cordovaSQLite.execute(database, "CREATE TABLE IF NOT EXISTS team (TeamId integer primary key, AbbrTeamName text, FullTeamName text, ClubAddress text, TownCity text, Country text, PostCode text)");
+            $cordovaSQLite.execute(database, "CREATE TABLE IF NOT EXISTS team (teamId integer primary key, abbrTeamName text, fullTeamName text, clubAddress text, townCity text, country text, postCode text)");
             //$cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS match (MatchId integer primary key, Team1 integer, Team2 integer, MatchDate text, MatchTime text, Location text, Team1Score text, Team2Score text)");
-            //$cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS settings (SettingsId integer primary key, TeamId integer)");
+            $cordovaSQLite.execute(database, "CREATE TABLE IF NOT EXISTS settings (settingsId integer primary key, teamId integer)");
         };
 
         var initialize = function () {
@@ -18,13 +18,20 @@ angular.module('rugbyapp.data', ['ngCordova'])
             }
         }
 
-        var loadTeams = function () {
-            try {
+        var insert = function (query, params, callBack) {
+            $cordovaSQLite.execute(database, query, params).then(function (res) {
+                callBack(res.insertId);
+            }, function (err) {
+                alert(err);
+            });
+        }
 
-                database.executeSql('SELECT * FROM team', [], function (rs) {
-                    alert(JSON.stringify(rs));
+        var select = function (query, params, callBack) {
+            try {
+                database.executeSql(query, [], function (rs) {
+                    callBack(rs);
                 }, function (error) {
-                    console.log('SELECT SQL statement ERROR: ' + error.message);
+                    alert(error);
                 });
             }
             catch (ex) {
@@ -32,12 +39,31 @@ angular.module('rugbyapp.data', ['ngCordova'])
             }
         }
 
+        //SETTINGS****************************************************************
+        var saveMyTeam = function (id) {
+            var query = "INSERT INTO settings (TeamId) VALUES (?)";
+            insert(query, [id], null);
+        }
+
+        //TEAMS********************************************************************
+        var loadTeams = function (callBack) {
+            select('SELECT * FROM team', [], callBack);
+        }
+
+        var createTeam = function (team, callBack) {
+            var query = "INSERT INTO team (AbbrTeamName, FullTeamName, ClubAddress, TownCity, Country, PostCode) VALUES (?,?,?,?,?,?)";
+            insert(query, [team.abbrTeamName, team.fullTeamName, team.clubAddress, team.townCity, team.country, team.postCode], callBack);
+        }
 
         return {
             database: database,
             initialize: initialize,
             team: {
-                loadTeams: loadTeams
+                loadTeams: loadTeams,
+                createTeam: createTeam
+            },
+            setting: {
+                saveMyTeam: saveMyTeam
             }
         };
     })

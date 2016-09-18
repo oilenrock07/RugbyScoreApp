@@ -169,14 +169,18 @@ angular.module('rugbyapp.controllers', [])
 
         $scope.saveTeam = function () {
 
-            TeamFactory.team.isMyTeam = $scope.isMyTeam;
-            TeamFactory.team.fullTeamName = $scope.fullTeamName;
-            TeamFactory.team.abbrTeamName = $scope.abbrTeamName;
-            TeamFactory.team.clubAddress = $scope.clubAddress;
-            TeamFactory.team.townCity = $scope.townCity;
-            TeamFactory.team.country = $scope.country;
-            TeamFactory.team.postCode = $scope.postCode;
-            TeamFactory.saveTeam();
+            var team = {
+                teamId: 0,
+                isMyTeam : $scope.isMyTeam,
+                fullTeamName : $scope.fullTeamName,
+                abbrTeamName : $scope.abbrTeamName,
+                clubAddress : $scope.clubAddress,
+                townCity : $scope.townCity,
+                country : $scope.country,
+                postCode : $scope.postCode
+            };
+
+            TeamFactory.saveTeam(team);
 
             if ($scope.isMyTeam) {
                 $state.go('app.myteam');
