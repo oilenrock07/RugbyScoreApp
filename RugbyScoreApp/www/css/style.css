@@ -152,8 +152,35 @@
     color: #f53d3d;
 }
 
+/** Teams **/
+.teams .item .row,
+.teams .item .col{
+    margin: 0;
+    padding: 0;
+}
+
+.teams .results .icon:before{
+    font-size: 16px;
+}
+
+.teams .edit .icon:before{
+    font-size: 12px;
+}
+
+.teams .bar-subheader{
+    border-bottom-width: 1px;
+    background-color: #ffffff;
+}
+
+.teams .item .edit,
+.teams .item .results{
+    color: #0071BC;
+    float: right;
+    cursor: pointer;
+}
+
 .team-label {
-    color: blue;
+    color: #1B1464;
 }
 
 .pull-right {
