@@ -5,14 +5,16 @@ angular.module('rugbyapp.controllers', [])
 
         $scope.icon = 'new-match-icon';
 
-        $scope.showMyTeam = function () {
+        $scope.showTeam = function (isMyTeam) {
             $rootScope.page = "my-team";
             $scope.icon = 'my-team-icon';
 
-            var myTeam = SettingFactory.myTeam;
-            if (myTeam != null) {
-                var team = TeamFactory.get(myTeam);
-                TeamFactory.mapEntity(team);
+            if (isMyTeam) {
+                var myTeam = SettingFactory.myTeam;
+                if (myTeam != null) {
+                    var team = TeamFactory.get(myTeam);
+                    TeamFactory.mapEntity(team);
+                }
             }
 
             $state.go('app.myteam');
@@ -22,8 +24,9 @@ angular.module('rugbyapp.controllers', [])
             $rootScope.page = "new-match";
             $scope.icon = 'new-match-icon';
 
-            MatchFactory.team1 = '';
-            MatchFactory.team2 = '';
+            MatchFactory.match.team1 = '';
+            MatchFactory.match.team2 = '';
+
             $state.go('app.newmatch');
         }
 
@@ -43,43 +46,43 @@ angular.module('rugbyapp.controllers', [])
 
     .controller('MatchController', function ($scope, $rootScope, $state, MatchFactory, TeamFactory, SettingFactory) {
         //properties
-        $scope.matchId = MatchFactory.matchId;
-        $scope.team1 = MatchFactory.team1;
-        $scope.team2 = MatchFactory.team2;
-        $scope.location = MatchFactory.location;
+        $scope.matchId = MatchFactory.match.matchId;
+        $scope.team1 = MatchFactory.match.team1;
+        $scope.team2 = MatchFactory.match.team2;
+        $scope.location = MatchFactory.match.location;
 
-        $scope.team1Try = MatchFactory.team1Try;
-        $scope.team1Penalty = MatchFactory.team1Penalty;
-        $scope.team1Conversion = MatchFactory.team1Conversion;
-        $scope.team1DropGoal = MatchFactory.team1DropGoal;
+        $scope.team1Try = MatchFactory.match.team1Try;
+        $scope.team1Penalty = MatchFactory.match.team1Penalty;
+        $scope.team1Conversion = MatchFactory.match.team1Conversion;
+        $scope.team1DropGoal = MatchFactory.match.team1DropGoal;
 
-        $scope.team2Try = MatchFactory.team2Try;
-        $scope.team2Penalty = MatchFactory.team2Penalty;
-        $scope.team2Conversion = MatchFactory.team2Conversion;
-        $scope.team2DropGoal = MatchFactory.team2DropGoal;
+        $scope.team2Try = MatchFactory.match.team2Try;
+        $scope.team2Penalty = MatchFactory.match.team2Penalty;
+        $scope.team2Conversion = MatchFactory.match.team2Conversion;
+        $scope.team2DropGoal = MatchFactory.match.team2DropGoal;
 
-        $scope.matchTime = MatchFactory.matchTime;
-        $scope.isMyTeam = MatchFactory.isMyTeam;
+        $scope.matchTime = MatchFactory.match.matchTime;
+        $scope.isMyTeam = MatchFactory.match.isMyTeam;
 
         //functions
         $scope.startMatch = function () {
             $rootScope.page = "start-match";
 
-            MatchFactory.team1 = 0;
-            MatchFactory.team1 = $scope.team1 != '' ? $scope.team1 : 'TEAM A';
-            MatchFactory.team2 = $scope.team2 != '' ? $scope.team2 : 'TEAM A';
-            MatchFactory.location = $scope.location;
-            MatchFactory.isMyTeam = $scope.isMyTeam;
+            MatchFactory.match.team1 = 0;
+            MatchFactory.match.team1 = $scope.team1 != '' ? $scope.team1 : 'TEAM A';
+            MatchFactory.match.team2 = $scope.team2 != '' ? $scope.team2 : 'TEAM A';
+            MatchFactory.match.location = $scope.location;
+            MatchFactory.match.isMyTeam = $scope.isMyTeam;
 
-            MatchFactory.team1Try = $scope.team1Try;
-            MatchFactory.team1Penalty = $scope.team1Penalty;
-            MatchFactory.team1Conversion = $scope.team1Conversion;
-            MatchFactory.team1DropGoal = $scope.team1DropGoal;
+            MatchFactory.match.team1Try = $scope.team1Try;
+            MatchFactory.match.team1Penalty = $scope.team1Penalty;
+            MatchFactory.match.team1Conversion = $scope.team1Conversion;
+            MatchFactory.match.team1DropGoal = $scope.team1DropGoal;
 
-            MatchFactory.team2Try = $scope.team2Try;
-            MatchFactory.team2Penalty = $scope.team2Penalty;
-            MatchFactory.team2Conversion = $scope.team2Conversion;
-            MatchFactory.team2DropGoal = $scope.team2DropGoal;
+            MatchFactory.match.team2Try = $scope.team2Try;
+            MatchFactory.match.team2Penalty = $scope.team2Penalty;
+            MatchFactory.match.team2Conversion = $scope.team2Conversion;
+            MatchFactory.match.team2DropGoal = $scope.team2DropGoal;
 
             $state.go('app.match');
         }
@@ -140,7 +143,7 @@ angular.module('rugbyapp.controllers', [])
         $scope.useMyTeam = function () {
             if ($scope.isMyTeam) {
                 if (SettingFactory.myTeam == null) {
-                    $state.go('app.addteam', { isMyTeam: true });
+                    $state.go('app.addmyteam');
                 }
                 else {
                     //display my team
@@ -158,9 +161,10 @@ angular.module('rugbyapp.controllers', [])
 
 
     //Team Controller
-    .controller('TeamController', function ($scope, $state, TeamFactory) {
+    .controller('TeamController', function ($scope, $state, TeamFactory, SettingFactory) {
         $scope.isMyTeam = $state.params.isMyTeam;
-        $scope.teams = TeamFactory.all();
+        $scope.teams = TeamFactory.teams;
+        $scope.isEdit = $state.params.isEdit;
 
         $scope.teamId = TeamFactory.team.teamId;
         $scope.abbrTeamName = TeamFactory.team.abbrTeamName;
@@ -171,26 +175,42 @@ angular.module('rugbyapp.controllers', [])
         $scope.postCode = TeamFactory.team.postCode;
 
         //redirects to add new team page
-        $scope.addNewTeam = function () {
-            $state.go('app.addteam', { isMyTeam: false });
+        $scope.addNewTeam = function (isMyTeam, isEdit, id) {
+            var state = isMyTeam ? 'app.addmyteam' : 'app.addteam';
+
+            if (parseInt(id) > 0 || (isMyTeam && isEdit)) {
+                var team = TeamFactory.get(isMyTeam ? SettingFactory.myTeam : id);
+                TeamFactory.mapEntity(team);
+            }
+            else {
+                TeamFactory.resetEntities();
+            }
+
+            $state.go(state, { isEdit: isEdit });
         }
 
         $scope.saveTeam = function () {
 
-            TeamFactory.team.isMyTeam = $scope.isMyTeam;
-            TeamFactory.team.fullTeamName = $scope.fullTeamName;
-            TeamFactory.team.abbrTeamName = $scope.abbrTeamName;
-            TeamFactory.team.clubAddress = $scope.clubAddress;
-            TeamFactory.team.townCity = $scope.townCity;
-            TeamFactory.team.country = $scope.country;
-            TeamFactory.team.postCode = $scope.postCode;
-            TeamFactory.saveTeam();
+            var team = {
+                teamId: $scope.teamId,
+                isMyTeam: $scope.isMyTeam,
+                fullTeamName: $scope.fullTeamName,
+                abbrTeamName: $scope.abbrTeamName,
+                clubAddress: $scope.clubAddress,
+                townCity: $scope.townCity,
+                country: $scope.country,
+                postCode: $scope.postCode
+            };
 
-            if ($scope.isMyTeam) {
-                $state.go('app.myteam');
-            }
-            else {
-                $state.go('app.teams');
-            }
+            TeamFactory.saveTeam(team, $scope.isEdit, function () {
+                if ($scope.isMyTeam) {
+                    var myTeam = TeamFactory.get(SettingFactory.myTeam);
+                    TeamFactory.mapEntity(team);
+                    $state.go('app.myteam');
+                }
+                else {
+                    $state.go('app.teams');
+                }
+            })
         }
     });

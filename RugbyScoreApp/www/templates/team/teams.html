@@ -2,18 +2,18 @@
 
     <ion-header-bar class="bar-positive"></ion-header-bar>
     <ion-header-bar class="bar-stable bar-subheader">
-        <button class="button button-clear button-positive" ng-click="addNewTeam()">Add Team</button>
+        <button class="button button-clear button-positive" ng-click="addNewTeam(false, false)">Add Team</button>
         <button class="button button-clear button-positive">Search</button>
     </ion-header-bar>
 
     <ion-content>
         <div class="list">
             <div class="item row row-bottom" ng-repeat="team in teams">
-                <div class="col col-80">
+                <div class="col col-80" ng-click="addNewTeam(false, true, {{team.teamId}})">
                     <span class="team-label">Team Name</span><br/>
                     <span>{{team.fullTeamName}}</span><br/>
                     <span class="team-label team-location">Location</span><br/>
-                    <span>{{team.location}}</span>
+                    <span>{{team.townCity}}</span>
                 </div>
                 <div class="col col-20">
                     <span class="team-list-result">Team Results

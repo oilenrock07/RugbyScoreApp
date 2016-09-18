@@ -77,10 +77,6 @@
 }
 
 /** Main View **/
-.main-view .pane{
-    background: transparent;
-}
-
 .main-view [nav-bar-transition="ios"] [nav-bar="cached"],
 .main-view [nav-bar-transition="ios"] [nav-bar="leaving"]{
     display: none;

@@ -1,7 +1,7 @@
 
-angular.module('rugbyapp.factories', [])
-
+angular.module('rugbyapp.factories', ['ngCordova'])
   .factory('MatchFactory', function () {
+
     //entities
     match = {};
     match.matchId = 0;
@@ -21,19 +21,34 @@ angular.module('rugbyapp.factories', [])
     match.team2Conversion = 0;
     match.team2DropGoal = 0;
 
-    return match;
+    var matches = [{
+      matchId: 1,
+      team1: 2,
+      team2: 1,
+      matchDate: '',
+
+    }];
+
+    return {
+      match: match,
+      getLastMatch: function () {
+        return '';
+      }
+    };
   })
 
   .factory('SettingFactory', function () {
     //entities
     setting = {};
-    setting.myTeam = 2;
+    setting.myTeam = null;
 
     return setting;
   })
 
 
-  .factory('TeamFactory', function () {
+  .factory('TeamFactory', function ($cordovaSQLite, $ionicPlatform, DataFactory, SettingFactory) {
+    var teams = [];
+
     //entities
     var team = {};
     team.teamId = 0;
@@ -45,87 +60,83 @@ angular.module('rugbyapp.factories', [])
     team.postCode = '';
     team.isMyTeam = false;
 
-    //replace this by the actual data
-    //sort by team name
+    var getbyTeamId = function (teamId) {
+      for (var i = 0; i < teams.length; i++) {
+        if (teams[i].teamId === parseInt(teamId)) {
+          return teams[i];
+        }
+      }
 
-    var teams = {};
-    teams = [{
-      teamId: 1,
-      fullTeamName: 'Chicago Bulls',
-      location: 'Chicago'
-    }, {
-        teamId: 2,
-        fullTeamName: 'Detroit Pistons',
-        location: 'Detroit'
-      },
-      {
-        teamId: 3,
-        fullTeamName: 'Newyork Knicks',
-        location: 'Newyork'
-      },
-      {
-        teamId: 4,
-        fullTeamName: 'Dallas Maverics',
-        location: 'Dallas'
-      }, {
-        teamId: 5,
-        fullTeamName: 'Gilas Pilipinas',
-        location: 'Philippines'
-      },
-      {
-        teamId: 6,
-        fullTeamName: 'San Antonio Spurs',
-        location: 'San Antonio'
-      },
-      {
-        teamId: 7,
-        fullTeamName: 'Miami Heat',
-        location: 'Miami'
-      }, {
-        teamId: 8,
-        fullTeamName: 'Golden State Warriors',
-        location: 'Washington'
-      },
-      {
-        teamId: 9,
-        fullTeamName: 'Ginebra',
-        location: 'Manila'
-      }];
+      return null;
+    }
+
+    var resetEntities = function () {
+      team.teamId = 0;
+      team.abbrTeamName = '';
+      team.fullTeamName = '';
+      team.clubAddress = '';
+      team.townCity = '';
+      team.country = '';
+      team.postCode = '';
+      team.isMyTeam = false;
+    }
+
+    var mapTeam = function (param) {
+      team.teamId = param.teamId;
+      team.abbrTeamName = param.abbrTeamName;
+      team.fullTeamName = param.fullTeamName;
+      team.clubAddress = param.clubAddress;
+      team.townCity = param.townCity;
+      team.country = param.country;
+      team.postCode = param.postCode;
+      team.isMyTeam = param.isMyTeam;
+    }
+
+    var saveTeam = function (param, isEdit, callBack) {
+      if (!isEdit) {
+        var id = DataFactory.team.createTeam(param, function (id) {
+          if (id > 0) {
+            param.teamId = id;
+            teams.push(param);
+
+            if (param.isMyTeam) {
+              DataFactory.setting.saveMyTeam(id);
+              SettingFactory.myTeam = id;
+            }
+
+            callBack();
+          }
+        });
+      }
+      else {
+        DataFactory.team.updateTeam(param, function (rs) {
+          
+           for (var i in teams) {
+            if (teams[i].teamId == param.teamId) {
+                teams[i].fullTeamName = param.fullTeamName;
+                teams[i].abbrTeamName = param.abbrTeamName;
+                teams[i].clubAddress = param.clubAddress;
+                teams[i].townCity = param.townCity;
+                teams[i].country = param.country;
+                teams[i].postCode = param.postCode;
+                break;
+            }
+          }
+
+          callBack();
+        });
+      }
+
+
+    }
 
     return {
-      all: function () {
-        return teams;
-      },
-      get: function (teamId) {
-        for (var i = 0; i < teams.length; i++) {
-          if (teams[i].teamId === parseInt(teamId)) {
-            return teams[i];
-          }
-        }
-
-        return null;
-      },
-      saveTeam: function () {
-        teams.push({
-          teamId: 100, //this should be autopopulated in sqlite
-          fullTeamName: team.fullTeamName,
-          location: team.country
-        });
-
-        //if (ismy team)
-        //get the last id and insert it to settings       
-      },
-      mapEntity: function(param) {
-        team.teamId = param.teamId;
-        team.abbrTeamName = param.abbrTeamName;
-        team.fullTeamName = param.fullTeamName;
-        team.clubAddress = param.clubAddress;
-        team.townCity = param.townCity;
-        team.country = param.country;
-        team.postCode = param.postCode;
-        team.isMyTeam = param.isMyTeam;
-      }, 
-      team: team
+      teams: teams,
+      team: team,
+      get: getbyTeamId,
+      saveTeam: saveTeam,
+      mapEntity: mapTeam,
+      resetEntities: resetEntities
     }
 
 
