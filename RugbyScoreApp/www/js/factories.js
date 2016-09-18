@@ -37,12 +37,18 @@ angular.module('rugbyapp.factories', ['ngCordova'])
     };
   })
 
-  .factory('SettingFactory', function () {
+  .factory('SettingFactory', function (DataFactory) {
     //entities
     setting = {};
-    setting.myTeam = null;
+    setting.myTeam = 0;
+    var updateMyTeam = function(value, callBack) {
+      DataFactory.setting.updateSetting(value, callBack);
+    };
 
-    return setting;
+    return {
+      myTeam: setting.myTeam,
+      updateMyTeam: updateMyTeam
+    }
   })
 
 
@@ -100,7 +106,7 @@ angular.module('rugbyapp.factories', ['ngCordova'])
             teams.push(param);
 
             if (param.isMyTeam) {
-              DataFactory.setting.saveMyTeam(id);
+              DataFactory.setting.createSetting(id, function(){});
               SettingFactory.myTeam = id;
             }
 
@@ -110,16 +116,16 @@ angular.module('rugbyapp.factories', ['ngCordova'])
       }
       else {
         DataFactory.team.updateTeam(param, function (rs) {
-          
-           for (var i in teams) {
+
+          for (var i in teams) {
             if (teams[i].teamId == param.teamId) {
-                teams[i].fullTeamName = param.fullTeamName;
-                teams[i].abbrTeamName = param.abbrTeamName;
-                teams[i].clubAddress = param.clubAddress;
-                teams[i].townCity = param.townCity;
-                teams[i].country = param.country;
-                teams[i].postCode = param.postCode;
-                break;
+              teams[i].fullTeamName = param.fullTeamName;
+              teams[i].abbrTeamName = param.abbrTeamName;
+              teams[i].clubAddress = param.clubAddress;
+              teams[i].townCity = param.townCity;
+              teams[i].country = param.country;
+              teams[i].postCode = param.postCode;
+              break;
             }
           }
 
@@ -130,10 +136,23 @@ angular.module('rugbyapp.factories', ['ngCordova'])
 
     }
 
+    var deleteTeam = function (id, callBack) {
+      DataFactory.team.deleteTeam(id, function (rs) {
+        for (var i = 0; i < teams.length; i++)
+          if (teams[i].teamId == id) {
+            teams.splice(i, 1);
+            break;
+          }
+
+          callBack();
+      });
+    }
+
     return {
       teams: teams,
       team: team,
       get: getbyTeamId,
+      deleteTeam: deleteTeam,
       saveTeam: saveTeam,
       mapEntity: mapTeam,
       resetEntities: resetEntities

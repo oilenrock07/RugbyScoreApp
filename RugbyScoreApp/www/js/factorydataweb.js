@@ -40,8 +40,15 @@ angular.module('rugbyapp.data', [])
 
         }
 
-        var loadSetting = function () {
-            
+        var loadSetting = function (callBack) {
+            var settings = [{
+                teamId: 1
+            }];
+
+            return selectCallBack(settings, callBack);
+        }
+        var deleteTeam = function() {
+
         }
 
         return {
@@ -50,7 +57,8 @@ angular.module('rugbyapp.data', [])
             team: {
                 loadTeams: loadTeams,
                 createTeam: createTeam,
-                updateTeam: updateTeam
+                updateTeam: updateTeam,
+                deleteTeam: deleteTeam 
             },
             setting: {
                 saveMyTeam: saveMyTeam,

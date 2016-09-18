@@ -9,12 +9,11 @@ angular.module('rugbyapp.controllers', [])
 
             if (isMyTeam) {
                 var myTeam = SettingFactory.myTeam;
-                if (myTeam != null) {
+                if (myTeam != 0) {
                     var team = TeamFactory.get(myTeam);
                     TeamFactory.mapEntity(team);
                 }
             }
-
             $state.go('app.myteam');
         }
 
@@ -131,7 +130,7 @@ angular.module('rugbyapp.controllers', [])
 
         $scope.useMyTeam = function () {
             if ($scope.isMyTeam) {
-                if (SettingFactory.myTeam == null) {
+                if (SettingFactory.myTeam == 0) {
                     $state.go('app.addmyteam');
                 }
                 else {
@@ -150,7 +149,7 @@ angular.module('rugbyapp.controllers', [])
 
 
     //Team Controller
-    .controller('TeamController', function ($scope, $state, TeamFactory, SettingFactory) {
+    .controller('TeamController', function ($scope, $state, $ionicHistory, $ionicPopup, TeamFactory, SettingFactory) {
         $scope.isMyTeam = $state.params.isMyTeam;
         $scope.teams = TeamFactory.teams;
         $scope.isEdit = $state.params.isEdit;
@@ -176,6 +175,35 @@ angular.module('rugbyapp.controllers', [])
             }
 
             $state.go(state, { isEdit: isEdit });
+        }
+
+        $scope.back = function () {
+            $ionicHistory.goBack();
+        }
+
+        $scope.deleteTeam = function (id) {
+            var confirmPopup = $ionicPopup.confirm({
+                title: 'Delete Confirmation',
+                template: 'Are you sure you want to delete this entry.?',
+                cancelText: 'No',
+                okText: 'Yes'
+            }).then(function (res) {
+                if (res) {
+                    var isMyTeam = id == SettingFactory.myTeam;
+                    TeamFactory.deleteTeam(id, function () {
+
+                        if (isMyTeam) {
+
+                            SettingFactory.updateMyTeam(0, function () {
+                                TeamFactory.resetEntities();
+                                SettingFactory.myTeam = 0;
+                            });
+                        }
+
+                        $ionicHistory.goBack();
+                    });
+                }
+            });
         }
 
         $scope.saveTeam = function () {
