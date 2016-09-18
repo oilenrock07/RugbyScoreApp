@@ -70,6 +70,17 @@ angular.module('rugbyapp.factories', ['ngCordova'])
       return null;
     }
 
+    var resetEntities = function () {
+      team.teamId = 0;
+      team.abbrTeamName = '';
+      team.fullTeamName = '';
+      team.clubAddress = '';
+      team.townCity = '';
+      team.country = '';
+      team.postCode = '';
+      team.isMyTeam = false;
+    }
+
     var mapTeam = function (param) {
       team.teamId = param.teamId;
       team.abbrTeamName = param.abbrTeamName;
@@ -125,6 +136,7 @@ angular.module('rugbyapp.factories', ['ngCordova'])
       get: getbyTeamId,
       saveTeam: saveTeam,
       mapEntity: mapTeam,
+      resetEntities: resetEntities
     }
 
 

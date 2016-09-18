@@ -164,8 +164,17 @@ angular.module('rugbyapp.controllers', [])
         $scope.postCode = TeamFactory.team.postCode;
 
         //redirects to add new team page
-        $scope.addNewTeam = function (isMyTeam, isEdit) {
+        $scope.addNewTeam = function (isMyTeam, isEdit, id) {
             var state = isMyTeam ? 'app.addmyteam' : 'app.addteam';
+
+            if (parseInt(id) > 0 || (isMyTeam && isEdit)) {
+                var team = TeamFactory.get(isMyTeam ? SettingFactory.myTeam : id);
+                TeamFactory.mapEntity(team);
+            }
+            else {
+                TeamFactory.resetEntities();
+            }
+
             $state.go(state, { isEdit: isEdit });
         }
 
