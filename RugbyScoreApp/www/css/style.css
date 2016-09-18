@@ -87,21 +87,65 @@
 }
 
 /** Match **/
+.match{
+    color: #fff;
+    background: url(/img/bg.png) repeat center;
+}
+
+.match h3, .match h2{
+    color: #fff;
+}
+
+.match h2{
+    margin-bottom: 0;
+}
+
+.match .row{
+    padding: 2px;
+}
+
+.match .col{
+    padding: 4px;
+}
+
 .match-label {
     font-size: 11px;
 }
 
-.main-view .match{
-    background: url(/img/bg.png) repeat center;
-}
-
 .match-score {
-    border: 1px solid dimgray;
-    background-color: gray;
+    border: 1.5px solid white;
+    background-color: rgba(0, 0, 0, 0.68);
     height: 45px;
     vertical-align: middle;
     font-size: 30px;
     color: white;
+    border-radius: 5px;
+}
+
+.match-score div{
+    padding-top: 4px;
+}
+
+.button.button-points{
+    border: 1.5px solid white;
+    background-color: rgba(0, 0, 0, 0.44);
+    font-size: 22px;
+    padding: 2px 5px;
+}
+
+.button.button-circle{
+    border-radius: 50px;
+    border-width: 3px;
+    border-color: #fff;
+    min-width: 48px;
+}
+
+.match .button.button-balanced{
+    background-color: rgba(0, 162, 46, 0.50);
+}
+
+.match .button.button-balanced:hover{
+    background-color: rgba(0, 232, 66, 0.9);
 }
 
 .error {
