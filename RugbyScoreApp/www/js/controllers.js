@@ -1,10 +1,12 @@
 angular.module('rugbyapp.controllers', [])
 
-    .controller('AppController', function ($scope, $state, MatchFactory, SettingFactory, TeamFactory) {
+    .controller('AppController', function ($scope, $rootScope, $state, MatchFactory, SettingFactory, TeamFactory) {
+        $rootScope.page = "new-match";
 
         $scope.icon = 'new-match-icon';
 
         $scope.showTeam = function (isMyTeam) {
+            $rootScope.page = "my-team";
             $scope.icon = 'my-team-icon';
 
             if (isMyTeam) {
@@ -18,23 +20,30 @@ angular.module('rugbyapp.controllers', [])
         }
 
         $scope.showMatch = function () {
+            $rootScope.page = "new-match";
             $scope.icon = 'new-match-icon';
+
             MatchFactory.match.team1 = '';
             MatchFactory.match.team2 = '';
+
             $state.go('app.newmatch');
         }
 
         $scope.showTeams = function () {
+            $rootScope.page = "team";
             $scope.icon = 'team-icon';
+
             $state.go('app.teams');
         }
 
         $scope.showAboutMain = function () {
+            $rootScope.page = "about";
+
             $state.go('app.aboutmain');
         }
     })
 
-    .controller('MatchController', function ($scope, $state, MatchFactory, TeamFactory, SettingFactory) {
+    .controller('MatchController', function ($scope, $rootScope, $state, MatchFactory, TeamFactory, SettingFactory) {
         //properties
         $scope.matchId = MatchFactory.match.matchId;
         $scope.team1 = MatchFactory.match.team1;
@@ -56,6 +65,8 @@ angular.module('rugbyapp.controllers', [])
 
         //functions
         $scope.startMatch = function () {
+            $rootScope.page = "start-match";
+
             MatchFactory.match.team1 = 0;
             MatchFactory.match.team1 = $scope.team1 != '' ? $scope.team1 : 'TEAM A';
             MatchFactory.match.team2 = $scope.team2 != '' ? $scope.team2 : 'TEAM A';

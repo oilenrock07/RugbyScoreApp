@@ -5,7 +5,7 @@ angular.module('rugbyapp.routes', [])
                 url: '/app',
                 abstract: true,
                 templateUrl: 'templates/menu.html',
-                controller: 'AppController'
+                //controller: 'AppController'
             })
 
             //about
