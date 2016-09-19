@@ -198,6 +198,14 @@
     float: right;
 }
 
+.pull-left {
+    float: left;
+}
+
+.align-right {
+    text-align: right
+}
+
 .team-list-result {
     float: right;
     font-size: 14px;
@@ -245,3 +253,7 @@
   padding: 15px;
 }
 
+.label-score {
+    font-size: 24px;
+    font-weight: bold
+}
