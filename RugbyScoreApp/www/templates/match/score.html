@@ -2,7 +2,7 @@
 
     <ion-header-bar class="bar-positive"></ion-header-bar>
     <ion-header-bar class="bar-stable bar-subheader">
-        <button class="button button-clear button-positive">Edit Result</button>
+        <button class="button button-clear button-positive pull-right">Edit Result</button>
     </ion-header-bar>
 
     <ion-content ng-controller="MatchController">
@@ -11,25 +11,25 @@
                 <div class="label-score align-right" ng-bind="team1Score() | formatScore"></div>
                 <div>{{team1}}</div>
                 <div>Trys</div>
-                <div>{{(team1Try * 5) | formatScore}}</div>
+                <div>{{team1Try | formatScore}}</div>
                 <div>Conversions</div>
-                <div>{{(team1Conversion *2 ) | formatScore}}</div>
+                <div>{{team1Conversion | formatScore}}</div>
                 <div>Drop Goals</div>
-                <div>{{(team1DropGoal * 3) | formatScore}}</div>
+                <div>{{team1DropGoal | formatScore}}</div>
                 <div>Penalty</div>
-                <div>{{(team1Penalty * 3) | formatScore}}</div>
+                <div>{{team1Penalty | formatScore}}</div>
             </div>
             <div class="col">
                 <div class="label-score" ng-bind="team2Score() | formatScore"></div>
                 <div>{{team2}}</div>
                 <div>Trys</div>
-                <div>{{(team2Try * 5) | formatScore}}</div>
+                <div>{{team2Try | formatScore}}</div>
                 <div>Conversions</div>
-                <div>{{(team2Conversion * 2) | formatScore}}</div>
+                <div>{{team2Conversion | formatScore}}</div>
                 <div>Drop Goals</div>
-                <div>{{(team2DropGoal * 3) | formatScore}}</div>
+                <div>{{team2DropGoal | formatScore}}</div>
                 <div>Penalty</div>
-                <div>{{(team2Penalty * 3) | formatScore}}</div>
+                <div>{{team2Penalty | formatScore}}</div>
             </div>
         </div>
 
@@ -38,15 +38,19 @@
         <div class="row">
             <div class="col">
                 <div>Match Date</div>
-                <div></div>
+                <div>{{matchDate}}</div>
                 <div>Match Location</div>
-                <div></div>                
+                <div>{{location}}</div>
             </div>
             <div class="col">
                 <div class="">Match Time</div>
-                <div></div>
+                <div>{{matchTime}}</div>
             </div>
         </div>
+
+        <button class="button button-positive button-full icon icon-right ion-chevron-right" ng-click="saveResult()">
+                Save Result
+        </button>
 
     </ion-content>
 </ion-view>

@@ -41,13 +41,13 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
             $state.go('app.aboutmain');
         }
 
-        $scope.showScore = function() {
+        $scope.showScore = function () {
             $rootScope.page = "score";
             $state.go('app.score');
         }
     })
 
-    .controller('MatchController', function ($scope, $rootScope, $state, MatchFactory, TeamFactory, SettingFactory) {
+    .controller('MatchController', function ($scope, $rootScope, $state, $filter, MatchFactory, TeamFactory, SettingFactory) {
         //properties
         $scope.matchId = MatchFactory.match.matchId;
         $scope.team1 = MatchFactory.match.team1;
@@ -64,6 +64,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
         $scope.team2Conversion = MatchFactory.match.team2Conversion;
         $scope.team2DropGoal = MatchFactory.match.team2DropGoal;
 
+        $scope.matchDate = MatchFactory.match.matchDate;
         $scope.matchTime = MatchFactory.match.matchTime;
         $scope.isMyTeam = MatchFactory.match.isMyTeam;
 
@@ -71,7 +72,6 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
         $scope.startMatch = function () {
             $rootScope.page = "start-match";
 
-            MatchFactory.match.team1 = 0;
             MatchFactory.match.team1 = $scope.team1 != '' ? $scope.team1 : 'TEAM A';
             MatchFactory.match.team2 = $scope.team2 != '' ? $scope.team2 : 'TEAM B';
             MatchFactory.match.location = $scope.location;
@@ -86,6 +86,9 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
             MatchFactory.match.team2Penalty = $scope.team2Penalty;
             MatchFactory.match.team2Conversion = $scope.team2Conversion;
             MatchFactory.match.team2DropGoal = $scope.team2DropGoal;
+            MatchFactory.match.matchTime = $filter('date')(new Date(), 'h:mma');
+
+            MatchFactory.match.matchDate = $filter('date')(new Date(), 'MM/dd/yyyy');
 
             $state.go('app.match');
         }
@@ -98,41 +101,55 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
                 }
             }
             else {
-                if ($scope.team2Try + point >= 0)
+                if ($scope.team2Try + point >= 0) {
                     $scope.team2Try += parseInt(point);
+                    MatchFactory.match.team2Try = $scope.team2Try;
+                }
             }
         }
 
         $scope.addScoreConversion = function (team, point) {
             if (team == 1) {
-                if ($scope.team1Conversion + point >= 0)
+                if ($scope.team1Conversion + point >= 0) {
                     $scope.team1Conversion += parseInt(point);
+                    MatchFactory.match.team1Conversion = $scope.team1Conversion;
+                }
             }
             else {
-                if ($scope.team2Conversion + point >= 0)
+                if ($scope.team2Conversion + point >= 0) {
                     $scope.team2Conversion += parseInt(point);
+                    MatchFactory.match.team2Conversion = $scope.team2Conversion;
+                }
             }
         }
 
         $scope.addScorePenalty = function (team, point) {
             if (team == 1) {
-                if ($scope.team1Penalty + point >= 0)
+                if ($scope.team1Penalty + point >= 0) {
                     $scope.team1Penalty += parseInt(point);
+                    MatchFactory.match.team1Penalty = $scope.team1Penalty;
+                }
             }
             else {
-                if ($scope.team2Penalty + point >= 0)
+                if ($scope.team2Penalty + point >= 0) {
                     $scope.team2Penalty += parseInt(point);
+                    MatchFactory.match.team2Penalty = $scope.team2Penalty;
+                }
             }
         }
 
         $scope.addScoreDropGoal = function (team, point) {
             if (team == 1) {
-                if ($scope.team1DropGoal + point >= 0)
+                if ($scope.team1DropGoal + point >= 0) {
                     $scope.team1DropGoal += parseInt(point);
+                    MatchFactory.match.team1DropGoal = $scope.team1DropGoal;
+                }
             }
             else {
-                if ($scope.team2DropGoal + point >= 0)
+                if ($scope.team2DropGoal + point >= 0) {
                     $scope.team2DropGoal += parseInt(point);
+                    MatchFactory.match.team2DropGoal = $scope.team2DropGoal;
+                }
             }
         }
 
@@ -141,7 +158,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
         }
 
         $scope.team2Score = function () {
-            return $scope.team2Try + $scope.team2Conversion + $scope.team2Penalty  + $scope.team2DropGoal;
+            return $scope.team2Try + $scope.team2Conversion + $scope.team2Penalty + $scope.team2DropGoal;
         }
 
         $scope.useMyTeam = function () {
@@ -160,6 +177,10 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
                 $scope.teamId = 0;
                 $scope.team1 = '';
             }
+        }
+
+        $scope.saveResult = function() {
+
         }
     })
 
