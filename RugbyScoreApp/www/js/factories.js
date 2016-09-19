@@ -8,6 +8,7 @@ angular.module('rugbyapp.factories', ['ngCordova'])
     match.team1 = '';
     match.team2 = '';
     match.location = '';
+    match.matchDate = '';
     match.matchTime = '';
     match.isMyTeam = false;
 
