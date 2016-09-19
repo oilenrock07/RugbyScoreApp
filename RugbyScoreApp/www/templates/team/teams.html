@@ -12,22 +12,15 @@
 
     <ion-content>
         <div class="list">
-            <div class="item" ng-repeat="team in teams">
+            <div class="item" ng-repeat="team in teams" ng-click="addNewTeam(false, true, {{team.teamId}})">
                 <div class="row">
-                    <div class="col col-80">
-                        <span class="team-label">Team Name</span>
-                    </div>
-                    <div class="col col-20">
-                        <span class="edit" ng-click="addNewTeam(false, true, {{team.teamId}})">
-                            <small>Edit</small>
-                            <i class="icon ion-chevron-right"></i>
-                        </span>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col col-80">
+                    <div class="col">
+                        <span class="team-label">Team Name</span><br/>
                         <span>{{team.fullTeamName}}</span><br/>
                         <span class="team-label team-location">Location</span>
+                    </div>
+                    <div class="col col-20">
+                        
                     </div>
                 </div>
                 <div class="row">

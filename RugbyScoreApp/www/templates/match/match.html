@@ -1,7 +1,9 @@
 <ion-view view-title="" hide-back-button="true" class="match">
     <ion-content ng-controller="MatchController">
         <div class="row">
-            <div class="col text-center"><h3 ng-bind-html="team1"></h3></div>
+            <div class="col col-70 col-offset-15 text-center">
+                <input class="match-title" placeholder="Enter Team A" ng-model="team1"></input>
+            </div>
         </div>
         <div class="row">
             <div class="col col-50 col-offset-25 text-center match-score"><div ng-bind-html="team1Score()"></div></div>
@@ -9,7 +11,7 @@
         <div class="row text-center">
             <div class="col col-25">
                 <br>
-                <button class="button button-balanced button-circle icon ion-minus-round" ng-click="addScoreTry(1,-1)"></button>
+                <button class="button button-balanced button-circle ion-android-remove" ng-click="addScoreTry(1,-1)"></button>
             </div>
             <div class="col col-25">
                 <span class="match-label">TRY<span><br>
@@ -21,13 +23,13 @@
             </div>
             <div class="col col-25">
                 <br>
-                <button class="button button-balanced button-circle icon ion-minus-round" ng-click="addScoreConversion(1,-1)"></button>
+                <button class="button button-balanced button-circle ion-android-remove" ng-click="addScoreConversion(1,-1)"></button>
             </div>
         </div>
         <div class="row text-center">
             <div class="col col-25">
                 <br>
-                <button class="button button-balanced button-circle icon ion-minus-round" ng-click="addScorePenalty(1, -1)"></button>
+                <button class="button button-balanced button-circle ion-android-remove" ng-click="addScorePenalty(1, -1)"></button>
             </div>
             <div class="col col-25">
                 <span class="match-label">PENALTY<span><br>
@@ -39,14 +41,16 @@
             </div>
             <div class="col col-25">
                 <br>
-                <button class="button button-balanced button-circle icon ion-minus-round" ng-click="addScoreDropGoal(1, -1)"></button>
+                <button class="button button-balanced button-circle ion-android-remove" ng-click="addScoreDropGoal(1, -1)"></button>
             </div>
         </div>
 
-<div class="col text-center"><h2>V</h2></div>
+        <div class="col text-center"><h2>V</h2></div>
 
-<div class="row">
-            <div class="col text-center"><h3 ng-bind-html="team2"></h3></div>
+        <div class="row">
+            <div class="col col-70 col-offset-15 text-center">
+                <input class="match-title" placeholder="Enter Team B" ng-model="team2"></input>
+            </div>
         </div>
         <div class="row">
             <div class="col col col-50 col-offset-25 text-center match-score"><div ng-bind-html="team2Score()"></div></div>
@@ -54,7 +58,7 @@
         <div class="row text-center">
             <div class="col col-25">
                 <br>
-                <button class="button button-balanced button-circle icon ion-minus-round" ng-click="addScoreTry(2, -1)"></button>
+                <button class="button button-balanced button-circle ion-android-remove" ng-click="addScoreTry(2, -1)"></button>
             </div>
             <div class="col col-25">
                 <span class="match-label">TRY<span><br>
@@ -66,13 +70,13 @@
             </div>
             <div class="col col-25">
                 <br>
-                <button class="button button-balanced button-circle icon ion-minus-round" ng-click="addScoreConversion(2, -1)"></button>
+                <button class="button button-balanced button-circle ion-android-remove" ng-click="addScoreConversion(2, -1)"></button>
             </div>
         </div>
         <div class="row text-center">
             <div class="col col-25">
                 <br>
-                <button class="button button-balanced button-circle icon ion-minus-round" ng-click="addScorePenalty(2, -1)"></button>
+                <button class="button button-balanced button-circle ion-android-remove" ng-click="addScorePenalty(2, -1)"></button>
             </div>
             <div class="col col-25">
                 <span class="match-label">PENALTY<span><br>
@@ -84,7 +88,7 @@
             </div>
             <div class="col col-25">
                 <br>
-                <button class="button button-balanced button-circle icon ion-minus-round" ng-click="addScoreDropGoal(2, -1)"></button>
+                <button class="button button-balanced button-circle ion-android-remove" ng-click="addScoreDropGoal(2, -1)"></button>
             </div>
         </div>
 

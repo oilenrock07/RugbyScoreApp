@@ -112,7 +112,8 @@
     font-size: 11px;
 }
 
-.match-score {
+.match-score, 
+.match-title {
     border: 1.5px solid white;
     background-color: rgba(0, 0, 0, 0.68);
     height: 45px;
@@ -120,6 +121,13 @@
     font-size: 30px;
     color: white;
     border-radius: 5px;
+}
+
+.match-title{
+    text-align: center;
+    border: 1.5px solid rgba(0, 0, 0, 0.68);
+    border-radius: 13px;
+    font-size: 23px;
 }
 
 .match-score div{
@@ -137,7 +145,10 @@
     border-radius: 50px;
     border-width: 3px;
     border-color: #fff;
-    min-width: 48px;
+    min-width: 40px;
+    min-height: 40px;
+    line-height: 35px;
+    margin-top: 5px;
 }
 
 .match .button.button-balanced{
