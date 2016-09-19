@@ -43,6 +43,18 @@ angular.module('rugbyapp.routes', [])
             })
 
 
+            .state('app.score', {
+                url: '/score',
+                cache: false,
+                views: {
+                    'score': {
+                        templateUrl: 'templates/match/score.html',
+                        //controller: 'MatchController'
+                    }
+                }
+            })
+
+
             //teams
             .state('app.teams', {
                 url: '/teams',
@@ -102,6 +114,9 @@ angular.module('rugbyapp.routes', [])
                     }
                 }
             })
+
+
+
 
         $urlRouterProvider.otherwise('/app/match');
     });

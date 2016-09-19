@@ -1,4 +1,4 @@
-angular.module('rugbyapp.controllers', [])
+angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
 
     .controller('AppController', function ($scope, $rootScope, $state, MatchFactory, SettingFactory, TeamFactory) {
         $rootScope.page = "new-match";
@@ -38,8 +38,12 @@ angular.module('rugbyapp.controllers', [])
 
         $scope.showAboutMain = function () {
             $rootScope.page = "about";
-
             $state.go('app.aboutmain');
+        }
+
+        $scope.showScore = function() {
+            $rootScope.page = "score";
+            $state.go('app.score');
         }
     })
 
@@ -69,7 +73,7 @@ angular.module('rugbyapp.controllers', [])
 
             MatchFactory.match.team1 = 0;
             MatchFactory.match.team1 = $scope.team1 != '' ? $scope.team1 : 'TEAM A';
-            MatchFactory.match.team2 = $scope.team2 != '' ? $scope.team2 : 'TEAM A';
+            MatchFactory.match.team2 = $scope.team2 != '' ? $scope.team2 : 'TEAM B';
             MatchFactory.match.location = $scope.location;
             MatchFactory.match.isMyTeam = $scope.isMyTeam;
 
@@ -88,8 +92,10 @@ angular.module('rugbyapp.controllers', [])
 
         $scope.addScoreTry = function (team, point) {
             if (team == 1) {
-                if ($scope.team1Try + point >= 0)
+                if ($scope.team1Try + point >= 0) {
                     $scope.team1Try += parseInt(point);
+                    MatchFactory.match.team1Try = $scope.team1Try;
+                }
             }
             else {
                 if ($scope.team2Try + point >= 0)
@@ -131,13 +137,12 @@ angular.module('rugbyapp.controllers', [])
         }
 
         $scope.team1Score = function () {
-            return ($scope.team1Try * 5) + ($scope.team1Conversion * 2) + ($scope.team1Penalty * 3) + ($scope.team1DropGoal * 3);
+            return $scope.team1Try + $scope.team1Conversion + $scope.team1Penalty + $scope.team1DropGoal;
         }
 
         $scope.team2Score = function () {
-            return ($scope.team2Try * 5) + ($scope.team2Conversion * 2) + ($scope.team2Penalty * 3) + ($scope.team2DropGoal * 3);
+            return $scope.team2Try + $scope.team2Conversion + $scope.team2Penalty  + $scope.team2DropGoal;
         }
-
 
         $scope.useMyTeam = function () {
             if ($scope.isMyTeam) {
@@ -175,7 +180,7 @@ angular.module('rugbyapp.controllers', [])
 
         //redirects to add new team page
         $scope.addNewTeam = function (isMyTeam, isEdit, id) {
-            var state = isMyTeam ? 'app.addmyteam' : 'app.addteam';
+            var state = $scope.isMyTeam ? 'app.addmyteam' : 'app.addteam';
 
             if (parseInt(id) > 0 || (isMyTeam && isEdit)) {
                 var team = TeamFactory.get(isMyTeam ? SettingFactory.myTeam : id);
