@@ -54,6 +54,11 @@
     border-bottom-width: 3px;
 }
 
+.bar.bar-stable{
+    border-bottom-width: 1px;
+    background-color: #ffffff;
+}
+
 .bar-stable .button.button-icon{
     color: #92145c;
 }
@@ -74,6 +79,22 @@
     width: 40px;
     background: url(/img/team.png) no-repeat center;
     background-size: 25px;
+}
+
+/** Buttons **/
+button.button-footer{
+    position: absolute;
+    bottom: 5px;
+    font-size: 27px;
+    color: #92185d !important;
+    width: 100%;
+    text-align: left;
+    border-color: #FBAE17 !important;
+    border-top-width: 3px !important;
+    border-bottom: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-radius: 0 !important;
 }
 
 /** Main View **/
@@ -178,11 +199,6 @@
     font-size: 12px;
 }
 
-.teams .bar-subheader{
-    border-bottom-width: 1px;
-    background-color: #ffffff;
-}
-
 .teams .item .edit,
 .teams .item .results{
     color: #0071BC;
@@ -222,27 +238,24 @@
     padding-right: 55px !important;
 }
 
-.new-match button{
-    position: absolute;
-    bottom: 35px;
-    font-size: 27px;
-    color: #92185d !important;
-    width: 100%;
-    text-align: left;
-    border-color: #FBAE17 !important;
-    border-top-width: 3px !important;
-    border-bottom: none !important;
-    border-left: none !important;
-    border-right: none !important;
-    border-radius: 0 !important;
-}
-
-.new-match .scroll, 
-.new-match .scroll form{
+ion-content .scroll{
     height: 100%;
 }
 
+/** Score **/
+.score .content .row{
+     padding: 5px 30px;
+}
+   
 /** Generics **/
+.content{
+    height: 95%;
+}
+
+.divider{
+    padding-bottom: 10px;
+}
+
 .item-checkbox-right .checkbox input,
 .item-checkbox-right .checkbox-icon {
   float: right;

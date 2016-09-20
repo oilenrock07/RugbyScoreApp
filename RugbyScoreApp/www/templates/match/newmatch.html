@@ -1,6 +1,6 @@
 <ion-view view-title="New Match" hide-back-button="true" class="new-match">
     <ion-content ng-controller="MatchController">
-        <form class="list" name="matchform" novalidate>
+        <form class="list content" name="matchform" novalidate>
             <label class="item item-input item-stacked-label">
                 <span class="input-label">Team A</span>
                 <input type="text" placeholder="Enter Team Name A" ng-model="team1" autocomplete="off">
@@ -14,7 +14,7 @@
                 <span class="input-label">Match Location</span>
                 <input type="text" placeholder="Enter Match Location"  ng-model="location" autocomplete="off">
             </label>
-            <button class="button button-positive button-clear icon icon-right ion-chevron-right" ng-click="startMatch()">
+            <button class="button button-footer button-positive button-clear icon icon-right ion-chevron-right" ng-click="startMatch()">
                 Start Tracking
             </button>           
         </form>
