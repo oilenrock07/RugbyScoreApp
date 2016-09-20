@@ -37,6 +37,14 @@ var app = angular.module('rugbyapp', ['ionic', 'rugbyapp.controllers', 'rugbyapp
         }
       });
 
+      DataFactory.match.loadMatches(function (rs) {
+        if (rs.rows.length > 0) {
+          for (var i = 0; i < rs.rows.length; i++) {
+            MatchFactory.matches.push(rs.rows.item(i));
+          }
+        }
+      });
+
     });
   });
 

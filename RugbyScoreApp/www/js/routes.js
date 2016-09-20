@@ -20,6 +20,16 @@ angular.module('rugbyapp.routes', [])
             })
 
             //match
+            .state('app.results', {
+                url: '/results', 
+                cache: false,               
+                views: {
+                    'results': {
+                        templateUrl: 'templates/match/results.html'
+                    }
+                }
+            })
+
             .state('app.newmatch', {
                 url: '/newmatch', 
                 cache: false,               
