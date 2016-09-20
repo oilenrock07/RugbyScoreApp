@@ -89,15 +89,15 @@
 /** Match **/
 .match{
     color: #fff;
-    background: url(/img/bg.png) repeat center;
-}
-
-.match h3, .match h2{
-    color: #fff;
+    background: url(/img/pitch.jpg) repeat center;
 }
 
 .match h2{
-    margin-bottom: 0;
+    color: #fff;
+    background: url(/img/pitch-line.jpg) repeat center;
+    line-height: 22px;
+    font-size: 35px;
+    margin: 5px 0;
 }
 
 .match .row{
