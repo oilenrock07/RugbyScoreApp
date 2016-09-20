@@ -45,10 +45,16 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
             $rootScope.page = "score";
             $state.go('app.score');
         }
+
+        $scope.showResults = function () {
+            $rootScope.page = "results";
+            $state.go('app.results');
+        }
     })
 
     .controller('MatchController', function ($scope, $rootScope, $state, $filter, MatchFactory, TeamFactory, SettingFactory) {
         //properties
+        $scope.matches = MatchFactory.matches;
         $scope.matchId = MatchFactory.match.matchId;
         $scope.team1 = MatchFactory.match.team1;
         $scope.team2 = MatchFactory.match.team2;
@@ -161,6 +167,14 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
             return $scope.team2Try + $scope.team2Conversion + $scope.team2Penalty + $scope.team2DropGoal;
         }
 
+        $scope.team1KeyUp = function () {
+            MatchFactory.match.team1 = $scope.team1;
+        }
+
+        $scope.team2KeyUp = function () {
+            MatchFactory.match.team2 = $scope.team2;
+        }
+
         $scope.useMyTeam = function () {
             if ($scope.isMyTeam) {
                 if (SettingFactory.myTeam == 0) {
@@ -179,8 +193,26 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
             }
         }
 
-        $scope.saveResult = function() {
+        $scope.saveResult = function () {
+            var match = {
+                team1 : $scope.team1,
+                team2 : $scope.team2,
+                location : $scope.location,
+                team1Try : $scope.team1Try,
+                team1Penalty : $scope.team1Penalty,
+                team1Conversion : $scope.team1Conversion,
+                team1DropGoal : $scope.team1DropGoal,
+                team2Try : $scope.team2Try,
+                team2Penalty :$scope.team2Penalty,
+                team2Conversion : $scope.team2Conversion,
+                team2DropGoal : $scope.team2DropGoal,
+                matchDate : $scope.matchDate,
+                matchTime : $scope.matchTime
+            }
 
+            MatchFactory.createMatch(match, function() {
+                $state.go('app.results');
+            });
         }
     })
 

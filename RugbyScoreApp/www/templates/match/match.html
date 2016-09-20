@@ -2,7 +2,7 @@
     <ion-content ng-controller="MatchController">
         <div class="row">
             <div class="col col-70 col-offset-15 text-center">
-                <input class="match-title" placeholder="Enter Team A" ng-model="team1"></input>
+                <input class="match-title" placeholder="Enter Team A" ng-model="team1" ng-keyup="team1KeyUp()"></input>
             </div>
         </div>
         <div class="row">
@@ -49,7 +49,7 @@
 
         <div class="row">
             <div class="col col-70 col-offset-15 text-center">
-                <input class="match-title" placeholder="Enter Team B" ng-model="team2"></input>
+                <input class="match-title" placeholder="Enter Team B" ng-model="team2" ng-keyup="team2KeyUp()"></input>
             </div>
         </div>
         <div class="row">

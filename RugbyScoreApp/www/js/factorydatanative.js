@@ -4,7 +4,7 @@ angular.module('rugbyapp.data', ['ngCordova'])
 
         var createTables = function () {
             $cordovaSQLite.execute(database, "CREATE TABLE IF NOT EXISTS team (teamId integer primary key, abbrTeamName text, fullTeamName text, clubAddress text, townCity text, country text, postCode text)");
-            //$cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS match (MatchId integer primary key, Team1 integer, Team2 integer, MatchDate text, MatchTime text, Location text, Team1Score text, Team2Score text)");
+            $cordovaSQLite.execute(database, "CREATE TABLE IF NOT EXISTS match (matchId integer primary key, team1 integer, team2 integer, matchDate text, matchTime text, location text, team1Try integer, team1Penalty integer, team1Conversion integer, team1Goal integer, team2Try integer, team2Penalty integer, team2Conversion integer, team2DropGoal integer)");
             $cordovaSQLite.execute(database, "CREATE TABLE IF NOT EXISTS settings (settingsId integer primary key, teamId integer)");
         };
 
@@ -26,7 +26,7 @@ angular.module('rugbyapp.data', ['ngCordova'])
             });
         }
 
-        var select = function (query, params, callBack) {
+        var executeQuery = function (query, params, callBack) {
             try {
                 database.executeSql(query, params, function (rs) {
                     callBack(rs);
@@ -39,17 +39,24 @@ angular.module('rugbyapp.data', ['ngCordova'])
             }
         }
 
-        var executeNonQuery = function (query, params, callBack) {
-            try {
-                database.executeSql(query, params, function (rs) {
-                    callBack(rs);
-                }, function (error) {
-                    alert(error);
-                });
-            }
-            catch (ex) {
-                alert(ex);
-            }
+        //MATCH******************************************************************
+        var loadMatches = function (callBack) {
+            executeQuery('SELECT * FROM match', [], callBack);
+        }
+
+        var createMatch = function (match, callBack) {
+            var query = "INSERT INTO match (team1, team2, matchDate, matchTime, location, team1Try, team1Penalty, team1Conversion, team1Goal, team2Try, team2Penalty, team2Conversion, team2DropGoal) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            insert(query, [match.team1, match.team2, match.matchDate, match.matchTime, match.location, match.team1Try, match.team1Penalty, match.team1Conversion, match.team1Goal, match.team2Try, match.team2Penalty, match.team2Conversion, match.team2DropGoal], callBack);
+        }
+
+        var updateMatch = function (team, callBack) {
+            var query = "UPDATE match SET team1 =?, team2 =?, matchDate=?, matchTime=?, location=?, team1Try=?, team1Penalty=?, team1Conversion=?, team1Goal=?, team2Try=?, team2Penalty=?, team2Conversion=?, team2DropGoal=? WHERE matchId=?";
+            executeQuery(query, [match.team1, match.team2, match.matchDate, match.matchTime, match.location, match.team1Try, match.team1Penalty, match.team1Conversion, match.team1Goal, match.team2Try, match.team2Penalty, match.team2Conversion, match.team2DropGoal, match.matchId], callBack);
+        }
+
+        var deleteMatch = function (id, callBack) {
+            var query = 'DELETE FROM match WHERE matchId = ?';
+            executeQuery(query, [id], callBack);
         }
 
         //SETTINGS****************************************************************
@@ -59,17 +66,17 @@ angular.module('rugbyapp.data', ['ngCordova'])
         }
 
         var loadSetting = function (callBack) {
-            select('SELECT * FROM settings', [], callBack);
+            executeQuery('SELECT * FROM settings', [], callBack);
         }
 
         var updateSetting = function (teamId, callBack) {
             var query = "UPDATE settings SET teamId = ?";
-            executeNonQuery(query, [teamId], callBack);        
+            executeQuery(query, [teamId], callBack);        
         }
 
         //TEAMS********************************************************************
         var loadTeams = function (callBack) {
-            select('SELECT * FROM team', [], callBack);
+            executeQuery('SELECT * FROM team', [], callBack);
         }
 
         var createTeam = function (team, callBack) {
@@ -79,12 +86,12 @@ angular.module('rugbyapp.data', ['ngCordova'])
 
         var updateTeam = function (team, callBack) {
             var query = "UPDATE team SET abbrTeamName = ?, fullTeamName = ?, clubAddress = ?, townCity = ?, country=?, postCode=? WHERE teamId=?";
-            executeNonQuery(query, [team.abbrTeamName, team.fullTeamName, team.clubAddress, team.townCity, team.country, team.postCode, team.teamId], callBack);
+            executeQuery(query, [team.abbrTeamName, team.fullTeamName, team.clubAddress, team.townCity, team.country, team.postCode, team.teamId], callBack);
         }
 
         var deleteTeam = function (id, callBack) {
             var query = 'DELETE FROM team WHERE teamId = ?';
-            executeNonQuery(query, [id], callBack);
+            executeQuery(query, [id], callBack);
         }
 
         return {
@@ -100,6 +107,12 @@ angular.module('rugbyapp.data', ['ngCordova'])
                 createSetting: createSetting,
                 updateSetting: updateSetting,
                 loadSetting: loadSetting
+            },
+            match: {
+                loadMatches: loadMatches,
+                updateMatch: updateMatch,
+                createMatch: createMatch,
+                deleteMatch: deleteMatch
             }
         };
     })

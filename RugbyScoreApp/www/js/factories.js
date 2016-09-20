@@ -1,6 +1,6 @@
 
 angular.module('rugbyapp.factories', ['ngCordova'])
-  .factory('MatchFactory', function () {
+  .factory('MatchFactory', function ($cordovaSQLite, DataFactory) {
 
     //entities
     match = {};
@@ -22,16 +22,26 @@ angular.module('rugbyapp.factories', ['ngCordova'])
     match.team2Conversion = 0;
     match.team2DropGoal = 0;
 
-    var matches = [{
-      matchId: 1,
-      team1: 2,
-      team2: 1,
-      matchDate: '',
+    var matches = [];
 
-    }];
+    var updateMatch = function() {
+
+    }
+
+    var createMatch = function(match, callBack) {
+        DataFactory.match.createMatch(match, callBack);
+    }
+
+    var deleteMatch = function() {
+
+    }
 
     return {
       match: match,
+      matches: matches,
+      updateMatch: updateMatch,
+      createMatch: createMatch,
+      deleteMatch: deleteMatch,
       getLastMatch: function () {
         return '';
       }
@@ -42,7 +52,7 @@ angular.module('rugbyapp.factories', ['ngCordova'])
     //entities
     setting = {};
     setting.myTeam = 0;
-    var updateMyTeam = function(value, callBack) {
+    var updateMyTeam = function (value, callBack) {
       DataFactory.setting.updateSetting(value, callBack);
     };
 
@@ -107,7 +117,7 @@ angular.module('rugbyapp.factories', ['ngCordova'])
             teams.push(param);
 
             if (param.isMyTeam) {
-              DataFactory.setting.createSetting(id, function(){});
+              DataFactory.setting.createSetting(id, function () { });
               SettingFactory.myTeam = id;
             }
 
@@ -145,7 +155,7 @@ angular.module('rugbyapp.factories', ['ngCordova'])
             break;
           }
 
-          callBack();
+        callBack();
       });
     }
 
