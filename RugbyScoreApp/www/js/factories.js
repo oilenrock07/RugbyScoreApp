@@ -24,16 +24,55 @@ angular.module('rugbyapp.factories', ['ngCordova'])
 
     var matches = [];
 
-    var updateMatch = function() {
+    var updateMatch = function () {
 
     }
 
-    var createMatch = function(match, callBack) {
-        DataFactory.match.createMatch(match, callBack);
+    var createMatch = function (match, callBack) {
+      DataFactory.match.createMatch(match, function (id) {
+
+        if (id > 0) {
+          match.matchId = id;
+          matches.push(match);
+        }
+
+        callBack();
+      });
     }
 
-    var deleteMatch = function() {
+    var deleteMatch = function () {
 
+    }
+
+    var mapEntity = function (param) {
+
+      match.matchId = param.matchId;
+      match.team1 = param.team1;
+      match.team2 = param.team2;
+      match.location = param.location;
+      match.matchDate = param.matchDate;
+      match.matchTime = param.matchTime;
+
+      match.team1Try = param.team1Try;
+      match.team1Penalty = param.team1Penalty;
+      match.team1Conversion = param.team1Conversion;
+      match.team1DropGoal = param.team1DropGoal;
+
+      match.team2Try = param.team2Try;
+      match.team2Penalty = param.team2Penalty;
+      match.team2Conversion = param.team2Conversion;
+      match.team2DropGoal = param.team2DropGoal;
+
+    }
+
+    var getMatch = function (matchId) {
+      for (var i = 0; i < matches.length; i++) {
+        if (matches[i].matchId === parseInt(matchId)) {
+          return matches[i];
+        }
+      }
+
+      return null;
     }
 
     return {
@@ -42,6 +81,8 @@ angular.module('rugbyapp.factories', ['ngCordova'])
       updateMatch: updateMatch,
       createMatch: createMatch,
       deleteMatch: deleteMatch,
+      mapEntity: mapEntity,
+      getMatch: getMatch,
       getLastMatch: function () {
         return '';
       }

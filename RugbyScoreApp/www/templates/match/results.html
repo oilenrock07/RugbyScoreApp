@@ -20,8 +20,8 @@
             </div>
             <div class="row">
                 <div class="col">{{match.matchTime}} - {{match.matchDate}}</div>
-                <div class="col align-right">
-                    Team Results
+                <div class="col align-right" ng-click="matchDetail({{match.matchId}})">
+                    Detail
                     <i class="icon ion-chevron-right"></i>
                 </div>
             </div>

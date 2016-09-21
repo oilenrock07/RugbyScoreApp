@@ -19,7 +19,8 @@ angular.module('rugbyapp.routes', [])
                 }
             })
 
-            //match
+            
+            //results
             .state('app.results', {
                 url: '/results', 
                 cache: false,               
@@ -30,6 +31,28 @@ angular.module('rugbyapp.routes', [])
                 }
             })
 
+            .state('app.editresult', {
+                url: '/editresult', 
+                cache: false,               
+                views: {
+                    'results': {
+                        templateUrl: 'templates/match/editresult.html'
+                    }
+                }
+            })
+
+            .state('app.resultdetail', {
+                url: '/resultdetail', 
+                cache: false,               
+                views: {
+                    'results': {
+                        templateUrl: 'templates/match/resultdetail.html',
+                        controller: 'MatchController'
+                    }
+                }
+            })
+
+            //match
             .state('app.newmatch', {
                 url: '/newmatch', 
                 cache: false,               
@@ -53,13 +76,25 @@ angular.module('rugbyapp.routes', [])
             })
 
 
+            //score
             .state('app.score', {
                 url: '/score',
                 cache: false,
                 views: {
                     'score': {
                         templateUrl: 'templates/match/score.html',
-                        //controller: 'MatchController'
+                        controller: 'MatchController'
+                    }
+                }
+            })
+
+            .state('app.editscore', {
+                url: '/editscore', 
+                cache: false,               
+                views: {
+                    'score': {
+                        templateUrl: 'templates/match/editscore.html',
+                        controller: 'MatchController'
                     }
                 }
             })

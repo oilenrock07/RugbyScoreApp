@@ -65,7 +65,7 @@ angular.module('rugbyapp.data', [])
 
         var loadMatches = function(callBack) {
             var matches = [{
-                match1: 1,
+                matchId: 1,
                 team1: 'Chicago Bulls',
                 team2: 'Test',
                 team1Try: 5,

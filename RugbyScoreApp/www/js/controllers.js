@@ -1,7 +1,10 @@
 angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
 
-    .controller('AppController', function ($scope, $rootScope, $state, MatchFactory, SettingFactory, TeamFactory) {
+    .controller('AppController', function ($scope, $rootScope, $state, $ionicHistory, MatchFactory, SettingFactory, TeamFactory) {
         $rootScope.page = "new-match";
+        $rootScope.back = function () {
+            $ionicHistory.goBack();
+        }
 
         $scope.icon = 'new-match-icon';
 
@@ -53,6 +56,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
     })
 
     .controller('MatchController', function ($scope, $rootScope, $state, $filter, MatchFactory, TeamFactory, SettingFactory) {
+
         //properties
         $scope.matches = MatchFactory.matches;
         $scope.matchId = MatchFactory.match.matchId;
@@ -73,6 +77,25 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
         $scope.matchDate = MatchFactory.match.matchDate;
         $scope.matchTime = MatchFactory.match.matchTime;
         $scope.isMyTeam = MatchFactory.match.isMyTeam;
+
+        var getScopeMatch = function () {
+            return {
+                team1: $scope.team1,
+                team2: $scope.team2,
+                location: $scope.location,
+                team1Try: $scope.team1Try,
+                team1Penalty: $scope.team1Penalty,
+                team1Conversion: $scope.team1Conversion,
+                team1DropGoal: $scope.team1DropGoal,
+                team2Try: $scope.team2Try,
+                team2Penalty: $scope.team2Penalty,
+                team2Conversion: $scope.team2Conversion,
+                team2DropGoal: $scope.team2DropGoal,
+                matchDate: $scope.matchDate,
+                matchTime: $scope.matchTime
+            };
+        }
+
 
         //functions
         $scope.startMatch = function () {
@@ -194,31 +217,36 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
         }
 
         $scope.saveResult = function () {
-            var match = {
-                team1 : $scope.team1,
-                team2 : $scope.team2,
-                location : $scope.location,
-                team1Try : $scope.team1Try,
-                team1Penalty : $scope.team1Penalty,
-                team1Conversion : $scope.team1Conversion,
-                team1DropGoal : $scope.team1DropGoal,
-                team2Try : $scope.team2Try,
-                team2Penalty :$scope.team2Penalty,
-                team2Conversion : $scope.team2Conversion,
-                team2DropGoal : $scope.team2DropGoal,
-                matchDate : $scope.matchDate,
-                matchTime : $scope.matchTime
-            }
-
-            MatchFactory.createMatch(match, function() {
+            MatchFactory.createMatch(getScopeMatch(), function () {
                 $state.go('app.results');
             });
+        }
+
+        $scope.editScore = function () {
+            MatchFactory.mapEntity(getScopeMatch());
+            $state.go('app.editscore');
+        }
+
+        $scope.editResult = function () {
+            MatchFactory.mapEntity(getScopeMatch());
+            $state.go('app.editresult');
+        }
+
+        $scope.saveScore = function () {
+            MatchFactory.mapEntity(getScopeMatch());
+            $state.go('app.score');
+        }
+
+        $scope.matchDetail = function(id) {
+            var match = MatchFactory.getMatch(id);
+            MatchFactory.mapEntity(match);
+            $state.go('app.resultdetail');
         }
     })
 
 
     //Team Controller
-    .controller('TeamController', function ($scope, $state, $ionicHistory, $ionicPopup, TeamFactory, SettingFactory) {
+    .controller('TeamController', function ($scope, $state, $ionicPopup, TeamFactory, SettingFactory) {
         $scope.isMyTeam = $state.params.isMyTeam;
         $scope.teams = TeamFactory.teams;
         $scope.isEdit = $state.params.isEdit;
@@ -244,10 +272,6 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
             }
 
             $state.go(state, { isEdit: isEdit });
-        }
-
-        $scope.back = function () {
-            $ionicHistory.goBack();
         }
 
         $scope.deleteTeam = function (id) {
