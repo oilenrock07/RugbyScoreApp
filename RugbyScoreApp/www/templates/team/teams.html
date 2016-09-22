@@ -12,7 +12,7 @@
 
     <ion-content>
         <div class="list">
-            <div class="item" ng-repeat="team in teams" ng-click="addNewTeam(false, true, {{team.teamId}})">
+            <div class="item" ng-repeat="team in teams | orderBy: 'fullTeamName'" ng-click="teamResult(team.teamId)">
                 <div class="row">
                     <div class="col">
                         <span class="team-label">Team Name</span><br/>

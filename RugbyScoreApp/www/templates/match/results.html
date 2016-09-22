@@ -7,7 +7,7 @@
 
     <ion-content ng-controller="MatchController">
 
-        <div class="list" ng-repeat="match in matches">
+        <div class="list" ng-repeat="match in matches | orderBy: '-matchDateTime'">
             <div class="row">
                 <div class="col">
                     <div class="align-right">{{(match.team1Try + match.team1Conversion + match.team1Penalty + match.team1DropGoal) | formatScore}}</div>

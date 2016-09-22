@@ -23,6 +23,16 @@ angular.module('rugbyapp.data', [])
                 teamId: 1,
                 fullTeamName: 'Chicago Bulls',
                 townCity: 'Chicago'
+            },
+            {
+                teamId: 2,
+                fullTeamName: 'XYZ Team',
+                townCity: 'Planet X'
+            },
+            {
+                teamId:3,
+                fullTeamName: 'ABCD1234',
+                townCity: 'Baras'
             }];
 
             return selectCallBack(teams, callBack);
@@ -76,9 +86,25 @@ angular.module('rugbyapp.data', [])
                 team2DropGoal: 3,
                 team2Penalty: 3,
                 team2Conversion: 2,
-                matchDate: '20/09/2010',
-                matchTime: '12:00 pm',
-            }];
+                matchDate: '09/20/2010',
+                matchTime: '13:00',
+            },
+            {
+                matchId:2,
+                team1: 'Chicago Bulls',
+                team2: 'XYZ Team',
+                team1Try: 0,
+                team1DropGoal: 3,
+                team1Penalty: 3,
+                team1Conversion: 2,
+                team2Try: 5,
+                team2DropGoal: 3,
+                team2Penalty: 3,
+                team2Conversion: 2,
+                matchDate: '09/20/2010',
+                matchTime: '08:00',
+            }
+            ];
 
             return selectCallBack(matches, callBack);
         }

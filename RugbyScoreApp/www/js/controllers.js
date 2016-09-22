@@ -115,8 +115,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
             MatchFactory.match.team2Penalty = $scope.team2Penalty;
             MatchFactory.match.team2Conversion = $scope.team2Conversion;
             MatchFactory.match.team2DropGoal = $scope.team2DropGoal;
-            MatchFactory.match.matchTime = $filter('date')(new Date(), 'h:mma');
-
+            MatchFactory.match.matchTime = $filter('date')(new Date(), 'HH:mm');
             MatchFactory.match.matchDate = $filter('date')(new Date(), 'MM/dd/yyyy');
 
             $state.go('app.match');
@@ -233,14 +232,56 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
         }
 
         $scope.saveScore = function () {
-            MatchFactory.mapEntity(getScopeMatch());
-            $state.go('app.score');
+            var match = getScopeMatch();
+
+            //validate inputted score
+            if ((parseInt(match.team1Try) % 5) > 0) {
+                alert('Invalid Try score for ' + match.team1);
+                return;
+            }
+            else if ((parseInt(match.team1Penalty) % 3) > 0) {
+                alert('Invalid Penalty score for ' + match.team1);
+                return;
+            }
+            else if ((parseInt(match.team1Conversion) % 2) > 0) {
+                alert('Invalid Conversion score for ' + match.team1);
+                return;
+            }
+            else if ((parseInt(match.team1DropGoal) % 3) > 0) {
+                alert('Invalid Drop Goal score for ' + match.team1);
+                return;
+            }
+            else if ((parseInt(match.team2Try) % 5) > 0) {
+                alert('Invalid Try score for ' + match.team2);
+                return;
+            }
+            else if ((parseInt(match.team2Penalty) % 3) > 0) {
+                alert('Invalid Penalty score for ' + match.team2);
+                return;
+            }
+            else if ((parseInt(match.team2Conversion) % 2) > 0) {
+                alert('Invalid Conversion score for ' + match.team2);
+                return;
+            }
+            else if ((parseInt(match.team2DropGoal) % 3) > 0) {
+                alert('Invalid Drop Goal score for ' + match.team2);
+                return;
+            }
+
+            MatchFactory.mapEntity(match);
+            $rootScope.back();
         }
 
         $scope.matchDetail = function(id) {
             var match = MatchFactory.getMatch(id);
             MatchFactory.mapEntity(match);
             $state.go('app.resultdetail');
+        }
+
+        $scope.deleteScore = function() {
+            MatchFactory.resetEntity();
+            $rootScope.page = "start-match";
+            $state.go('app.match');
         }
     })
 
@@ -272,6 +313,10 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
             }
 
             $state.go(state, { isEdit: isEdit });
+        }
+
+        $scope.teamResult = function() {
+
         }
 
         $scope.deleteTeam = function (id) {

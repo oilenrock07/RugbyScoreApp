@@ -146,6 +146,32 @@ angular.module('rugbyapp.routes', [])
                 }
             })
 
+            .state('app.editteam', {
+                url: '/editteam',
+                params: {
+                    isEdit : false,
+                    isMyTeam: false
+                }, 
+                views: {
+                    'teams': {
+                        templateUrl: 'templates/team/editteam.html',
+                        controller: 'TeamController'
+                    }
+                }
+            })
+
+            .state('app.teamresult', {
+                url: '/teamresult',
+                params: {
+                    teamId: 0
+                },
+                views: {
+                    'teams': {
+                        templateUrl: 'templates/team/teamresult.html'
+                    }
+                }
+            })
+
             .state('app.addmyteam', {
                 url: '/addmyteam',
                 params: {

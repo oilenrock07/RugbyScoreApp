@@ -1,5 +1,11 @@
 angular.module('rugbyapp.filters', [])
 
+    .filter('formatDate', function ($filter) {
+        return function (date) {
+            return new Date(date.matchDate + ' ' + date.matchTime);
+        }
+    })
+
     .filter('formatScore', function () {
         return function (n) {
             if (n < 10)
