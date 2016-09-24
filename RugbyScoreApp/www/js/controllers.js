@@ -4,7 +4,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
         $rootScope.page = "new-match";
         $rootScope.back = function () {
             $ionicHistory.goBack();
-        }
+        };
 
         $scope.icon = 'new-match-icon';
 
@@ -20,7 +20,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
                 }
             }
             $state.go('app.myteam');
-        }
+        };
 
         $scope.showMatch = function () {
             $rootScope.page = "new-match";
@@ -30,29 +30,29 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
             MatchFactory.match.team2 = '';
 
             $state.go('app.newmatch');
-        }
+        };
 
         $scope.showTeams = function () {
             $rootScope.page = "team";
             $scope.icon = 'team-icon';
 
             $state.go('app.teams');
-        }
+        };
 
         $scope.showAboutMain = function () {
             $rootScope.page = "about";
             $state.go('app.aboutmain');
-        }
+        };
 
         $scope.showScore = function () {
             $rootScope.page = "score";
             $state.go('app.score');
-        }
+        };
 
         $scope.showResults = function () {
             $rootScope.page = "results";
             $state.go('app.results');
-        }
+        };
     })
 
     .controller('MatchController', function ($scope, $rootScope, $state, $filter, MatchFactory, TeamFactory, SettingFactory) {
@@ -94,7 +94,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
                 matchDate: $scope.matchDate,
                 matchTime: $scope.matchTime
             };
-        }
+        };
 
 
         //functions
@@ -119,7 +119,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
             MatchFactory.match.matchDate = $filter('date')(new Date(), 'MM/dd/yyyy');
 
             $state.go('app.match');
-        }
+        };
 
         $scope.addScoreTry = function (team, point) {
             if (team == 1) {
@@ -134,7 +134,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
                     MatchFactory.match.team2Try = $scope.team2Try;
                 }
             }
-        }
+        };
 
         $scope.addScoreConversion = function (team, point) {
             if (team == 1) {
@@ -149,7 +149,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
                     MatchFactory.match.team2Conversion = $scope.team2Conversion;
                 }
             }
-        }
+        };
 
         $scope.addScorePenalty = function (team, point) {
             if (team == 1) {
@@ -164,7 +164,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
                     MatchFactory.match.team2Penalty = $scope.team2Penalty;
                 }
             }
-        }
+        };
 
         $scope.addScoreDropGoal = function (team, point) {
             if (team == 1) {
@@ -179,23 +179,23 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
                     MatchFactory.match.team2DropGoal = $scope.team2DropGoal;
                 }
             }
-        }
+        };
 
         $scope.team1Score = function () {
             return $scope.team1Try + $scope.team1Conversion + $scope.team1Penalty + $scope.team1DropGoal;
-        }
+        };
 
         $scope.team2Score = function () {
             return $scope.team2Try + $scope.team2Conversion + $scope.team2Penalty + $scope.team2DropGoal;
-        }
+        };
 
         $scope.team1KeyUp = function () {
             MatchFactory.match.team1 = $scope.team1;
-        }
+        };
 
         $scope.team2KeyUp = function () {
             MatchFactory.match.team2 = $scope.team2;
-        }
+        };
 
         $scope.useMyTeam = function () {
             if ($scope.isMyTeam) {
@@ -213,23 +213,23 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
                 $scope.teamId = 0;
                 $scope.team1 = '';
             }
-        }
+        };
 
         $scope.saveResult = function () {
             MatchFactory.createMatch(getScopeMatch(), function () {
                 $state.go('app.results');
             });
-        }
+        };
 
         $scope.editScore = function () {
             MatchFactory.mapEntity(getScopeMatch());
             $state.go('app.editscore');
-        }
+        };
 
         $scope.editResult = function () {
             MatchFactory.mapEntity(getScopeMatch());
             $state.go('app.editresult');
-        }
+        };
 
         $scope.saveScore = function () {
             var match = getScopeMatch();
@@ -270,19 +270,19 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
 
             MatchFactory.mapEntity(match);
             $rootScope.back();
-        }
+        };
 
         $scope.matchDetail = function(id) {
             var match = MatchFactory.getMatch(id);
             MatchFactory.mapEntity(match);
             $state.go('app.resultdetail');
-        }
+        };
 
         $scope.deleteScore = function() {
             MatchFactory.resetEntity();
             $rootScope.page = "start-match";
             $state.go('app.match');
-        }
+        };
     })
 
 
@@ -313,11 +313,11 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
             }
 
             $state.go(state, { isEdit: isEdit });
-        }
+        };
 
         $scope.teamResult = function() {
 
-        }
+        };
 
         $scope.deleteTeam = function (id) {
             var confirmPopup = $ionicPopup.confirm({
@@ -342,7 +342,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
                     });
                 }
             });
-        }
+        };
 
         $scope.saveTeam = function () {
 
@@ -366,6 +366,6 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
                 else {
                     $state.go('app.teams');
                 }
-            })
-        }
+            });
+        };
     });
