@@ -15,7 +15,7 @@
             <div class="row">
                 <div class="col-50" style="padding-right: 10px;">
                     <div class="label-score align-right divider" ng-bind="team1Score() | formatScore"></div>
-                    <div class="divider"><strong>{{team1}}</strong></div>
+                    <div class="divider team-name"><strong>{{team1}}</strong></div>
                     <div>Trys</div>
                     <div class="divider">{{team1Try | formatScore}}</div>
                     <div>Conversions</div>
@@ -28,10 +28,11 @@
                 <div class="col">
                     <div class="ion-minus-round divider"></div>
                     <div class="divider"><strong>V</strong></div>
+                    <div class="vertical-divider"></div>
                 </div>
                 <div class="col-50" style="padding-left: 10px;">
                     <div class="label-score divider" ng-bind="team2Score() | formatScore" ></div>
-                    <div class="divider"><strong>{{team2}}</strong></div>
+                    <div class="divider team-name"><strong>{{team2}}</strong></div>
                     <div>Trys</div>
                     <div class="divider">{{team2Try | formatScore}}</div>
                     <div>Conversions</div>
@@ -46,18 +47,21 @@
             <hr>
 
             <div class="row">
-                <div class="col">
+                <div class="col no-padding">
                     <div>Match Date</div>
                     <div class="divider">{{matchDate}}</div>
-                    <div>Match Location</div>
-                    <div>{{location}}</div>
                 </div>
-                <div class="col">
+                <div class="col no-padding">
                     <div class="">Match Time</div>
                     <div>{{matchTime}}</div>
                 </div>
             </div>
-    
+            <div class="row">
+                <div class="col no-padding">
+                    <div>Match Location</div>
+                    <div>{{location}}</div>
+                </div>
+            </div>
             <button class="button button-footer button-positive button-clear icon icon-right ion-chevron-right" 
                 ng-click="saveResult()">
                     Save Result

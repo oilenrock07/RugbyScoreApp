@@ -3,12 +3,12 @@
         <form class="list content" name="matchform" novalidate>
             <label class="item item-input item-stacked-label">
                 <span class="input-label">Team A</span>
-                <input type="text" placeholder="Enter Team Name A" ng-model="team1" autocomplete="off">
+                <input type="text" maxlength="30" placeholder="Enter Team Name A" ng-model="team1" autocomplete="off">
             </label>
             <ion-checkbox ng-change="useMyTeam()" ng-model="isMyTeam" class="item-checkbox-right">My Team</ion-checkbox>
             <label class="item item-input item-stacked-label">
                 <span class="input-label">Team B</span>
-                <input type="text" placeholder="Enter Team Name B" ng-model="team2"  autocomplete="off">
+                <input type="text" maxlength="30" placeholder="Enter Team Name B" ng-model="team2"  autocomplete="off">
             </label>
             <label class="item item-input item-stacked-label">
                 <span class="input-label">Match Location</span>

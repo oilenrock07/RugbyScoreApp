@@ -130,7 +130,7 @@ button.button-footer{
 }
 
 .match .col{
-    padding: 4px;
+    padding: 3px;
 }
 
 .match-label {
@@ -150,7 +150,6 @@ button.button-footer{
 
 .match-title{
     text-align: center;
-    border-radius: 13px;
     font-size: 23px;
     width: 90%;
 }
@@ -163,7 +162,7 @@ button.button-footer{
     border: 2px solid white;
     background-color: rgba(0, 0, 0, 0.44);
     font-size: 20px;
-    padding: 2px 5px;
+    padding: 2px 4px;
 }
 
 .button.button-circle{
@@ -250,14 +249,32 @@ ion-content .scroll{
 .score .content .row{
      padding: 5px 30px;
 }
+
+.score .vertical-divider{
+    height: 79%;
+    background: url(/img/vertical-bar.png) repeat center;
+}
+
+.score hr{
+    margin: -10px 15px 0px 15px;
+}
+
+.score .team-name{
+    max-height: 50px;
+    min-height: 50px;
+}
    
 /** Generics **/
+.no-padding{
+    padding: 0;
+}
+
 .content{
     height: 97%;
 }
 
 .divider{
-    padding-bottom: 10px;
+    padding-bottom: 7px;
 }
 
 .item-checkbox-right .checkbox input,
