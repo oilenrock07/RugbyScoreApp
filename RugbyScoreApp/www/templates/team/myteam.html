@@ -1,7 +1,9 @@
 <ion-view view-title="My Team" hide-back-button="true">
     <ion-header-bar class="bar-positive"></ion-header-bar>
     <ion-header-bar class="bar-stable bar-subheader">
-        <button class="button button-clear button-positive" ng-click="addNewTeam(true)">Edit My Team</button>
+        <button class="button button-clear button-positive" ng-click="addNewTeam(true)">
+            <strong>Edit My Team</strong>
+        </button>
     </ion-header-bar>
 
     <div ng-include="'templates/team/_team.html'"></div>

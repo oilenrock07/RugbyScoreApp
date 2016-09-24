@@ -8,7 +8,11 @@
 }
 
 .tabs{
-    height: 75px;
+    height: 65px;
+}
+
+.tabs-striped .tabs{
+    padding-top: 0px;
 }
 
 .tabs-positive > .tabs, .tabs.tabs-positive{
@@ -135,7 +139,7 @@ button.button-footer{
 
 .match-score, 
 .match-title {
-    border: 1.5px solid white;
+    border: 2px solid #FFF;
     background-color: rgba(0, 0, 0, 0.68);
     height: 45px;
     vertical-align: middle;
@@ -146,9 +150,9 @@ button.button-footer{
 
 .match-title{
     text-align: center;
-    border: 1.5px solid rgba(0, 0, 0, 0.68);
     border-radius: 13px;
     font-size: 23px;
+    width: 90%;
 }
 
 .match-score div{
@@ -156,15 +160,15 @@ button.button-footer{
 }
 
 .button.button-points{
-    border: 1.5px solid white;
+    border: 2px solid white;
     background-color: rgba(0, 0, 0, 0.44);
-    font-size: 22px;
+    font-size: 20px;
     padding: 2px 5px;
 }
 
 .button.button-circle{
     border-radius: 50px;
-    border-width: 3px;
+    border-width: 2px;
     border-color: #fff;
     min-width: 40px;
     min-height: 40px;
@@ -249,7 +253,7 @@ ion-content .scroll{
    
 /** Generics **/
 .content{
-    height: 95%;
+    height: 97%;
 }
 
 .divider{
@@ -269,4 +273,32 @@ ion-content .scroll{
 .label-score {
     font-size: 24px;
     font-weight: bold
+}
+
+.item-stacked-label, 
+.item-checkbox{
+    border: none;
+    margin-right: 15px;
+}
+
+input[type="text"]{
+    border-color: #ddd;
+    background-color: #fff;
+    padding: 16px;
+    border-width: 1px;
+    border-style: solid;
+    text-align: center;
+}
+
+@media screen and (max-width:767px) {
+    .match ion-content{
+         height: 82% !important;
+     }
+}
+
+
+@media screen and (min-width:320px) and (max-width:767px) and (orientation:landscape) {
+    .match ion-content{
+         height: 73% !important;
+     }
 }

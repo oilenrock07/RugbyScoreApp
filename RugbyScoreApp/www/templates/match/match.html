@@ -1,7 +1,7 @@
 <ion-view view-title="" hide-back-button="true" class="match">
     <ion-content ng-controller="MatchController">
         <div class="row">
-            <div class="col col-70 col-offset-15 text-center">
+            <div class="col col-100 text-center">
                 <input class="match-title" placeholder="Enter Team A" ng-model="team1" ng-keyup="team1KeyUp()"></input>
             </div>
         </div>
@@ -15,11 +15,15 @@
             </div>
             <div class="col col-25">
                 <span class="match-label">TRY<span><br>
-                <button class="button button-positive button-points" ng-click="addScoreTry(1,5)">+ 5pts</button>
+                <button class="button button-positive button-points" ng-click="addScoreTry(1,5)">
+                    <icon class="ion-plus-round">&nbsp;5pts</icon>
+                </button>
             </div>
             <div class="col col-25">
                 <span class="match-label">CONVERSION<span><br>
-                <button class="button button-positive button-points" ng-click="addScoreConversion(1,2)">+ 2pts</button>
+                <button class="button button-positive button-points" ng-click="addScoreConversion(1,2)">
+                    <icon class="ion-plus-round">&nbsp;2pts</icon>
+                </button>
             </div>
             <div class="col col-25">
                 <br>
@@ -33,11 +37,15 @@
             </div>
             <div class="col col-25">
                 <span class="match-label">PENALTY<span><br>
-                <button class="button button-positive button-points" ng-click="addScorePenalty(1, 3)">+ 3pts</button>
+                <button class="button button-positive button-points" ng-click="addScorePenalty(1, 3)">
+                     <icon class="ion-plus-round">&nbsp;3pts</icon>
+                </button>
             </div>
             <div class="col col-25">
                 <span class="match-label">DROP GOAL<span><br>
-                <button class="button button-positive button-points" ng-click="addScoreDropGoal(1, 3)">+ 3pts</button>
+                <button class="button button-positive button-points" ng-click="addScoreDropGoal(1, 3)">
+                    <icon class="ion-plus-round">&nbsp;3pts</icon>
+                </button>
             </div>
             <div class="col col-25">
                 <br>
@@ -48,7 +56,7 @@
         <div class="text-center"><h2>V</h2></div>
 
         <div class="row">
-            <div class="col col-70 col-offset-15 text-center">
+            <div class="col text-center">
                 <input class="match-title" placeholder="Enter Team B" ng-model="team2" ng-keyup="team2KeyUp()"></input>
             </div>
         </div>
@@ -62,11 +70,15 @@
             </div>
             <div class="col col-25">
                 <span class="match-label">TRY<span><br>
-                <button class="button button-positive button-points" ng-click="addScoreTry(2, 5)">+ 5pts</button>
+                <button class="button button-positive button-points" ng-click="addScoreTry(2, 5)">
+                    <icon class="ion-plus-round">&nbsp;5pts</icon>
+                </button>
             </div>
             <div class="col col-25">
                 <span class="match-label">CONVERSION<span><br>
-                <button class="button button-positive button-points" ng-click="addScoreConversion(2, 2)">+ 2pts</button>
+                <button class="button button-positive button-points" ng-click="addScoreConversion(2, 2)">
+                    <icon class="ion-plus-round">&nbsp;2pts</icon>
+                </button>
             </div>
             <div class="col col-25">
                 <br>
@@ -80,11 +92,15 @@
             </div>
             <div class="col col-25">
                 <span class="match-label">PENALTY<span><br>
-                <button class="button button-positive button-points" ng-click="addScorePenalty(2, 3)">+ 3pts</button>
+                <button class="button button-positive button-points" ng-click="addScorePenalty(2, 3)">
+                    <icon class="ion-plus-round">&nbsp;3pts</icon>
+                </button>
             </div>
             <div class="col col-25">
                 <span class="match-label">DROP GOAL<span><br>
-                <button class="button button-positive button-points" ng-click="addScoreDropGoal(2, 3)">+ 3pts</button>
+                <button class="button button-positive button-points" ng-click="addScoreDropGoal(2, 3)">
+                    <icon class="ion-plus-round">&nbsp;3pts</icon>
+                </button>
             </div>
             <div class="col col-25">
                 <br>
