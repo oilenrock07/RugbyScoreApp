@@ -217,6 +217,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
         $scope.useMyTeam = function () {
             if ($scope.isMyTeam) {
                 if (SettingFactory.myTeam == 0) {
+                    TeamFactory.resetEntity();
                     $state.go('app.addmyteam');
                 }
                 else {
@@ -287,7 +288,14 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
             }
 
             MatchFactory.mapEntity(match);
-            $rootScope.back();
+            if ($state.current.tabGroup == 'score') {
+                $rootScope.back();
+            }
+            else {
+                MatchFactory.updateMatch(match, function() {
+                    $rootScope.back();
+                });
+            }
         };
 
         $scope.matchDetail = function (id) {
@@ -319,7 +327,9 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
                 okText: 'Yes'
             }).then(function (res) {
                 if (res) {
-                    //delete match
+                    MatchFactory.deleteMatch(id, function() {
+						$ionicHistory.goBack();
+					});
                 }
             });
         };
@@ -346,7 +356,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
                     }
                 ]
             });
-        }
+        };
     })
 
 
@@ -381,7 +391,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
 
         //redirects to add new team page
         $scope.addNewTeam = function () {
-            TeamFactory.resetEntities();
+            TeamFactory.resetEntity();
             $state.go('app.addteam');
         };
 
@@ -470,7 +480,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
                         if (isMyTeam) {
 
                             SettingFactory.updateMyTeam(0, function () {
-                                TeamFactory.resetEntities();
+                                TeamFactory.resetEntity();
                                 SettingFactory.myTeam = 0;
                             });
                         }
@@ -482,7 +492,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
         };
 
         $scope.saveTeam = function () {
-
+            var isMyTeam = $state.current.tabGroup == 'myteam';
             var team = {
                 teamId: $scope.teamId,
                 isMyTeam: isMyTeam,
@@ -495,7 +505,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
             };
 
             var isEdit = $state.current.name == 'app.editmyteam' || $state.current.name == 'app.editteam';
-            var isMyTeam = $state.current.views.tabGroup == 'myteam';
+            if (isMyTeam && SettingFactory.myTeam == 0) isEdit = false;
 
             TeamFactory.saveTeam(team, isEdit, function () {
                 if (isMyTeam) {
