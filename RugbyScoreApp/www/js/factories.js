@@ -25,8 +25,32 @@ angular.module('rugbyapp.factories', ['ngCordova'])
     var matches = [];
     var searchMatch = [];
 
-    var updateMatch = function () {
+    var updateMatch = function (param) {
+      DataFactory.team.updateMatch(param, function (rs) {
 
+        for (var i in matches) {
+
+          if (matches[i].teamId == param.teamId) {
+            matches[i].team1 = param.team1;
+            matches[i].team2 = param.team2;
+            matches[i].matchDate = param.matchDate;
+            matches[i].matchTime = param.matchTime;
+            matches[i].location = param.location;
+            matches[i].team1Try = param.team1Try;
+            matches[i].team1Penalty = param.team1Penalty;
+            matches[i].team1Conversion = param.team1Conversion;
+            matches[i].team1DropGoal = param.team1DropGoal;
+            matches[i].team2Penalty = param.team2Penalty;
+            matches[i].team2Conversion = param.team2Conversion;
+            matches[i].team2DropGoal = param.team2DropGoal;
+            matches[i].team2Try = param.team2Try;
+            matches[i].matchDateTime = new Date(param.matchDate + ' ' + param.matchTime);
+            break;
+          }
+        }
+
+        callBack();
+      });
     }
 
     var createMatch = function (match, callBack) {
@@ -34,6 +58,7 @@ angular.module('rugbyapp.factories', ['ngCordova'])
 
         if (id > 0) {
           match.matchId = id;
+          match.matchDateTime = new Date(match.matchDate + ' ' + match.matchTime);
           matches.push(match);
         }
 
@@ -42,13 +67,16 @@ angular.module('rugbyapp.factories', ['ngCordova'])
     }
 
     var deleteMatch = function (id, callBack) {
-		DataFactory.match.deleteMatch(id, function (rs) {
-        for (var i = 0; i < matches.length; i++)
+      DataFactory.match.deleteMatch(id, function (rs) {
+        for (var i = 0; i < matches.length; i++) {
           if (matches[i].matchId == id) {
             matches.splice(i, 1);
             break;
           }
-		  });
+        }
+        callBack();
+      }
+      );
     };
 
     var resetEntity = function () {
@@ -189,7 +217,7 @@ angular.module('rugbyapp.factories', ['ngCordova'])
       return null;
     }
 
-    var resetEntities = function () {
+    var resetEntity = function () {
       team.teamId = 0;
       team.abbrTeamName = '';
       team.fullTeamName = '';
@@ -283,8 +311,8 @@ angular.module('rugbyapp.factories', ['ngCordova'])
       saveTeam: saveTeam,
       mapEntity: mapTeam,
       search: search,
-      resetEntities: resetEntities,
-      searchTeams : searchTeams
+      resetEntity: resetEntity,
+      searchTeams: searchTeams
     }
 
 
