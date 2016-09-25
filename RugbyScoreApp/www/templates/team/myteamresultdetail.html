@@ -2,12 +2,14 @@
 
     <ion-header-bar class="bar-positive"></ion-header-bar>
     <ion-header-bar class="bar-stable bar-subheader">
-        <button class="button button-clear button-positive" ng-click="back()">Back</button>
+        <button class="button button-clear button-positive" ng-click="back()">
+            <strong>Back</strong>
+        </button>
         <button class="button button-clear button-positive" ng-click="editResult()">
             <strong>Edit Result</strong>
         </button>
     </ion-header-bar>
 
 
-    <div ng-include="'templates/match/_resultdetail.html'"></div>
+    <div ng-include="'templates/match/_resultdetail.html'" ng-controller="TeamController"></div>
 </ion-view>

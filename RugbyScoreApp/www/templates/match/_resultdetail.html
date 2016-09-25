@@ -1,4 +1,4 @@
-<ion-content ng-controller="MatchController">
+<ion-content>
     <div class="content">
         <div class="row">
             <div class="col-50" style="padding-right: 10px;">
@@ -49,10 +49,12 @@
         <div class="row">
             <span ng-click="deleteMatch()">Delete Result</span>
         </div>
-       <div class="button-footer">
-            <button class="button button-positive button-clear icon icon-right ion-chevron-right hide-on-keyboard-open" ng-click="shareResult()">
-                Share Result
-            </button>
-        </div>
     </div>
 </ion-content>
+<ion-footer-bar align-title="left" class="button-footer-wrap">
+    <div class="button-footer">
+        <button class="button icon icon-right ion-chevron-right hide-on-keyboard-open" ng-click="shareResult()">
+            Share Result
+        </button> 
+    </div>
+</ion-footer-bar> 

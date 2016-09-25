@@ -1,4 +1,4 @@
-<ion-content ng-controller="TeamController">
+<ion-content>
     <div class="content">
         <div class="row">
             <div class="team-label">Abbreviated Team Name&nbsp;</div>
@@ -50,11 +50,12 @@
                 <div class="divider"><strong>{{teamLastMatch.team2}}</strong></div>
             </div>
         </div>
-
-        <div class="button-footer">
-            <button class="button button-positive button-clear icon icon-right ion-chevron-right hide-on-keyboard-open" ng-click="teamResult(fullTeamName)">
-                {{teamResultText}}
-            </button>
-        </div> 
     </div> 
 </ion-content>
+<ion-footer-bar align-title="left" class="button-footer-wrap">
+    <div class="button-footer">
+        <button class="button icon icon-right ion-chevron-right hide-on-keyboard-open" ng-click="teamResult(fullTeamName)">
+           {{teamResultText}}
+        </button> 
+    </div>
+</ion-footer-bar> 

@@ -1,25 +1,28 @@
-<ion-view view-title="New Match" hide-back-button="true" class="new-match">
-    <ion-content ng-controller="MatchController">
-        <form class="list content" name="matchform" novalidate>
-            <label class="item item-input item-stacked-label">
-                <span class="input-label">Team A</span>
-                <input type="text" maxlength="30" placeholder="Enter Team Name A" ng-model="team1" autocomplete="off">
-            </label>
-            <ion-checkbox ng-change="useMyTeam()" ng-model="isMyTeam" class="item-checkbox-right">My Team</ion-checkbox>
-            <label class="item item-input item-stacked-label">
-                <span class="input-label">Team B</span>
-                <input type="text" maxlength="30" placeholder="Enter Team Name B" ng-model="team2"  autocomplete="off">
-            </label>
-            <label class="item item-input item-stacked-label">
-                <span class="input-label">Match Location</span>
-                <input type="text" placeholder="Enter Match Location"  ng-model="location" autocomplete="off">
-            </label>
-            <div class="button-footer">
-                <button class="button button-positive button-clear icon icon-right ion-chevron-right hide-on-keyboard-open" ng-click="startMatch()">
-                    Start Tracking
-                </button> 
-            </div> 
-        </form>
-        
+<ion-view view-title="New Match" hide-back-button="true" class="new-match" ng-controller="MatchController">
+    <ion-content>
+        <div class="content">
+            <form class="list" name="matchform" novalidate>
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">Team A</span>
+                    <input type="text" maxlength="30" placeholder="Enter Team Name A" ng-model="team1" autocomplete="off">
+                </label>
+                <ion-checkbox ng-change="useMyTeam()" ng-model="isMyTeam" class="item-checkbox-right">My Team</ion-checkbox>
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">Team B</span>
+                    <input type="text" maxlength="30" placeholder="Enter Team Name B" ng-model="team2"  autocomplete="off">
+                </label>
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">Match Location</span>
+                    <input type="text" placeholder="Enter Match Location"  ng-model="location" autocomplete="off">
+                </label>
+            </form>
+        </div>
     </ion-content>
+    <ion-footer-bar align-title="left" class="button-footer-wrap">
+        <div class="button-footer">
+            <button class="button icon icon-right ion-chevron-right hide-on-keyboard-open" ng-click="startMatch()">
+                Start Tracking
+            </button> 
+        </div>
+    </ion-footer-bar> 
 </ion-view>

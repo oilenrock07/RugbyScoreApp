@@ -1,4 +1,4 @@
-<ion-content ng-controller="TeamController">
+<ion-content>
     <form class="list content" name="matchform" novalidate>
         <label class="item item-input item-stacked-label">
             <span class="input-label">Abbreviated Team Name</span>
@@ -28,12 +28,13 @@
         <label class="item item-input item-stacked-label">
             <span class="input-label">Post Code</span>
             <input type="text" placeholder="Enter Postcode" ng-model="postCode" autocomplete="off">
-        </label>
-
-        <div class="button-footer">
-            <button class="button button-positive button-clear icon icon-right ion-chevron-right hide-on-keyboard-open" ng-click="saveTeam()">
-                Save Team
-            </button>
-        </div>        
+        </label>    
     </form>
 </ion-content>
+<ion-footer-bar align-title="left" class="button-footer-wrap">
+    <div class="button-footer">
+        <button class="button icon icon-right ion-chevron-right hide-on-keyboard-open" ng-click="saveTeam()">
+            Save Team
+        </button> 
+    </div>
+</ion-footer-bar> 

@@ -1,4 +1,4 @@
-<ion-view view-title="Final Score" hide-back-button="true" class="score">
+<ion-view view-title="Final Score" hide-back-button="true" class="score" ng-controller="MatchController">
 
     <ion-header-bar class="bar-positive"></ion-header-bar>
     <ion-header-bar class="bar-stable bar-subheader">
@@ -10,7 +10,7 @@
         </button>
     </ion-header-bar>
 
-<ion-content ng-controller="MatchController">
+    <ion-content>
         <div class="content">
             <div class="row">
                 <div class="col-50" style="padding-right: 10px;">
@@ -30,7 +30,7 @@
                     <div class="divider"><strong>V</strong></div>
                     <div class="vertical-divider"></div>
                 </div>
-                <div class="col-50" style="padding-left: 10px;">
+                <div class="col-50" style="padding-left: 10px;padding-right: 10px;">
                     <div class="label-score divider" ng-bind="team2Score() | formatScore" ></div>
                     <div class="divider team-name"><strong>{{team2}}</strong></div>
                     <div>Trys</div>
@@ -64,11 +64,13 @@
                     <div>{{location}}</div>
                 </div>
             </div>
-            <div class="button-footer">
-                <button class="button button-positive button-clear icon icon-right ion-chevron-right hide-on-keyboard-open" ng-click="saveResult()">
-                     Save Result
-                </button>
-            </div>
         </div>  
     </ion-content>
+    <ion-footer-bar align-title="left" class="button-footer-wrap">
+        <div class="button-footer">
+            <button class="button icon icon-right ion-chevron-right hide-on-keyboard-open" ng-click="saveResult()">
+                Save Result
+            </button> 
+        </div>
+    </ion-footer-bar> 
 </ion-view>

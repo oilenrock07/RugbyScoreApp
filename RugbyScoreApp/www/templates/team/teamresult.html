@@ -1,10 +1,14 @@
 <ion-view view-title="Team Results" hide-back-button="true">
     <ion-header-bar class="bar-positive"></ion-header-bar>
     <ion-header-bar class="bar-stable bar-subheader">
-        <button class="button button-clear button-positive" ng-click="back()"><i class="icon ion-chevron-left"></i> Back</button>
-        <button class="button button-clear button-positive">Search</button>
+        <button class="button button-clear button-positive" ng-click="back()"><i class="icon ion-chevron-left"></i>
+            <strong>Back</strong>
+        </button>
+        <button class="button button-clear button-positive">
+            <strong>Search</strong>
+        </button>
     </ion-header-bar>
 
-    <div ng-include="'templates/team/_teamresult.html'"></div>
+    <div ng-include="'templates/team/_teamresult.html'" ng-controller="TeamController"></div>
 
 </ion-view>

@@ -8,7 +8,7 @@
 }
 
 .has-footer.has-tabs {
-    bottom: 93px;
+    bottom: 120px;
 }
 
 .sub-footer{
@@ -102,28 +102,47 @@
 }
 
 /** Buttons **/
+i.icon.ion-chevron-left::before{
+    font-size: 15px !important;
+    line-height: 33px !important;
+}
+
+.button-footer-wrap{
+    padding-left: 0px;
+}
+
 div.button-footer{
     position: absolute;
     bottom: 5px;
     width: 100%;
+    background-color: #fff;
+    z-index: 100;
 }
 
-div.button-footer button{
-    font-size: 26px;
+.button-footer-wrap div.button-footer button{
+    font-size: 25px !important;
     width: 100%;
     color: #92185d !important;
     text-align: right;
     border-color: #FBAE17 !important;
+    background-color: #ffffff;
     border-top-width: 3px !important;
     border-bottom: none !important;
     border-left: none !important;
     border-right: none !important;
     border-radius: 0 !important;
+    padding-top: 10px;
+    font-weight: normal;
 }
+
 .button.icon-right:before{
     font-size: 18px;
-    line-height: 46px;
-    padding-left: .5em;
+    line-height: 36px !important;
+    padding-left: .5em !important;
+}
+
+.has-tabs, .bar-footer.has-tabs{
+    bottom: 70px;
 }
 
 /** Match **/
@@ -323,16 +342,30 @@ ion-content .scroll{
     padding: 5px 30px;
 }  
 
+.edit-result .content .match-details{
+    padding: 5px 20px;
+}
+
 .edit-result input[type="text"]{
     width: 100%;
     padding: 5px;
-    font-size: 12px;
+    font-size: 14px;
     height: 28px
 }
 
 .edit-result .vertical-divider{
-    height: 79%;
+    height: 78%;
     background: url(../img/vertical-bar.png) repeat center;
+}
+
+.edit-result .vertical-divider-wrap{
+    padding: 0 9%;
+}
+
+@media (min-width:801px) {
+    .edit-result .vertical-divider-wrap{
+        padding: 0 10%;
+    }
 }
 
 .edit-result input[type="number"]{

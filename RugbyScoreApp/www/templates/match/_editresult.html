@@ -1,7 +1,7 @@
-<ion-content ng-controller="MatchController" class="edit-result">
+<ion-content class="edit-result">
         <div class="content">
             <div class="row">
-                <div class="col-50" style="padding-right: 10px;">
+                <div class="col-40" style="padding-right: 10px;">
                     <div class="label-score align-right divider" ng-bind="team1Score() | formatScore"></div>
                     <div class="divider"><input type="text" ng-model="team1"/></div>
                     <div>Trys</div>
@@ -13,12 +13,12 @@
                     <div>Penalty</div>
                     <div class="divider"><input type="number" ng-model="team1Penalty"/></div>
                 </div>
-                <div class="col">
+                <div class="col vertical-divider-wrap">
                     <div class="ion-minus-round divider"></div>
                     <div class="divider"><strong>V</strong></div>
                     <div class="vertical-divider"></div>
                 </div>
-                <div class="col-50" style="padding-left: 10px;"">
+                <div class="col-40" style="padding-left: 10px;"">
                     <div class="label-score align-left divider" ng-bind="team2Score() | formatScore"></div>
                     <div class="divider"><input type="text" ng-model="team2"/></div>
                     <div>Trys</div>
@@ -34,29 +34,30 @@
 
             <hr>
 
-            <div class="row">
-                <div class="col-50 no-padding">
+            <div class="row match-details">
+                <div class="col-40 no-padding">
                     <div>Match Date</div>
                     <div><input type="text" ng-model="matchDate"/></div>
                 </div>
                 <div class="col">
                 </div>
-                <div class="col-50 no-padding">
+                <div class="col-40 no-padding">
                     <div class="">Match Time</div>
                     <div><input type="text" ng-model="matchTime"/></div>
                 </div>
             </div>
-            <div class="row match-location">
+            <div class="row match-details">
                 <div class="col col-100 no-padding">
                     <div>Match Location</div>
                     <div><input type="text" ng-model="location"/></div>
                 </div>
             </div>
-
-            <div class="button-footer">
-                <button class="button button-positive button-clear icon icon-right ion-chevron-right hide-on-keyboard-open" ng-click="saveScore()">
-                    Save
-                </button>
-            </div>
         </div>
     </ion-content>
+    <ion-footer-bar align-title="left" class="button-footer-wrap">
+        <div class="button-footer">
+            <button class="button icon icon-right ion-chevron-right hide-on-keyboard-open" ng-click="saveScore()">
+                Save
+            </button> 
+        </div>
+    </ion-footer-bar> 
