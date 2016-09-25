@@ -41,9 +41,15 @@ angular.module('rugbyapp.factories', ['ngCordova'])
       });
     }
 
-    var deleteMatch = function () {
-
-    }
+    var deleteMatch = function (id, callBack) {
+		DataFactory.match.deleteMatch(id, function (rs) {
+        for (var i = 0; i < matches.length; i++)
+          if (matches[i].matchId == id) {
+            matches.splice(i, 1);
+            break;
+          }
+		  });
+    };
 
     var resetEntity = function () {
       match.matchId = 0;

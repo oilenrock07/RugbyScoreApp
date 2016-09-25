@@ -319,7 +319,9 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
                 okText: 'Yes'
             }).then(function (res) {
                 if (res) {
-                    //delete match
+                    MatchFactory.deleteMatch(id, function() {
+						$ionicHistory.goBack();
+					});
                 }
             });
         };
@@ -346,7 +348,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
                     }
                 ]
             });
-        }
+        };
     })
 
 
