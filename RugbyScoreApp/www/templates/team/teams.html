@@ -5,14 +5,14 @@
         <button class="button button-clear button-positive" ng-click="addNewTeam()">
             <strong>Add Team</strong>
         </button>
-        <button class="button button-clear button-positive">
+        <button class="button button-clear button-positive" ng-click="searchTeam()">
             <strong>Search</strong>
         </button>
     </ion-header-bar>
 
     <ion-content>
         <div class="list">
-            <div class="item" ng-repeat="team in teams | orderBy: 'fullTeamName'">
+            <div class="item" ng-repeat="team in teamFactory.searchTeams | orderBy: 'fullTeamName'">
                 <div class="row" ng-click="teamDetail(team.teamId)">
                     <div class="col">
                         <span class="team-label">Team Name</span><br/>
@@ -37,5 +37,10 @@
             </div>
         </div>
         <br>
+
+        <script id="popup-template.html" type="text/ng-template">
+            <input ng-model="data.search" type="text" placeholder="Search">
+        </script>
+
     </ion-content>
 </ion-view>

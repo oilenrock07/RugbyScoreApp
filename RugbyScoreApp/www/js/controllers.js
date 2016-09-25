@@ -33,6 +33,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
         $scope.showTeams = function () {
             $rootScope.page = "team";
             $scope.icon = 'team-icon';
+            TeamFactory.searchTeam = TeamFactory.teams;
             $state.go('app.teams');
         };
 
@@ -362,9 +363,11 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
             }
         }
 
+        TeamFactory.searchTeams = TeamFactory.teams;
         $scope.isMyTeam = $state.params.isMyTeam;
-        $scope.teams = TeamFactory.teams;
 
+        //$scope.teams = TeamFactory.teams;
+        $scope.teamFactory = TeamFactory; 
         $scope.teamId = TeamFactory.team.teamId;
         $scope.abbrTeamName = TeamFactory.team.abbrTeamName;
         $scope.fullTeamName = TeamFactory.team.fullTeamName;
@@ -383,17 +386,40 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
         };
 
         $scope.myTeamSearch = function () {
-            var myPopup = $ionicPopup.show({
+            $ionicPopup.show({
                 templateUrl: 'popup-template.html',
                 title: 'Enter team name to search',
                 scope: $scope,
                 buttons: [
                     { text: 'Cancel' },
                     {
-                        text: '<b>Save</b>',
+                        text: '<b>Search</b>',
                         type: 'button-positive',
                         onTap: function (e) {
 
+                        }
+                    }
+                ]
+            });
+        }
+
+        $scope.searchTeam = function () {
+            $ionicPopup.show({
+                templateUrl: 'popup-template.html',
+                title: 'Enter team name to search',
+                scope: $scope,
+                buttons: [
+                    { text: 'Cancel' },
+                    {
+                        text: '<b>Search</b>',
+                        type: 'button-positive',
+                        onTap: function (e) {
+                            if ($scope.data.search.length > 0) {
+                                var searchResult = TeamFactory.search($scope.data.search);
+                                TeamFactory.searchTeams = searchResult;
+                            }
+                            else
+                                TeamFactory.searchTeams = MatchFactory.teams;
                         }
                     }
                 ]
