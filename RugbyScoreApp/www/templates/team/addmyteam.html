@@ -1,10 +1,3 @@
-<ion-view view-title="{{isEdit ? 'Edit My Team' : 'Add My Team'}}" hide-back-button="true">
-
-    <ion-header-bar class="bar-positive" ng-if="isEdit"></ion-header-bar>
-    <ion-header-bar class="bar-stable bar-subheader" ng-if="isEdit">
-        <button class="button button-clear button-positive" ng-click="back()"><i class="icon ion-chevron-left"></i> Back</button>
-        <button class="button button-clear button-positive" ng-click="deleteTeam({{teamId}})">Delete</button>
-    </ion-header-bar>
-
+<ion-view view-title="Add My Team" hide-back-button="true">
     <div ng-include="'templates/team/_addteam.html'"></div>
 </ion-view>

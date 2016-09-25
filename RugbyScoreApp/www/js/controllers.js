@@ -336,22 +336,31 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
         $scope.teamLastMatch = $scope.lastMatch();
 
         //redirects to add new team page
-        $scope.addNewTeam = function (isMyTeam, isEdit, id) {
-            var state = $scope.isMyTeam ? 'app.addmyteam' : 'app.addteam';
-
-            if (parseInt(id) > 0 || (isMyTeam && isEdit)) {
-                var team = TeamFactory.get(isMyTeam ? SettingFactory.myTeam : id);
-                TeamFactory.mapEntity(team);
-            }
-            else {
-                TeamFactory.resetEntities();
-            }
-
-            $state.go(state, { isEdit: isEdit });
+        $scope.addNewTeam = function () {
+            TeamFactory.resetEntities();
+            $state.go('app.addteam');
         };
 
+        $scope.editTeam = function (id) {
+
+            var isMyTeam = $state.current.name == 'app.myteam';
+            if (isMyTeam && SettingFactory.myTeam == 0) {
+                $state.go('app.addmyteam');
+            }
+
+            var team = TeamFactory.get(isMyTeam ? SettingFactory.myTeam : id);
+            if (team != null) {
+                TeamFactory.mapEntity(team);
+            }
+
+            var route = isMyTeam ? 'app.editmyteam' : 'app.editteam';
+            $state.go(route);
+        }
+
         $scope.teamResult = function (team) {
-            $state.go('app.teamresult', { team: team });
+            var route = $state.current.name == 'app.teams' ? 'app.team' : 'app.myteam';
+
+            $state.go(route, { team: team });
         };
 
         $scope.teamDetail = function (id) {

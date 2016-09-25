@@ -144,6 +144,41 @@ angular.module('rugbyapp.routes', [])
                 }
             })
 
+            .state('app.addteam', {
+                url: '/addteam',
+                views: {
+                    'teams': {
+                        templateUrl: 'templates/team/addteam.html',
+                        controller: 'TeamController'
+                    }
+                }
+            })
+
+            .state('app.editteam', {
+                url: '/editteam',
+                views: {
+                    'teams': {
+                        templateUrl: 'templates/team/editteam.html',
+                        controller: 'TeamController'
+                    }
+                }
+            })
+
+            .state('app.teamresult', {
+                url: '/teamresult',
+                cache: false,
+                params: {
+                    team: ''
+                },
+                views: {
+                    'teams': {
+                        templateUrl: 'templates/team/teamresult.html'
+                    }
+                }
+            })
+
+
+            //myTeam
             .state('app.myteam', {
                 url: '/myteam',
                 cache: false,
@@ -155,52 +190,8 @@ angular.module('rugbyapp.routes', [])
                 }
             })
 
-            .state('app.addteam', {
-                url: '/addteam',
-                params: {
-                    isEdit : false,
-                    isMyTeam: false
-                }, 
-                views: {
-                    'teams': {
-                        templateUrl: 'templates/team/addteam.html',
-                        controller: 'TeamController'
-                    }
-                }
-            })
-
-            .state('app.editteam', {
-                url: '/editteam',
-                params: {
-                    isEdit : false,
-                    isMyTeam: false
-                }, 
-                views: {
-                    'teams': {
-                        templateUrl: 'templates/team/editteam.html',
-                        controller: 'TeamController'
-                    }
-                }
-            })
-
-            .state('app.teamresult', {
-                url: '/teamresult',
-                params: {
-                    team: ''
-                },
-                views: {
-                    'teams': {
-                        templateUrl: 'templates/team/teamresult.html'
-                    }
-                }
-            })
-
             .state('app.addmyteam', {
                 url: '/addmyteam',
-                params: {
-                    isEdit : false,
-                    isMyTeam: true
-                }, 
                 views: {
                     'myteam': {
                         templateUrl: 'templates/team/addmyteam.html',
@@ -209,7 +200,28 @@ angular.module('rugbyapp.routes', [])
                 }
             })
 
+            .state('app.editmyteam', {
+                url: '/editmyteam',
+                views: {
+                    'myteam': {
+                        templateUrl: 'templates/team/editmyteam.html',
+                        controller: 'TeamController'
+                    }
+                }
+            })
 
+            .state('app.myteamresult', {
+                url: '/myteamresult',
+                cache: false,
+                params: {
+                    team: ''
+                },
+                views: {
+                    'teams': {
+                        templateUrl: 'templates/team/myteamresult.html'
+                    }
+                }
+            })
 
 
         $urlRouterProvider.otherwise('/app/match');

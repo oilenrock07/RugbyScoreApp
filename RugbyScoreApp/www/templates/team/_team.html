@@ -29,7 +29,31 @@
 
     <div class="row">
         <div class="team-label">Last Match Result&nbsp;</div>
-        <div>{{teamLastMatch.matchTime}} <span ng-if="teamLastMatch != null">-</span> {{teamLastMatch.matchDate}}</div>
     </div>
+    <div class="row" ng-if="teamLastMatch != null">
+        <div>{{teamLastMatch.matchTime}} - {{teamLastMatch.matchDate}}</div>
+    </div>
+
+    <div class="row" ng-if="teamLastMatch != null">
+        <div class="col-50" style="padding-right: 10px;">
+            <div class="label-score align-right divider">{{(teamLastMatch.team1Try + teamLastMatch.team1Conversion + teamLastMatch.team1Penalty + teamLastMatch.team1DropGoal)
+                | formatScore}}</div>
+            <div class="divider"><strong>{{teamLastMatch.team1}}</strong></div>
+        </div>
+        <div class="col">
+            <div class="ion-minus-round divider"></div>
+            <div class="divider"><strong>V</strong></div>
+        </div>
+        <div class="col-50" style="padding-left: 10px;">
+            <div class="label-score divider">{{(teamLastMatch.team2Try + teamLastMatch.team2Conversion + teamLastMatch.team2Penalty + teamLastMatch.team2DropGoal)
+                | formatScore}}</div>
+            <div class="divider"><strong>{{teamLastMatch.team2}}</strong></div>
+        </div>
+    </div>
+
+
+        <button class="button button-footer button-positive button-clear icon icon-right ion-chevron-right hide-on-keyboard-open" ng-click="teamResult(fullTeamName)">
+            Team Results
+        </button>   
 
 </ion-content>

@@ -117,7 +117,7 @@ angular.module('rugbyapp.data', [])
                 team2Penalty: 3,
                 team2Conversion: 2,
                 matchDate: '09/20/2010',
-                matchTime: '08:00',
+                matchTime: '10:00',
             }
             ];
 
