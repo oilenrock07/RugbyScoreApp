@@ -102,13 +102,17 @@
 }
 
 /** Buttons **/
-button.button-footer{
+div.button-footer{
     position: absolute;
     bottom: 5px;
-    font-size: 27px;
-    color: #92185d !important;
     width: 100%;
-    text-align: left;
+}
+
+div.button-footer button{
+    font-size: 26px;
+    width: 100%;
+    color: #92185d !important;
+    text-align: right;
     border-color: #FBAE17 !important;
     border-top-width: 3px !important;
     border-bottom: none !important;
@@ -116,18 +120,22 @@ button.button-footer{
     border-right: none !important;
     border-radius: 0 !important;
 }
-
-/** Main View **/
-.main-view [nav-bar="cached"],
-.main-view [nav-bar="leaving"]{
-    display: none !important;
-}
-
-.main-view .bar.bar-stable{
-    border: none !important;
+.button.icon-right:before{
+    font-size: 18px;
+    line-height: 46px;
+    padding-left: .5em;
 }
 
 /** Match **/
+.start-match [nav-bar="cached"],
+.start-match [nav-bar="leaving"]{
+    display: none !important;
+}
+
+.start-match .bar.bar-stable{
+    border: none !important;
+}
+
 .match{
     color: #fff;
     background: url(../img/pitch.jpg) repeat center;

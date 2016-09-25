@@ -31,7 +31,7 @@
 
 </head>
 
-<body ng-app="rugbyapp" ng-controller="AppController" ng-class="(page == 'start-match' || page == 'new-match') ? 'main-view' : ''">
+<body ng-app="rugbyapp" ng-controller="AppController" class="{{page}}">
   <ion-nav-view></ion-nav-view>
 
   <script>

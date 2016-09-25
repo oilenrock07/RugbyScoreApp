@@ -14,9 +14,11 @@
                 <span class="input-label">Match Location</span>
                 <input type="text" placeholder="Enter Match Location"  ng-model="location" autocomplete="off">
             </label>
-            <button class="button button-footer button-positive button-clear icon icon-right ion-chevron-right hide-on-keyboard-open" ng-click="startMatch()">
-                Start Tracking
-            </button>           
+            <div class="button-footer">
+                <button class="button button-positive button-clear icon icon-right ion-chevron-right hide-on-keyboard-open" ng-click="startMatch()">
+                    Start Tracking
+                </button> 
+            </div> 
         </form>
         
     </ion-content>

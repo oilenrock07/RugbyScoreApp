@@ -1,48 +1,51 @@
 <ion-content ng-controller="MatchController">
-        <div class="row">
-            <div class="col">
-                <div class="label-score align-right" ng-bind="team1Score() | formatScore"></div>
-                <div><input type="text" ng-model="team1"/></div>
-                <div>Trys</div>
-                <div><input type="number" ng-model="team1Try"/></div>
-                <div>Conversions</div>
-                <div><input type="number" ng-model="team1Conversion"/></div>
-                <div>Drop Goals</div>
-                <div><input type="number" ng-model="team1DropGoal"/></div>
-                <div>Penalty</div>
-                <div><input type="number" ng-model="team1Penalty"/></div>
+        <div class="content">
+            <div class="row">
+                <div class="col">
+                    <div class="label-score align-right" ng-bind="team1Score() | formatScore"></div>
+                    <div><input type="text" ng-model="team1"/></div>
+                    <div>Trys</div>
+                    <div><input type="number" ng-model="team1Try"/></div>
+                    <div>Conversions</div>
+                    <div><input type="number" ng-model="team1Conversion"/></div>
+                    <div>Drop Goals</div>
+                    <div><input type="number" ng-model="team1DropGoal"/></div>
+                    <div>Penalty</div>
+                    <div><input type="number" ng-model="team1Penalty"/></div>
+                </div>
+                <div class="col">
+                    <div class="label-score" ng-bind="team2Score() | formatScore"></div>
+                    <div><input type="text" ng-model="team2"/></div>
+                    <div>Trys</div>
+                    <div><input type="number" ng-model="team2Try"/></div>
+                    <div>Conversions</div>
+                    <div><input type="number" ng-model="team2Conversion"/></div>
+                    <div>Drop Goals</div>
+                    <div><input type="number" ng-model="team2DropGoal"/></div>
+                    <div>Penalty</div>
+                    <div><input type="number" ng-model="team2Penalty"/></div>
+                </div>
             </div>
-            <div class="col">
-                <div class="label-score" ng-bind="team2Score() | formatScore"></div>
-                <div><input type="text" ng-model="team2"/></div>
-                <div>Trys</div>
-                <div><input type="number" ng-model="team2Try"/></div>
-                <div>Conversions</div>
-                <div><input type="number" ng-model="team2Conversion"/></div>
-                <div>Drop Goals</div>
-                <div><input type="number" ng-model="team2DropGoal"/></div>
-                <div>Penalty</div>
-                <div><input type="number" ng-model="team2Penalty"/></div>
+
+            <hr>
+
+            <div class="row">
+                <div class="col">
+                    <div>Match Date</div>
+                    <div><input type="text" ng-model="matchDate"/></div>
+                    <div>Match Location</div>
+                    <div><input type="text" ng-model="location"/></div>
+                </div>
+                <div class="col">
+                    <div class="">Match Time</div>
+                    <div><input type="text" ng-model="matchTime"/></div>
+                </div>
+            </div>
+
+            <div class="button-footer">
+                <button class="button button-positive button-clear icon icon-right ion-chevron-right hide-on-keyboard-open" ng-click="saveScore()">
+                    Save Result
+                </button>
             </div>
         </div>
-
-        <hr>
-
-        <div class="row">
-            <div class="col">
-                <div>Match Date</div>
-                <div><input type="text" ng-model="matchDate"/></div>
-                <div>Match Location</div>
-                <div><input type="text" ng-model="location"/></div>
-            </div>
-            <div class="col">
-                <div class="">Match Time</div>
-                <div><input type="text" ng-model="matchTime"/></div>
-            </div>
-        </div>
-
-        <button class="button button-positive button-full icon icon-right ion-chevron-right" ng-click="saveScore()">
-                Save Result
-        </button>
-
     </ion-content>
