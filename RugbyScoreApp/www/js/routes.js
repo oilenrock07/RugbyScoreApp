@@ -101,8 +101,20 @@ angular.module('rugbyapp.routes', [])
 
 
             //teams
+            .state('app.teamresultdetail', {
+                url: '/teamresultdetail', 
+                cache: false,               
+                views: {
+                    'teams': {
+                        templateUrl: 'templates/team/teamresultdetail.html',
+                        controller: 'MatchController'
+                    }
+                }
+            })
+
             .state('app.teams', {
                 url: '/teams',
+                cache: false,
                 views: {
                     'teams': {
                         templateUrl: 'templates/team/teams.html',
@@ -111,8 +123,19 @@ angular.module('rugbyapp.routes', [])
                 }
             })
 
+            .state('app.editteamresult', {
+                url: '/editteamresult', 
+                cache: false,               
+                views: {
+                    'teams': {
+                        templateUrl: 'templates/team/editteamresult.html'
+                    }
+                }
+            })
+
             .state('app.team', {
                 url: '/team',
+                cache: false,  
                 views: {
                     'teams': {
                         templateUrl: 'templates/team/team.html',
@@ -163,7 +186,7 @@ angular.module('rugbyapp.routes', [])
             .state('app.teamresult', {
                 url: '/teamresult',
                 params: {
-                    teamId: 0
+                    team: ''
                 },
                 views: {
                     'teams': {

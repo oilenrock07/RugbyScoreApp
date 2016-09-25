@@ -45,6 +45,10 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
         };
 
         $scope.showScore = function () {
+
+            if ($rootScope.page != 'start-match')
+                return;
+
             $rootScope.page = "score";
             $state.go('app.score');
         };
@@ -56,6 +60,16 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
     })
 
     .controller('MatchController', function ($scope, $rootScope, $state, $filter, MatchFactory, TeamFactory, SettingFactory) {
+
+        //Binding functions
+        $scope.teamGames = function () {
+            var team = $state.params.team;
+            if (team !== undefined) {
+                return MatchFactory.getTeamMatches(team);;
+            }
+            else
+                return [];
+        }
 
         //properties
         $scope.matches = MatchFactory.matches;
@@ -77,7 +91,9 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
         $scope.matchDate = MatchFactory.match.matchDate;
         $scope.matchTime = MatchFactory.match.matchTime;
         $scope.isMyTeam = MatchFactory.match.isMyTeam;
+        $scope.teamResults = $scope.teamGames();
 
+        //functions
         var getScopeMatch = function () {
             return {
                 team1: $scope.team1,
@@ -96,10 +112,10 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
             };
         };
 
-
-        //functions
         $scope.startMatch = function () {
             $rootScope.page = "start-match";
+
+            MatchFactory.resetEntity();
 
             MatchFactory.match.team1 = $scope.team1 != '' ? $scope.team1 : 'TEAM A';
             MatchFactory.match.team2 = $scope.team2 != '' ? $scope.team2 : 'TEAM B';
@@ -227,8 +243,9 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
         };
 
         $scope.editResult = function () {
+            var route = $state.current.name == 'app.teamresultdetail' ? 'app.editteamresult' : 'app.editresult';
             MatchFactory.mapEntity(getScopeMatch());
-            $state.go('app.editresult');
+            $state.go(route);
         };
 
         $scope.saveScore = function () {
@@ -272,13 +289,19 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
             $rootScope.back();
         };
 
-        $scope.matchDetail = function(id) {
+        $scope.matchDetail = function (id) {
             var match = MatchFactory.getMatch(id);
             MatchFactory.mapEntity(match);
             $state.go('app.resultdetail');
         };
 
-        $scope.deleteScore = function() {
+        $scope.teamMatchDetail = function (id) {
+            var match = MatchFactory.getMatch(id);
+            MatchFactory.mapEntity(match);
+            $state.go('app.teamresultdetail');
+        };
+
+        $scope.deleteScore = function () {
             MatchFactory.resetEntity();
             $rootScope.page = "start-match";
             $state.go('app.match');
@@ -287,7 +310,18 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
 
 
     //Team Controller
-    .controller('TeamController', function ($scope, $state, $ionicPopup, TeamFactory, SettingFactory) {
+    .controller('TeamController', function ($scope, $state, $ionicPopup, TeamFactory, MatchFactory, SettingFactory) {
+
+        //Binding functions
+        $scope.lastMatch = function () {
+            if ($scope.fullTeamName != undefined) {
+                var lastMatch = MatchFactory.getLastMatch($scope.fullTeamName);
+                if (lastMatch != null) {
+                    return lastMatch;
+                }
+            }
+        }
+
         $scope.isMyTeam = $state.params.isMyTeam;
         $scope.teams = TeamFactory.teams;
         $scope.isEdit = $state.params.isEdit;
@@ -299,6 +333,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
         $scope.townCity = TeamFactory.team.townCity;
         $scope.country = TeamFactory.team.country;
         $scope.postCode = TeamFactory.team.postCode;
+        $scope.teamLastMatch = $scope.lastMatch();
 
         //redirects to add new team page
         $scope.addNewTeam = function (isMyTeam, isEdit, id) {
@@ -315,9 +350,17 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
             $state.go(state, { isEdit: isEdit });
         };
 
-        $scope.teamResult = function() {
-
+        $scope.teamResult = function (team) {
+            $state.go('app.teamresult', { team: team });
         };
+
+        $scope.teamDetail = function (id) {
+            var route = $state.current.name == 'app.teams' ? 'app.team' : 'app.myteam';
+            var team = TeamFactory.get(id);
+            TeamFactory.mapEntity(team);
+
+            $state.go(route);
+        }
 
         $scope.deleteTeam = function (id) {
             var confirmPopup = $ionicPopup.confirm({

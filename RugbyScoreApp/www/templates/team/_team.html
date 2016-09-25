@@ -29,7 +29,7 @@
 
     <div class="row">
         <div class="team-label">Last Match Result&nbsp;</div>
-        <div ng-bind-html=""></div>
+        <div>{{teamLastMatch.matchTime}} <span ng-if="teamLastMatch != null">-</span> {{teamLastMatch.matchDate}}</div>
     </div>
 
 </ion-content>

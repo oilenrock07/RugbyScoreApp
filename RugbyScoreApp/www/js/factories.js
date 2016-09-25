@@ -95,6 +95,35 @@ angular.module('rugbyapp.factories', ['ngCordova'])
       return null;
     }
 
+    var getTeamMatches = function (team) {
+      var teamMatches = [];
+
+      for (var i = 0; i < matches.length; i++) {
+        if (matches[i].team1.toLowerCase() == team.toLowerCase() || matches[i].team2.toLowerCase() == team.toLowerCase()) {
+          teamMatches.push(matches[i]);
+        }
+      }
+
+      return teamMatches;
+    }
+
+    var getLastMatch = function (teamName) {
+      var teamMatches = getTeamMatches(teamName);
+
+
+      if (teamMatches.length > 0) {
+        var sortedMatches = teamMatches.sort(function (a, b) {
+          return a.matchDateTime - b.matchDateTime;
+        });
+        
+        return sortedMatches[teamMatches.length-1];
+      }
+
+      return null;
+    }
+
+
+
     return {
       match: match,
       matches: matches,
@@ -104,9 +133,8 @@ angular.module('rugbyapp.factories', ['ngCordova'])
       mapEntity: mapEntity,
       resetEntity: resetEntity,
       getMatch: getMatch,
-      getLastMatch: function () {
-        return '';
-      }
+      getTeamMatches: getTeamMatches,
+      getLastMatch: getLastMatch,
     };
   })
 

@@ -2,8 +2,32 @@
     <ion-header-bar class="bar-positive"></ion-header-bar>
     <ion-header-bar class="bar-stable bar-subheader">
         <button class="button button-clear button-positive" ng-click="back()"><i class="icon ion-chevron-left"></i> Back</button>
+        <button class="button button-clear button-positive">Search</button>
     </ion-header-bar>
 
+    <ion-content ng-controller="MatchController">
 
+        <div class="list" ng-repeat="match in teamResults">
+            <div class="row">
+                <div class="col">
+                    <div class="align-right">{{(match.team1Try + match.team1Conversion + match.team1Penalty + match.team1DropGoal) | formatScore}}</div>
+                    <div class="align-right">{{match.team1}}</div>
+                </div>
+                <div class="col">
+                    <div>{{(match.team2Try + match.team2Conversion + match.team2Penalty + match.team2DropGoal) | formatScore}}</div>
+                    <div>{{match.team2}}</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">{{match.matchTime}} - {{match.matchDate}}</div>
+                <div class="col align-right" ng-click="teamMatchDetail({{match.matchId}})">
+                    Detail
+                    <i class="icon ion-chevron-right"></i>
+                </div>
+            </div>
+
+            <hr/>
+        </div>
+    </ion-content>
 
 </ion-view>

@@ -103,6 +103,21 @@ angular.module('rugbyapp.data', [])
                 team2Conversion: 2,
                 matchDate: '09/20/2010',
                 matchTime: '08:00',
+            },
+            {
+                matchId:3,
+                team1: 'Test Team',
+                team2: 'XYZ Team',
+                team1Try: 0,
+                team1DropGoal: 3,
+                team1Penalty: 3,
+                team1Conversion: 2,
+                team2Try: 5,
+                team2DropGoal: 3,
+                team2Penalty: 3,
+                team2Conversion: 2,
+                matchDate: '09/20/2010',
+                matchTime: '08:00',
             }
             ];
 
