@@ -8,16 +8,14 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
 
         $scope.icon = 'new-match-icon';
 
-        $scope.showTeam = function (isMyTeam) {
+        $scope.showMyTeam = function () {
             $rootScope.page = "my-team";
             $scope.icon = 'my-team-icon';
 
-            if (isMyTeam) {
-                var myTeam = SettingFactory.myTeam;
-                if (myTeam != 0) {
-                    var team = TeamFactory.get(myTeam);
-                    TeamFactory.mapEntity(team);
-                }
+            var myTeam = SettingFactory.myTeam;
+            if (myTeam != 0) {
+                var team = TeamFactory.get(myTeam);
+                TeamFactory.mapEntity(team);
             }
             $state.go('app.myteam');
         };
@@ -324,7 +322,6 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
 
         $scope.isMyTeam = $state.params.isMyTeam;
         $scope.teams = TeamFactory.teams;
-        $scope.isEdit = $state.params.isEdit;
 
         $scope.teamId = TeamFactory.team.teamId;
         $scope.abbrTeamName = TeamFactory.team.abbrTeamName;
@@ -334,12 +331,32 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
         $scope.country = TeamFactory.team.country;
         $scope.postCode = TeamFactory.team.postCode;
         $scope.teamLastMatch = $scope.lastMatch();
+        $scope.search = '';
+        $scope.teamResultText = $state.current.tabGroup == 'myteam' ? 'My Team Result' : 'Team Result'; 
 
         //redirects to add new team page
         $scope.addNewTeam = function () {
             TeamFactory.resetEntities();
             $state.go('app.addteam');
         };
+
+        $scope.myTeamSearch = function () {
+            var myPopup = $ionicPopup.show({
+                template: '<input type="text" ng-model="search">',
+                title: 'Enter team name to search',
+                scope: $scope,
+                buttons: [
+                    { text: 'Cancel' },
+                    {
+                        text: '<b>Save</b>',
+                        type: 'button-positive',
+                        onTap: function (e) {
+                            alert($scope.search);
+                        }
+                    }
+                ]
+            });
+        }
 
         $scope.editTeam = function (id) {
 
@@ -358,7 +375,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
         }
 
         $scope.teamResult = function (team) {
-            var route = $state.current.name == 'app.teams' ? 'app.team' : 'app.myteam';
+            var route = $state.current.tabGroup == 'myteam' ? 'app.myteamresult' : 'app.teamresult';
 
             $state.go(route, { team: team });
         };
@@ -374,7 +391,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
         $scope.deleteTeam = function (id) {
             var confirmPopup = $ionicPopup.confirm({
                 title: 'Delete Confirmation',
-                template: 'Are you sure you want to delete this entry.?',
+                template: 'Are you sure you want to delete this entry?',
                 cancelText: 'No',
                 okText: 'Yes'
             }).then(function (res) {
@@ -400,7 +417,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
 
             var team = {
                 teamId: $scope.teamId,
-                isMyTeam: $scope.isMyTeam,
+                isMyTeam: isMyTeam,
                 fullTeamName: $scope.fullTeamName,
                 abbrTeamName: $scope.abbrTeamName,
                 clubAddress: $scope.clubAddress,
@@ -409,8 +426,11 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
                 postCode: $scope.postCode
             };
 
-            TeamFactory.saveTeam(team, $scope.isEdit, function () {
-                if ($scope.isMyTeam) {
+            var isEdit = $state.current.name == 'app.editmyteam' || $state.current.name == 'app.editteam';
+            var isMyTeam = $state.current.views.tabGroup == 'myteam';
+
+            TeamFactory.saveTeam(team, isEdit, function () {
+                if (isMyTeam) {
                     var myTeam = TeamFactory.get(SettingFactory.myTeam);
                     TeamFactory.mapEntity(team);
                     $state.go('app.myteam');
