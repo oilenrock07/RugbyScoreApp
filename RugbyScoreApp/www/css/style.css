@@ -1,4 +1,12 @@
 /** Footer **/
+.keyboard-open .tabs{
+    display:none;
+  }
+.keyboard-open .has-tabs
+{
+    bottom:0;
+}
+
 .has-footer.has-tabs {
     bottom: 93px;
 }
@@ -16,9 +24,9 @@
 }
 
 .tabs-positive > .tabs, .tabs.tabs-positive{
-    border-color: #d6a7c2;
-    background-color: #92185d;
-    background-image: linear-gradient(0deg, #92145c, #92145c 50%, transparent 50%);
+    border-color: #d6a7c2 !important;
+    background-color: #92185d !important;
+    background-image: linear-gradient(0deg, #92145c, #92145c 50%, transparent 50%) !important;
 }
 
 .tab-item .icon{
@@ -28,27 +36,27 @@
 }
 
 .my-team-icon-white{
-    background: url(/img/my-team-white.png) no-repeat center;
+    background: url(../img/my-team-white.png) no-repeat center;
 }
 
 .my-team-icon-white-on{
-    background: url(/img/my-team-white.png) no-repeat center;
+    background: url(../img/my-team-white.png) no-repeat center;
 }
 
 .new-match-icon-white{
-    background: url(/img/new-match-white.png) no-repeat center;
+    background: url(../img/new-match-white.png) no-repeat center;
 }
 
 .teams-icon-white{
-    background: url(/img/team-white.png) no-repeat center;
+    background: url(../img/team-white.png) no-repeat center;
 }
 
 .save-icon-white{
-    background: url(/img/save-white.png) no-repeat center;
+    background: url(../img/save-white.png) no-repeat center;
 }
 
 .results-icon-white{
-    background: url(/img/result-white.png) no-repeat center;
+    background: url(../img/result-white.png) no-repeat center;
 }
 
 
@@ -64,24 +72,24 @@
 }
 
 .bar-stable .button.button-icon{
-    color: #92145c;
+    color: #92145c !important;
 }
 
 .bar-stable .button.button-icon.new-match-icon{
     width: 40px;
-    background: url(/img/new-match.png) no-repeat center;
+    background: url(../img/new-match.png) no-repeat center;
     background-size: 25px;
 }
 
 .bar-stable .button.button-icon.my-team-icon{
     width: 40px;
-    background: url(/img/my-team.png) no-repeat center;
+    background: url(../img/my-team.png) no-repeat center;
     background-size: 25px;
 }
 
 .bar-stable .button.button-icon.team-icon{
     width: 40px;
-    background: url(/img/team.png) no-repeat center;
+    background: url(../img/team.png) no-repeat center;
     background-size: 25px;
 }
 
@@ -104,22 +112,22 @@ button.button-footer{
 /** Main View **/
 .main-view [nav-bar-transition="ios"] [nav-bar="cached"],
 .main-view [nav-bar-transition="ios"] [nav-bar="leaving"]{
-    display: none;
+    display: none !important;
 }
 
 .main-view .bar.bar-stable{
-    border: none;
+    border: none !important;
 }
 
 /** Match **/
 .match{
     color: #fff;
-    background: url(/img/pitch.jpg) repeat center;
+    background: url(../img/pitch.jpg) repeat center;
 }
 
 .match h2{
     color: #fff;
-    background: url(/img/pitch-line.jpg) repeat center;
+    background: url(../img/pitch-line.jpg) repeat center;
     line-height: 22px;
     font-size: 35px;
     margin: 5px 0;
@@ -161,8 +169,8 @@ button.button-footer{
 .button.button-points{
     border: 2px solid white;
     background-color: rgba(0, 0, 0, 0.44);
-    font-size: 20px;
-    padding: 2px 4px;
+    font-size: 18px;
+    padding: 0px 4px;
 }
 
 .button.button-circle{
@@ -186,6 +194,36 @@ button.button-footer{
 .error {
     color: #f53d3d;
 }
+
+/*@media screen and (max-width:767px) {
+    .match .col{
+        text-align:center !important;
+    }
+
+    .match .scroll{
+        height: 100% !important;
+        display: -webkit-box !important;
+        display: -moz-box !important;
+        display: -ms-flexbox !important;
+        display: -webkit-flex !important;
+        display: flex !important;
+        -webkit-box-direction: normal !important;
+        -moz-box-direction: normal !important;
+        -webkit-box-orient: vertical !important;
+        -moz-box-orient: vertical !important;
+        -webkit-flex-direction: column !important;
+        -ms-flex-direction: column !important;
+        flex-direction: column !important;
+    }
+
+    .match .row{
+        -webkit-box-flex: 0 !important;
+        -moz-box-flex: 0 !important;
+        -webkit-flex: 0 1 50% !important;
+        -ms-flex: 0 1 50% !important;
+        flex: 0 1 50% !important;
+    }
+}*/
 
 /** Teams **/
 .teams .item .row,
@@ -252,7 +290,7 @@ ion-content .scroll{
 
 .score .vertical-divider{
     height: 79%;
-    background: url(/img/vertical-bar.png) repeat center;
+    background: url(../img/vertical-bar.png) repeat center;
 }
 
 .score hr{

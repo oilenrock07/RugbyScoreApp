@@ -33,5 +33,11 @@
 
 <body ng-app="rugbyapp" ng-controller="AppController" ng-class="page == 'start-match' ? 'main-view' : ''">
   <ion-nav-view></ion-nav-view>
+
+  <script>
+      window.addEventListener('native.keyboardshow', function(){
+        document.body.classList.add('keyboard-open');
+      });
+  </script>
 </body>
 </html>
