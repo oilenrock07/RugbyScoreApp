@@ -2,14 +2,14 @@
 
     <ion-header-bar class="bar-positive"></ion-header-bar>
     <ion-header-bar class="bar-stable bar-subheader">
-        <button class="button button-clear button-positive pull-right">
+        <button class="button button-clear button-positive pull-right" ng-click="search()">
             <strong>Search</strong>
         </button>
     </ion-header-bar>
 
     <ion-content ng-controller="MatchController">
 
-        <div class="list" ng-repeat="match in matches | orderBy: '-matchDateTime'">
+        <div class="list" ng-repeat="match in matchFactory.searchMatch | orderBy: '-matchDateTime'">
             <div class="row">
                 <div class="col">
                     <div class="align-right">{{(match.team1Try + match.team1Conversion + match.team1Penalty + match.team1DropGoal) | formatScore}}</div>
@@ -30,5 +30,10 @@
 
             <hr/>
         </div>
+
+        <script id="popup-template.html" type="text/ng-template">
+            <input ng-model="data.search" type="text" placeholder="Search">
+        </script>
+
     </ion-content>
 </ion-view>

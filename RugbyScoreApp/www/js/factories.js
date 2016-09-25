@@ -23,6 +23,7 @@ angular.module('rugbyapp.factories', ['ngCordova'])
     match.team2DropGoal = 0;
 
     var matches = [];
+    var searchMatch = [];
 
     var updateMatch = function () {
 
@@ -115,13 +116,16 @@ angular.module('rugbyapp.factories', ['ngCordova'])
         var sortedMatches = teamMatches.sort(function (a, b) {
           return a.matchDateTime - b.matchDateTime;
         });
-        
-        return sortedMatches[teamMatches.length-1];
+
+        return sortedMatches[teamMatches.length - 1];
       }
 
       return null;
     }
 
+    var searchMatch = function (teamName) {
+
+    }
 
 
     return {
@@ -135,6 +139,7 @@ angular.module('rugbyapp.factories', ['ngCordova'])
       getMatch: getMatch,
       getTeamMatches: getTeamMatches,
       getLastMatch: getLastMatch,
+      searchMatch: searchMatch
     };
   })
 
@@ -155,6 +160,7 @@ angular.module('rugbyapp.factories', ['ngCordova'])
 
   .factory('TeamFactory', function ($cordovaSQLite, $ionicPlatform, DataFactory, SettingFactory) {
     var teams = [];
+    var searchTeams = [];
 
     //entities
     var team = {};
@@ -249,6 +255,20 @@ angular.module('rugbyapp.factories', ['ngCordova'])
       });
     }
 
+    var search = function (teamName) {
+      var searchResult = [];
+
+      if (teams.length > 0) {
+        for (var i in teams) {
+          if (teams[i].fullTeamName.toLowerCase().indexOf(teamName) >= 0) {
+            searchResult.push(teams[i]);
+          }
+        }
+      }
+
+      return searchResult;
+    }
+
     return {
       teams: teams,
       team: team,
@@ -256,7 +276,9 @@ angular.module('rugbyapp.factories', ['ngCordova'])
       deleteTeam: deleteTeam,
       saveTeam: saveTeam,
       mapEntity: mapTeam,
-      resetEntities: resetEntities
+      search: search,
+      resetEntities: resetEntities,
+      searchTeams : searchTeams
     }
 
 

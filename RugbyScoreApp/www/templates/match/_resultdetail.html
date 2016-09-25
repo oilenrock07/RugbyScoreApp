@@ -1,55 +1,58 @@
-
-    <ion-content ng-controller="MatchController">
-        <div class="content">
-            <div class="row">
-                <div class="col-50" style="padding-right: 10px;">
-                    <div class="label-score align-right divider" ng-bind="team1Score() | formatScore"></div>
-                    <div class="divider"><strong>{{team1}}</strong></div>
-                    <div>Trys</div>
-                    <div class="divider">{{team1Try | formatScore}}</div>
-                    <div>Conversions</div>
-                    <div class="divider">{{team1Conversion | formatScore}}</div>
-                    <div>Drop Goals</div>
-                    <div class="divider">{{team1DropGoal | formatScore}}</div>
-                    <div>Penalty</div>
-                    <div class="divider">{{team1Penalty | formatScore}}</div>
-                </div>
-                <div class="col">
-                    <div class="ion-minus-round divider"></div>
-                    <div class="divider"><strong>V</strong></div>
-                </div>
-                <div class="col-50" style="padding-left: 10px;">
-                    <div class="label-score divider" ng-bind="team2Score() | formatScore"></div>
-                    <div class="divider"><strong>{{team2}}</strong></div>
-                    <div>Trys</div>
-                    <div class="divider">{{team2Try | formatScore}}</div>
-                    <div>Conversions</div>
-                    <div class="divider">{{team2Conversion | formatScore}}</div>
-                    <div>Drop Goals</div>
-                    <div class="divider">{{team2DropGoal | formatScore}}</div>
-                    <div>Penalty</div>
-                    <div class="divider">{{team2Penalty | formatScore}}</div>
-                </div>
+<ion-content ng-controller="MatchController">
+    <div class="content">
+        <div class="row">
+            <div class="col-50" style="padding-right: 10px;">
+                <div class="label-score align-right divider" ng-bind="team1Score() | formatScore"></div>
+                <div class="divider"><strong>{{team1}}</strong></div>
+                <div>Trys</div>
+                <div class="divider">{{team1Try | formatScore}}</div>
+                <div>Conversions</div>
+                <div class="divider">{{team1Conversion | formatScore}}</div>
+                <div>Drop Goals</div>
+                <div class="divider">{{team1DropGoal | formatScore}}</div>
+                <div>Penalty</div>
+                <div class="divider">{{team1Penalty | formatScore}}</div>
             </div>
-
-            <hr>
-
-            <div class="row">
-                <div class="col">
-                    <div>Match Date</div>
-                    <div class="divider">{{matchDate}}</div>
-                    <div>Match Location</div>
-                    <div>{{location}}</div>
-                </div>
-                <div class="col">
-                    <div class="">Match Time</div>
-                    <div>{{matchTime}}</div>
-                </div>
+            <div class="col">
+                <div class="ion-minus-round divider"></div>
+                <div class="divider"><strong>V</strong></div>
             </div>
-
-            <div class="button-footer">
-                <button class="button button-positive button-clear icon icon-right ion-chevron-right hide-on-keyboard-open" ng-click="shareResult()">
-                    Share Result
-                </button>
+            <div class="col-50" style="padding-left: 10px;">
+                <div class="label-score divider" ng-bind="team2Score() | formatScore"></div>
+                <div class="divider"><strong>{{team2}}</strong></div>
+                <div>Trys</div>
+                <div class="divider">{{team2Try | formatScore}}</div>
+                <div>Conversions</div>
+                <div class="divider">{{team2Conversion | formatScore}}</div>
+                <div>Drop Goals</div>
+                <div class="divider">{{team2DropGoal | formatScore}}</div>
+                <div>Penalty</div>
+                <div class="divider">{{team2Penalty | formatScore}}</div>
             </div>
-    </ion-content>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="col">
+                <div>Match Date</div>
+                <div class="divider">{{matchDate}}</div>
+                <div>Match Location</div>
+                <div>{{location}}</div>
+            </div>
+            <div class="col">
+                <div class="">Match Time</div>
+                <div>{{matchTime}}</div>
+            </div>
+        </div>
+
+        <div class="row">
+            <span ng-click="deleteMatch()">Delete Result</span>
+        </div>
+       <div class="button-footer">
+            <button class="button button-positive button-clear icon icon-right ion-chevron-right hide-on-keyboard-open" ng-click="shareResult()">
+                Share Result
+            </button>
+        </div>
+    </div>
+</ion-content>
