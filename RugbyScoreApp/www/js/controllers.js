@@ -33,7 +33,6 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
         $scope.showTeams = function () {
             $rootScope.page = "team";
             $scope.icon = 'team-icon';
-
             $state.go('app.teams');
         };
 
@@ -57,11 +56,12 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
         };
     })
 
-    .controller('MatchController', function ($scope, $rootScope, $state, $filter, MatchFactory, TeamFactory, SettingFactory) {
+    .controller('MatchController', function ($scope, $rootScope, $state, $filter, $ionicPopup, MatchFactory, TeamFactory, SettingFactory) {
 
         //Binding functions
         $scope.teamGames = function () {
             var team = $state.params.team;
+
             if (team !== undefined) {
                 return MatchFactory.getTeamMatches(team);;
             }
@@ -70,7 +70,8 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
         }
 
         //properties
-        $scope.matches = MatchFactory.matches;
+        MatchFactory.searchMatch = MatchFactory.matches;
+        $scope.matchFactory = MatchFactory;
         $scope.matchId = MatchFactory.match.matchId;
         $scope.team1 = MatchFactory.match.team1;
         $scope.team2 = MatchFactory.match.team2;
@@ -90,6 +91,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
         $scope.matchTime = MatchFactory.match.matchTime;
         $scope.isMyTeam = MatchFactory.match.isMyTeam;
         $scope.teamResults = $scope.teamGames();
+        $scope.data = { search: '' };
 
         //functions
         var getScopeMatch = function () {
@@ -290,13 +292,16 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
         $scope.matchDetail = function (id) {
             var match = MatchFactory.getMatch(id);
             MatchFactory.mapEntity(match);
-            $state.go('app.resultdetail');
-        };
 
-        $scope.teamMatchDetail = function (id) {
-            var match = MatchFactory.getMatch(id);
-            MatchFactory.mapEntity(match);
-            $state.go('app.teamresultdetail');
+            var route = '';
+            if ($state.current.tabGroup == 'results')
+                route = 'app.resultdetail';
+            else if ($state.current.tabGroup == 'team')
+                route = 'app.teamresultdetail';
+            else
+                route = 'app.myteamresultdetail';
+
+            $state.go(route);
         };
 
         $scope.deleteScore = function () {
@@ -304,6 +309,43 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
             $rootScope.page = "start-match";
             $state.go('app.match');
         };
+
+        $scope.deleteMatch = function (id) {
+            var confirmPopup = $ionicPopup.confirm({
+                title: 'Delete Confirmation',
+                template: 'Are you sure you want to delete this entry?',
+                cancelText: 'No',
+                okText: 'Yes'
+            }).then(function (res) {
+                if (res) {
+                    //delete match
+                }
+            });
+        };
+
+        $scope.search = function () {
+            $ionicPopup.show({
+                templateUrl: 'popup-template.html',
+                title: 'Enter team name to search',
+                scope: $scope,
+                buttons: [
+                    { text: 'Cancel' },
+                    {
+                        text: '<b>Save</b>',
+                        type: 'button-positive',
+                        onTap: function (e) {
+
+                            if ($scope.data.search.length > 0) {
+                                var searchResult = MatchFactory.getTeamMatches($scope.data.search);
+                                MatchFactory.searchMatch = searchResult;
+                            }
+                            else
+                                MatchFactory.searchMatch = MatchFactory.matches;
+                        }
+                    }
+                ]
+            });
+        }
     })
 
 
@@ -331,8 +373,8 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
         $scope.country = TeamFactory.team.country;
         $scope.postCode = TeamFactory.team.postCode;
         $scope.teamLastMatch = $scope.lastMatch();
-        $scope.search = '';
-        $scope.teamResultText = $state.current.tabGroup == 'myteam' ? 'My Team Result' : 'Team Result'; 
+        $scope.data = { search: '' };
+        $scope.teamResultText = $state.current.tabGroup == 'myteam' ? 'My Team Result' : 'Team Result';
 
         //redirects to add new team page
         $scope.addNewTeam = function () {
@@ -342,7 +384,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
 
         $scope.myTeamSearch = function () {
             var myPopup = $ionicPopup.show({
-                template: '<input type="text" ng-model="search">',
+                templateUrl: 'popup-template.html',
                 title: 'Enter team name to search',
                 scope: $scope,
                 buttons: [
@@ -351,7 +393,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
                         text: '<b>Save</b>',
                         type: 'button-positive',
                         onTap: function (e) {
-                            alert($scope.search);
+
                         }
                     }
                 ]

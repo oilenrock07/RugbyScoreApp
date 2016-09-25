@@ -23,7 +23,8 @@ angular.module('rugbyapp.factories', ['ngCordova'])
     match.team2DropGoal = 0;
 
     var matches = [];
-
+    var searchMatch = [];
+    
     var updateMatch = function () {
 
     }
@@ -122,6 +123,9 @@ angular.module('rugbyapp.factories', ['ngCordova'])
       return null;
     }
 
+    var searchMatch = function(teamName) {
+
+    }
 
 
     return {
@@ -135,6 +139,7 @@ angular.module('rugbyapp.factories', ['ngCordova'])
       getMatch: getMatch,
       getTeamMatches: getTeamMatches,
       getLastMatch: getLastMatch,
+      searchMatch: searchMatch
     };
   })
 

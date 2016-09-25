@@ -28,7 +28,8 @@ angular.module('rugbyapp.routes', [])
                 cache: false,               
                 views: {
                     'results': {
-                        templateUrl: 'templates/match/results.html'
+                        templateUrl: 'templates/match/results.html',
+                        controller: 'MatchController'
                     }
                 }
             })
@@ -239,6 +240,18 @@ angular.module('rugbyapp.routes', [])
                     'myteam': {
                         templateUrl: 'templates/team/myteamresult.html',
                         controller: 'TeamController',                                     
+                    }
+                }
+            })
+
+            .state('app.myteamresultdetail', {
+                url: '/myteamresultdetail', 
+                tabGroup: 'teams',
+                cache: false,               
+                views: {
+                    'myteam': {
+                        templateUrl: 'templates/team/myteamresultdetail.html',
+                        controller: 'MatchController'
                     }
                 }
             })
