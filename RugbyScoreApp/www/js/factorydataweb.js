@@ -52,7 +52,7 @@ angular.module('rugbyapp.data', [])
 
         var loadSetting = function (callBack) {
             var settings = [{
-                teamId: 0
+                teamId: 1
             }];
 
             return selectCallBack(settings, callBack);
