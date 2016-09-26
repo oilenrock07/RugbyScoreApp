@@ -57,7 +57,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
         };
     })
 
-    .controller('MatchController', function ($scope, $rootScope, $state, $filter, $ionicPopup, $ionicHistory, MatchFactory, TeamFactory, SettingFactory) {
+    .controller('MatchController', function ($scope, $rootScope, $state, $filter, $ionicPopup, $ionicHistory, $cordovaSocialSharing, MatchFactory, TeamFactory, SettingFactory) {
         $rootScope.page = $state.current.name == 'app.match' ? 'start-match' : 'new-match';
         //Binding functions
         $scope.teamGames = function () {
@@ -334,6 +334,28 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
             });
         };
 
+        $scope.shareResult = function () {
+
+            var team1Wins = parseInt($scope.team1Score()) > parseInt($scope.team2Score());
+            var message = team1Wins ? $scope.team1 + ' beats ' + $scope.team2
+                : $scope.team2 + ' beats ' + $scope.team1;
+
+            var team1Score =  $filter('formatScore')($scope.team1Score());
+            var team2Score = $filter('formatScore')($scope.team2Score());
+
+            message = message + ' with score of ' + (team1Wins ? team1Score  + ' - ' + team2Score
+                : team2Score + ' - ' + team1Score) ;
+
+            $cordovaSocialSharing
+                .share(message, 'RugbyAppScore', null, null) // Share via native share sheet
+                .then(function (result) {
+                    // Success!
+                }, function (err) {
+                    // An error occured. Show a message to the user
+                });
+
+        }
+
         $scope.search = function () {
             $ionicPopup.show({
                 templateUrl: 'popup-template.html',
@@ -450,7 +472,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
                     scheme = SettingFactory.appdata.scheme.android;
                     url = SettingFactory.appdata.url.android;
                 }
-                
+
                 $cordovaAppAvailability.check(scheme)
                     .then(function () {
                         try {

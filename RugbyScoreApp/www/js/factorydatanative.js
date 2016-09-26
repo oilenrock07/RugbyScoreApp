@@ -95,7 +95,6 @@ angular.module('rugbyapp.data', ['ngCordova'])
         }
 
         return {
-            appdata : appdata,
             database: database,
             initialize: initialize,
             team: {

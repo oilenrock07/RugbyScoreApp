@@ -198,11 +198,12 @@ angular.module('rugbyapp.routes', [])
 
             .state('app.editteam', {
                 url: '/editteam',
-                tabGroup: 'teams',                
+                tabGroup: 'teams',     
+                cache: false,           
                 views: {
                     'teams': {
                         templateUrl: 'templates/team/editteam.html',
-                        controller: 'TeamController'                        
+                        controller: 'TeamController'                     
                     }
                 }
             })
