@@ -292,7 +292,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
                 $rootScope.back();
             }
             else {
-                MatchFactory.updateMatch(match, function() {
+                MatchFactory.updateMatch(match, function () {
                     $rootScope.back();
                 });
             }
@@ -327,9 +327,9 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
                 okText: 'Yes'
             }).then(function (res) {
                 if (res) {
-                    MatchFactory.deleteMatch(id, function() {
-						$ionicHistory.goBack();
-					});
+                    MatchFactory.deleteMatch(id, function () {
+                        $ionicHistory.goBack();
+                    });
                 }
             });
         };
@@ -361,7 +361,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
 
 
     //Team Controller
-    .controller('TeamController', function ($scope, $state, $ionicPopup, TeamFactory, MatchFactory, SettingFactory) {
+    .controller('TeamController', function ($scope, $state, $ionicPopup, $cordovaAppAvailability, TeamFactory, MatchFactory, SettingFactory) {
 
         //Binding functions
         $scope.lastMatch = function () {
@@ -377,7 +377,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
         $scope.isMyTeam = $state.params.isMyTeam;
 
         //$scope.teams = TeamFactory.teams;
-        $scope.teamFactory = TeamFactory; 
+        $scope.teamFactory = TeamFactory;
         $scope.teamId = TeamFactory.team.teamId;
         $scope.abbrTeamName = TeamFactory.team.abbrTeamName;
         $scope.fullTeamName = TeamFactory.team.fullTeamName;
@@ -436,6 +436,34 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
                 ]
             });
         }
+
+        $scope.openGoogleMaps = function (location) {
+            document.addEventListener("deviceready", function () {
+
+                var scheme;
+                var url;
+                if (device.platform === SettingFactory.appdata.platform.iOs) {
+                    scheme = SettingFactory.appdata.scheme.iOs;
+                    url = SettingFactory.appdata.url.iOs;
+                }
+                else if (device.platform === SettingFactory.appdata.platform.android) {
+                    scheme = SettingFactory.appdata.scheme.android;
+                    url = SettingFactory.appdata.url.android;
+                }
+                
+                $cordovaAppAvailability.check(scheme)
+                    .then(function () {
+                        try {
+                            window.open(url + location, '_system', 'location=yes');
+                        }
+                        catch (ex) {
+                            alert(ex);
+                        }
+                    }, function () {
+                        window.open(SettingFactory.appdata.webUrl.url);
+                    });
+            }, false);
+        };
 
         $scope.editTeam = function (id) {
 

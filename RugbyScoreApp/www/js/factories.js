@@ -185,9 +185,28 @@ angular.module('rugbyapp.factories', ['ngCordova'])
       DataFactory.setting.updateSetting(value, callBack);
     };
 
+    var appdata = {
+      platform: {
+        iOs: 'iOS',
+        android: 'Android'
+      },
+      scheme: {
+        iOs: 'comgooglemaps://',
+        android: 'com.google.android.apps.maps'
+      },
+      url: {
+        iOs: 'comgooglemaps://?q=',
+        android: 'geo:?q='
+      },
+      webUrl: {
+        url: 'https://www.google.com.ph/maps'
+      }
+    };
+
     return {
       myTeam: setting.myTeam,
-      updateMyTeam: updateMyTeam
+      updateMyTeam: updateMyTeam,
+      appdata: appdata
     }
   })
 
