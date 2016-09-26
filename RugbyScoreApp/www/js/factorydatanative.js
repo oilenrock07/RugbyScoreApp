@@ -71,7 +71,7 @@ angular.module('rugbyapp.data', ['ngCordova'])
 
         var updateSetting = function (teamId, callBack) {
             var query = "UPDATE settings SET teamId = ?";
-            executeQuery(query, [teamId], callBack);        
+            executeQuery(query, [teamId], callBack);
         }
 
         //TEAMS********************************************************************
@@ -95,6 +95,7 @@ angular.module('rugbyapp.data', ['ngCordova'])
         }
 
         return {
+            appdata : appdata,
             database: database,
             initialize: initialize,
             team: {

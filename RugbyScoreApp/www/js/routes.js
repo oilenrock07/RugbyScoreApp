@@ -4,8 +4,7 @@ angular.module('rugbyapp.routes', [])
             .state('app', {
                 url: '/app',
                 abstract: true,
-                templateUrl: 'templates/menu.html',
-                //controller: 'AppController'
+                templateUrl: 'templates/menu.html'
             })
 
             //about
@@ -14,8 +13,37 @@ angular.module('rugbyapp.routes', [])
                 tabGroup: 'match',
                 views: {
                     'match': {
-                        templateUrl: 'templates/about/main.html',
-                        //controller: 'AppController'
+                        templateUrl: 'templates/about/main.html'
+                    }
+                }
+            })
+
+            .state('app.about', {
+                url: '/about',
+                tabGroup: 'match',
+                views: {
+                    'match': {
+                        templateUrl: 'templates/about/about.html'
+                    }
+                }
+            })
+
+            .state('app.scoring', {
+                url: '/scoring',
+                tabGroup: 'match',
+                views: {
+                    'match': {
+                        templateUrl: 'templates/about/scoring.html'
+                    }
+                }
+            })
+
+            .state('app.using', {
+                url: '/using',
+                tabGroup: 'match',
+                views: {
+                    'match': {
+                        templateUrl: 'templates/about/using.html'
                     }
                 }
             })

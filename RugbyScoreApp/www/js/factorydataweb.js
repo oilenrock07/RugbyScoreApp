@@ -61,8 +61,8 @@ angular.module('rugbyapp.data', [])
 
         }
 
-        var deleteMatch = function() {
-
+        var deleteMatch = function(id, callBack) {
+            callBack();
         }
 
         var createMatch = function() {
