@@ -228,7 +228,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
                 }
             }
             else {
-                $scope.teamId = 0;
+                $scope.data.teamId = 0;
                 $scope.team1 = '';
             }
         };
@@ -340,11 +340,11 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
             var message = team1Wins ? $scope.team1 + ' beats ' + $scope.team2
                 : $scope.team2 + ' beats ' + $scope.team1;
 
-            var team1Score =  $filter('formatScore')($scope.team1Score());
+            var team1Score = $filter('formatScore')($scope.team1Score());
             var team2Score = $filter('formatScore')($scope.team2Score());
 
-            message = message + ' with score of ' + (team1Wins ? team1Score  + ' - ' + team2Score
-                : team2Score + ' - ' + team1Score) ;
+            message = message + ' with score of ' + (team1Wins ? team1Score + ' - ' + team2Score
+                : team2Score + ' - ' + team1Score);
 
             $cordovaSocialSharing
                 .share(message, 'RugbyAppScore', null, null) // Share via native share sheet
@@ -387,8 +387,8 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
 
         //Binding functions
         $scope.lastMatch = function () {
-            if ($scope.fullTeamName != undefined) {
-                var lastMatch = MatchFactory.getLastMatch($scope.fullTeamName);
+            if ($scope.data != undefined) {
+                var lastMatch = MatchFactory.getLastMatch($scope.data.fullTeamName);
                 if (lastMatch != null) {
                     return lastMatch;
                 }
@@ -398,17 +398,19 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
         TeamFactory.searchTeams = TeamFactory.teams;
         $scope.isMyTeam = $state.params.isMyTeam;
 
-        //$scope.teams = TeamFactory.teams;
         $scope.teamFactory = TeamFactory;
-        $scope.teamId = TeamFactory.team.teamId;
-        $scope.abbrTeamName = TeamFactory.team.abbrTeamName;
-        $scope.fullTeamName = TeamFactory.team.fullTeamName;
-        $scope.clubAddress = TeamFactory.team.clubAddress;
-        $scope.townCity = TeamFactory.team.townCity;
-        $scope.country = TeamFactory.team.country;
-        $scope.postCode = TeamFactory.team.postCode;
-        $scope.teamLastMatch = $scope.lastMatch();
-        $scope.data = { search: '' };
+        $scope.data = {
+            search: '',
+            fullTeamName: TeamFactory.team.fullTeamName,
+            teamId: TeamFactory.team.teamId,
+            abbrTeamName: TeamFactory.team.abbrTeamName,
+            clubAddress: TeamFactory.team.clubAddress,
+            townCity: TeamFactory.team.townCity,
+            country: TeamFactory.team.country,
+            postCode: TeamFactory.team.postCode,
+            teamLastMatch: $scope.lastMatch()
+        };
+
         $scope.teamResultText = $state.current.tabGroup == 'myteam' ? 'My Team Result' : 'Team Result';
         $scope.myTeamId = SettingFactory.myTeam;
 
@@ -545,15 +547,17 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
         $scope.saveTeam = function () {
             var isMyTeam = $state.current.tabGroup == 'myteam';
             var team = {
-                teamId: $scope.teamId,
+                teamId: $scope.data.teamId,
                 isMyTeam: isMyTeam,
-                fullTeamName: $scope.fullTeamName,
-                abbrTeamName: $scope.abbrTeamName,
-                clubAddress: $scope.clubAddress,
-                townCity: $scope.townCity,
-                country: $scope.country,
-                postCode: $scope.postCode
+                fullTeamName: $scope.data.fullTeamName,
+                abbrTeamName: $scope.data.abbrTeamName,
+                clubAddress: $scope.data.clubAddress,
+                townCity: $scope.data.townCity,
+                country: $scope.data.country,
+                postCode: $scope.data.postCode
             };
+
+            alert(JSON.stringify(team));
 
             var isEdit = $state.current.name == 'app.editmyteam' || $state.current.name == 'app.editteam';
             if (isMyTeam && SettingFactory.myTeam == 0) isEdit = false;
