@@ -69,12 +69,15 @@
 
 
 /** Headers **/
-.bar.bar-stable{
-    border-color: #FBAE17;
-    border-bottom-width: 3px;
+.bar-subheader button:first-child{
+    padding-left: 15px !important;
+}
+.bar-subheader button:nth-child(2){
+    padding-right: 15px !important;
 }
 
 .bar.bar-stable{
+    border-color: #FBAE17;
     border-bottom-width: 1px;
     background-color: #ffffff;
 }
@@ -319,17 +322,13 @@ ion-content .scroll{
 }
 
 /** Score **/
-.score .content .row{
-     padding: 5px 30px;
-}
-
 .score .vertical-divider{
     height: 79%;
     background: url(../img/vertical-bar.png) repeat center;
 }
 
 .score hr{
-    margin: -10px 15px 0px 15px;
+    margin-top: -10px;
 }
 
 .score .team-name{
@@ -338,14 +337,6 @@ ion-content .scroll{
 }
 
 /** Edit Result **/
-.edit-result .content .row{
-    padding: 5px 30px;
-}  
-
-.edit-result .content .match-details{
-    padding: 5px 20px;
-}
-
 .edit-result input[type="text"]{
     width: 100%;
     padding: 5px;
@@ -373,7 +364,7 @@ ion-content .scroll{
 }
 
 .edit-result hr{
-    margin: -6px 15px 0px 15px;
+    margin-top: -6px;
 }
 
 .edit-result .row.match-location{
@@ -387,6 +378,7 @@ ion-content .scroll{
 
 .content{
     height: 97%;
+    padding: 0px 20px;
 }
 
 .divider{
@@ -411,7 +403,7 @@ ion-content .scroll{
 .item-stacked-label, 
 .item-checkbox{
     border: none;
-    margin-right: 15px;
+    padding: 0;
 }
 
 input[type="text"]{
