@@ -1,3 +1,97 @@
+/** Overide **/
+@font-face {
+    font-family: 'sf-compact';
+    src: url('../fonts/SF-Compact-Text-Regular.otf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    font-family: 'sf-compact' !important;
+}
+
+/** Generics **/
+.pull-right {
+    float: right;
+}
+
+.pull-left {
+    float: left;
+}
+
+.align-right {
+    text-align: right
+}
+
+.no-padding{
+    padding: 0;
+}
+
+.content{
+    height: 97%;
+    padding: 0px 20px;
+}
+
+.content .row{
+    padding-left: 0;
+}
+
+.sub-content{
+    margin-top: 10px !important;
+}
+
+.divider{
+    padding-bottom: 10px;
+}
+
+hr{
+    margin: 0;
+}
+
+.item{
+    padding: 10px 0px;
+    border: none;
+}
+
+.icon:before{
+    font: 12px;
+}
+
+.item-checkbox-right .checkbox input,
+.item-checkbox-right .checkbox-icon {
+  float: right;
+}
+
+.item-checkbox.item-checkbox-right {
+  /*the default item padding*/
+  padding: 15px;
+}
+
+.label-score {
+    font-size: 24px;
+    font-weight: bold
+}
+
+.item-stacked-label, 
+.item-checkbox{
+    border: none;
+    padding: 0;
+}
+
+input[type="text"], input[type="number"]{
+    border-color: #ddd;
+    background-color: #fff;
+    padding: 16px;
+    border-width: 1px;
+    border-style: solid;
+    text-align: center;
+}
+
+.about-content {
+    margin: 15px
+}
+
+
 /** Footer **/
 .keyboard-open .tabs{
     display:none;
@@ -263,19 +357,18 @@ div.button-footer{
     }
 }*/
 
+/** My Team **/
+
+
 /** Teams **/
+.teams hr{
+    margin-top: 5px;
+}
+
 .teams .item .row,
 .teams .item .col{
     margin: 0;
     padding: 0;
-}
-
-.teams .results .icon:before{
-    font-size: 16px;
-}
-
-.teams .edit .icon:before{
-    font-size: 12px;
 }
 
 .teams .item .edit,
@@ -287,18 +380,6 @@ div.button-footer{
 
 .team-label {
     color: #1B1464;
-}
-
-.pull-right {
-    float: right;
-}
-
-.pull-left {
-    float: left;
-}
-
-.align-right {
-    text-align: right
 }
 
 .team-list-result {
@@ -323,7 +404,7 @@ ion-content .scroll{
 
 /** Score **/
 .score .vertical-divider{
-    height: 79%;
+    height: 82%;
     background: url(../img/vertical-bar.png) repeat center;
 }
 
@@ -345,7 +426,7 @@ ion-content .scroll{
 }
 
 .edit-result .vertical-divider{
-    height: 78%;
+    height: 77.5%;
     background: url(../img/vertical-bar.png) repeat center;
 }
 
@@ -360,7 +441,11 @@ ion-content .scroll{
 }
 
 .edit-result input[type="number"]{
-    height: 20px
+    height: 20px;
+    width: 50%;
+    padding: 5px 5px;
+    height: 28px;
+    text-align: right;
 }
 
 .edit-result hr{
@@ -371,60 +456,11 @@ ion-content .scroll{
     padding: 5px 20px 5px 30px;
 }
 
-/** Generics **/
-.no-padding{
-    padding: 0;
-}
-
-.content{
-    height: 97%;
-    padding: 0px 20px;
-}
-
-.divider{
-    padding-bottom: 7px;
-}
-
-.item-checkbox-right .checkbox input,
-.item-checkbox-right .checkbox-icon {
-  float: right;
-}
-
-.item-checkbox.item-checkbox-right {
-  /*the default item padding*/
-  padding: 15px;
-}
-
-.label-score {
-    font-size: 24px;
-    font-weight: bold
-}
-
-.item-stacked-label, 
-.item-checkbox{
-    border: none;
-    padding: 0;
-}
-
-input[type="text"]{
-    border-color: #ddd;
-    background-color: #fff;
-    padding: 16px;
-    border-width: 1px;
-    border-style: solid;
-    text-align: center;
-}
-
-.about-content {
-    margin: 15px
-}
-
 @media screen and (max-width:767px) {
     .match ion-content{
          height: 82% !important;
      }
 }
-
 
 @media screen and (min-width:320px) and (max-width:767px) and (orientation:landscape) {
     .match ion-content{

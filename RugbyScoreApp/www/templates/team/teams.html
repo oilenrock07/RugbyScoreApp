@@ -10,7 +10,7 @@
         </button>
     </ion-header-bar>
 
-    <ion-content>
+    <ion-content class="content">
         <div class="list">
             <div class="item" ng-repeat="team in teamFactory.searchTeams | orderBy: 'fullTeamName'">
                 <div class="row" ng-click="teamDetail(team.teamId)">
@@ -18,9 +18,6 @@
                         <span class="team-label">Team Name</span><br/>
                         <span>{{team.fullTeamName}}</span><br/>
                         <span class="team-label team-location">Location</span>
-                    </div>
-                    <div class="col col-20">
-                        
                     </div>
                 </div>
                 <div class="row">
@@ -34,6 +31,7 @@
                         </span>
                     </div>
                 </div>
+                <hr/>
             </div>
         </div>
         <br>
