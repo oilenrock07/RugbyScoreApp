@@ -388,6 +388,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
         $scope.teamLastMatch = $scope.lastMatch();
         $scope.data = { search: '' };
         $scope.teamResultText = $state.current.tabGroup == 'myteam' ? 'My Team Result' : 'Team Result';
+        $scope.myTeamId = SettingFactory.myTeam;
 
         //redirects to add new team page
         $scope.addNewTeam = function () {
@@ -438,7 +439,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
 
         $scope.editTeam = function (id) {
 
-            var isMyTeam = $state.current.name == 'app.myteam';
+            var isMyTeam = $state.current.tabGroup == 'myteam';
             if (isMyTeam && SettingFactory.myTeam == 0) {
                 $state.go('app.addmyteam');
             }
@@ -459,7 +460,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
         };
 
         $scope.teamDetail = function (id) {
-            var route = $state.current.name == 'app.teams' ? 'app.team' : 'app.myteam';
+            var route = $state.current.tabGroup == 'teams' ? 'app.team' : 'app.myteam';
             var team = TeamFactory.get(id);
             TeamFactory.mapEntity(team);
 

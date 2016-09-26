@@ -423,6 +423,10 @@ input[type="text"]{
     text-align: center;
 }
 
+.about-content {
+    margin: 15px
+}
+
 @media screen and (max-width:767px) {
     .match ion-content{
          height: 82% !important;
