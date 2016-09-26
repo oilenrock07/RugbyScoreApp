@@ -299,7 +299,6 @@ angular.module('rugbyapp.factories', ['ngCordova'])
           }
         }
       }
-
       return searchResult;
     }
 

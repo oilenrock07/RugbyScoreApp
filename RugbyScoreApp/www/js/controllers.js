@@ -57,7 +57,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
         };
     })
 
-    .controller('MatchController', function ($scope, $rootScope, $state, $filter, $ionicPopup, MatchFactory, TeamFactory, SettingFactory) {
+    .controller('MatchController', function ($scope, $rootScope, $state, $filter, $ionicPopup, $ionicHistory, MatchFactory, TeamFactory, SettingFactory) {
         $rootScope.page = $state.current.name == 'app.match' ? 'start-match' : 'new-match';
         //Binding functions
         $scope.teamGames = function () {
