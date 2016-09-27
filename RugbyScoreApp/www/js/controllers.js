@@ -31,9 +31,9 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
         };
 
         $scope.showTeams = function () {
+
             $rootScope.page = "team";
             $scope.icon = 'team-icon';
-            TeamFactory.searchTeam = TeamFactory.teams;
             $state.go('app.teams');
         };
 
@@ -73,43 +73,43 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
         //properties
         MatchFactory.searchMatch = MatchFactory.matches;
         $scope.matchFactory = MatchFactory;
-        $scope.matchId = MatchFactory.match.matchId;
-        $scope.team1 = MatchFactory.match.team1;
-        $scope.team2 = MatchFactory.match.team2;
-        $scope.location = MatchFactory.match.location;
-
-        $scope.team1Try = MatchFactory.match.team1Try;
-        $scope.team1Penalty = MatchFactory.match.team1Penalty;
-        $scope.team1Conversion = MatchFactory.match.team1Conversion;
-        $scope.team1DropGoal = MatchFactory.match.team1DropGoal;
-
-        $scope.team2Try = MatchFactory.match.team2Try;
-        $scope.team2Penalty = MatchFactory.match.team2Penalty;
-        $scope.team2Conversion = MatchFactory.match.team2Conversion;
-        $scope.team2DropGoal = MatchFactory.match.team2DropGoal;
-
-        $scope.matchDate = MatchFactory.match.matchDate;
-        $scope.matchTime = MatchFactory.match.matchTime;
-        $scope.isMyTeam = MatchFactory.match.isMyTeam;
         $scope.teamResults = $scope.teamGames();
-        $scope.data = { search: '' };
+
+        $scope.data = {
+            search: '',
+            matchId: MatchFactory.match.matchId,
+            team1: MatchFactory.match.team1,
+            team2: MatchFactory.match.team2,
+            location: MatchFactory.match.location,
+            team1Try: MatchFactory.match.team1Try,
+            team1Penalty: MatchFactory.match.team1Penalty,
+            team1Conversion: MatchFactory.match.team1Conversion,
+            team1DropGoal: MatchFactory.match.team1DropGoal,
+            team2Try: MatchFactory.match.team2Try,
+            team2Penalty: MatchFactory.match.team2Penalty,
+            team2Conversion:  MatchFactory.match.team2Conversion,
+            team2DropGoal: MatchFactory.match.team2DropGoal,
+            matchDate: MatchFactory.match.matchDate,
+            matchTime: MatchFactory.match.matchTime,
+            isMyTeam: MatchFactory.match.isMyTeam,
+        };
 
         //functions
         var getScopeMatch = function () {
             return {
-                team1: $scope.team1,
-                team2: $scope.team2,
-                location: $scope.location,
-                team1Try: $scope.team1Try,
-                team1Penalty: $scope.team1Penalty,
-                team1Conversion: $scope.team1Conversion,
-                team1DropGoal: $scope.team1DropGoal,
-                team2Try: $scope.team2Try,
-                team2Penalty: $scope.team2Penalty,
-                team2Conversion: $scope.team2Conversion,
-                team2DropGoal: $scope.team2DropGoal,
-                matchDate: $scope.matchDate,
-                matchTime: $scope.matchTime
+                team1: $scope.data.team1,
+                team2: $scope.data.team2,
+                location: $scope.data.location,
+                team1Try: $scope.data.team1Try,
+                team1Penalty: $scope.data.team1Penalty,
+                team1Conversion: $scope.data.team1Conversion,
+                team1DropGoal: $scope.data.team1DropGoal,
+                team2Try: $scope.data.team2Try,
+                team2Penalty: $scope.data.team2Penalty,
+                team2Conversion: $scope.data.team2Conversion,
+                team2DropGoal: $scope.data.team2DropGoal,
+                matchDate: $scope.data.matchDate,
+                matchTime: $scope.data.matchTime
             };
         };
 
@@ -118,20 +118,20 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
 
             MatchFactory.resetEntity();
 
-            MatchFactory.match.team1 = $scope.team1 != '' ? $scope.team1 : 'TEAM A';
-            MatchFactory.match.team2 = $scope.team2 != '' ? $scope.team2 : 'TEAM B';
-            MatchFactory.match.location = $scope.location;
-            MatchFactory.match.isMyTeam = $scope.isMyTeam;
+            MatchFactory.match.team1 = $scope.data.team1 != '' ? $scope.data.team1 : 'TEAM A';
+            MatchFactory.match.team2 = $scope.data.team2 != '' ? $scope.data.team2 : 'TEAM B';
+            MatchFactory.match.location = $scope.data.location;
+            MatchFactory.match.isMyTeam = $scope.data.isMyTeam;
 
-            MatchFactory.match.team1Try = $scope.team1Try;
-            MatchFactory.match.team1Penalty = $scope.team1Penalty;
-            MatchFactory.match.team1Conversion = $scope.team1Conversion;
-            MatchFactory.match.team1DropGoal = $scope.team1DropGoal;
+            MatchFactory.match.team1Try = $scope.data.team1Try;
+            MatchFactory.match.team1Penalty = $scope.data.team1Penalty;
+            MatchFactory.match.team1Conversion = $scope.data.team1Conversion;
+            MatchFactory.match.team1DropGoal = $scope.data.team1DropGoal;
 
-            MatchFactory.match.team2Try = $scope.team2Try;
-            MatchFactory.match.team2Penalty = $scope.team2Penalty;
-            MatchFactory.match.team2Conversion = $scope.team2Conversion;
-            MatchFactory.match.team2DropGoal = $scope.team2DropGoal;
+            MatchFactory.match.team2Try = $scope.data.team2Try;
+            MatchFactory.match.team2Penalty = $scope.data.team2Penalty;
+            MatchFactory.match.team2Conversion = $scope.data.team2Conversion;
+            MatchFactory.match.team2DropGoal = $scope.data.team2DropGoal;
             MatchFactory.match.matchTime = $filter('date')(new Date(), 'HH:mm');
             MatchFactory.match.matchDate = $filter('date')(new Date(), 'MM/dd/yyyy');
 
@@ -140,82 +140,83 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
 
         $scope.addScoreTry = function (team, point) {
             if (team == 1) {
-                if ($scope.team1Try + point >= 0) {
-                    $scope.team1Try += parseInt(point);
-                    MatchFactory.match.team1Try = $scope.team1Try;
+                if ($scope.data.team1Try + point >= 0) {
+                    $scope.data.team1Try += parseInt(point);
+                    MatchFactory.match.team1Try = $scope.data.team1Try;
                 }
             }
             else {
-                if ($scope.team2Try + point >= 0) {
-                    $scope.team2Try += parseInt(point);
-                    MatchFactory.match.team2Try = $scope.team2Try;
+                if ($scope.data.team2Try + point >= 0) {
+                    $scope.data.team2Try += parseInt(point);
+                    MatchFactory.match.team2Try = $scope.data.team2Try;
                 }
             }
         };
 
         $scope.addScoreConversion = function (team, point) {
             if (team == 1) {
-                if ($scope.team1Conversion + point >= 0) {
-                    $scope.team1Conversion += parseInt(point);
-                    MatchFactory.match.team1Conversion = $scope.team1Conversion;
+                if ($scope.data.team1Conversion + point >= 0) {
+                    $scope.data.team1Conversion += parseInt(point);
+                    MatchFactory.match.team1Conversion = $scope.data.team1Conversion;
                 }
             }
             else {
-                if ($scope.team2Conversion + point >= 0) {
-                    $scope.team2Conversion += parseInt(point);
-                    MatchFactory.match.team2Conversion = $scope.team2Conversion;
+                if ($scope.data.team2Conversion + point >= 0) {
+                    $scope.data.team2Conversion += parseInt(point);
+                    MatchFactory.match.team2Conversion = $scope.data.team2Conversion;
                 }
             }
         };
 
         $scope.addScorePenalty = function (team, point) {
             if (team == 1) {
-                if ($scope.team1Penalty + point >= 0) {
-                    $scope.team1Penalty += parseInt(point);
-                    MatchFactory.match.team1Penalty = $scope.team1Penalty;
+                if ($scope.data.team1Penalty + point >= 0) {
+                    $scope.data.team1Penalty += parseInt(point);
+                    MatchFactory.match.team1Penalty = $scope.data.team1Penalty;
                 }
             }
             else {
-                if ($scope.team2Penalty + point >= 0) {
-                    $scope.team2Penalty += parseInt(point);
-                    MatchFactory.match.team2Penalty = $scope.team2Penalty;
+                if ($scope.data.team2Penalty + point >= 0) {
+                    $scope.data.team2Penalty += parseInt(point);
+                    MatchFactory.match.team2Penalty = $scope.data.team2Penalty;
                 }
             }
         };
 
         $scope.addScoreDropGoal = function (team, point) {
             if (team == 1) {
-                if ($scope.team1DropGoal + point >= 0) {
-                    $scope.team1DropGoal += parseInt(point);
-                    MatchFactory.match.team1DropGoal = $scope.team1DropGoal;
+                if ($scope.data.team1DropGoal + point >= 0) {
+                    $scope.data.team1DropGoal += parseInt(point);
+                    MatchFactory.match.team1DropGoal = $scope.data.team1DropGoal;
                 }
             }
             else {
-                if ($scope.team2DropGoal + point >= 0) {
-                    $scope.team2DropGoal += parseInt(point);
-                    MatchFactory.match.team2DropGoal = $scope.team2DropGoal;
+                if ($scope.data.team2DropGoal + point >= 0) {
+                    $scope.data.team2DropGoal += parseInt(point);
+                    MatchFactory.match.team2DropGoal = $scope.data.team2DropGoal;
                 }
             }
         };
 
         $scope.team1Score = function () {
-            return $scope.team1Try + $scope.team1Conversion + $scope.team1Penalty + $scope.team1DropGoal;
+            return $scope.data.team1Try + $scope.data.team1Conversion + $scope.data.team1Penalty + $scope.data.team1DropGoal;
         };
 
         $scope.team2Score = function () {
-            return $scope.team2Try + $scope.team2Conversion + $scope.team2Penalty + $scope.team2DropGoal;
+            return $scope.data.team2Try + $scope.data.team2Conversion + $scope.data.team2Penalty + $scope.data.team2DropGoal;
         };
 
         $scope.team1KeyUp = function () {
-            MatchFactory.match.team1 = $scope.team1;
+            MatchFactory.match.team1 = $scope.data.team1;
         };
 
         $scope.team2KeyUp = function () {
-            MatchFactory.match.team2 = $scope.team2;
+            MatchFactory.match.team2 = $scope.data.team2;
         };
 
         $scope.useMyTeam = function () {
-            if ($scope.isMyTeam) {
+
+            if ($scope.data.isMyTeam) {
                 if (SettingFactory.myTeam == 0) {
                     TeamFactory.resetEntity();
                     $state.go('app.addmyteam');
@@ -223,13 +224,13 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
                 else {
                     //display my team
                     var myTeam = TeamFactory.get(SettingFactory.myTeam);
-                    $scope.teamId = myTeam.teamId;
-                    $scope.team1 = myTeam.fullTeamName;
+                    $scope.data.teamId = myTeam.teamId;
+                    $scope.data.team1 = myTeam.fullTeamName;
                 }
             }
             else {
                 $scope.data.teamId = 0;
-                $scope.team1 = '';
+                $scope.data.team1 = '';
             }
         };
 
@@ -287,6 +288,8 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
                 return;
             }
 
+            //add validation for time and date here
+
             MatchFactory.mapEntity(match);
             if ($state.current.tabGroup == 'score') {
                 $rootScope.back();
@@ -337,8 +340,8 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
         $scope.shareResult = function () {
 
             var team1Wins = parseInt($scope.team1Score()) > parseInt($scope.team2Score());
-            var message = team1Wins ? $scope.team1 + ' beats ' + $scope.team2
-                : $scope.team2 + ' beats ' + $scope.team1;
+            var message = team1Wins ? $scope.data.team1 + ' beats ' + $scope.data.team2
+                : $scope.data.team2 + ' beats ' + $scope.data.team1;
 
             var team1Score = $filter('formatScore')($scope.team1Score());
             var team2Score = $filter('formatScore')($scope.team2Score());
@@ -454,7 +457,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
                                 TeamFactory.searchTeams = searchResult;
                             }
                             else
-                                TeamFactory.searchTeams = MatchFactory.teams;
+                                TeamFactory.searchTeams = TeamFactory.teams;
                         }
                     }
                 ]

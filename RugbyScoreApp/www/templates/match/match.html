@@ -1,8 +1,8 @@
 <ion-view view-title="" hide-back-button="true" class="match">
-    <ion-content ng-controller="MatchController">
+    <ion-content>
         <div class="row">
             <div class="col col-100 text-center">
-                <input class="match-title" maxlength="30" placeholder="Enter Team A" ng-model="team1" ng-keyup="team1KeyUp()"></input>
+                <input class="match-title" maxlength="30" placeholder="Enter Team A" ng-model="data.team1" ng-keyup="team1KeyUp()"></input>
             </div>
         </div>
         <div class="row">
@@ -57,7 +57,7 @@
 
         <div class="row">
             <div class="col text-center">
-                <input class="match-title" maxlength="30" placeholder="Enter Team B" ng-model="team2" ng-keyup="team2KeyUp()"></input>
+                <input class="match-title" maxlength="30" placeholder="Enter Team B" ng-model="data.team2" ng-keyup="team2KeyUp()"></input>
             </div>
         </div>
         <div class="row">

@@ -1,4 +1,4 @@
-<ion-view view-title="Final Score" hide-back-button="true" class="score" ng-controller="MatchController">
+<ion-view view-title="Final Score" hide-back-button="true" class="score">
 
     <ion-header-bar class="bar-positive"></ion-header-bar>
     <ion-header-bar class="bar-stable bar-subheader">
@@ -15,15 +15,15 @@
             <div class="row">
                 <div class="col-50" style="padding-right: 10px;">
                     <div class="label-score align-right divider" ng-bind="team1Score() | formatScore"></div>
-                    <div class="divider team-name"><strong>{{team1}}</strong></div>
+                    <div class="divider team-name"><strong>{{data.team1}}</strong></div>
                     <div>Trys</div>
-                    <div class="divider">{{team1Try | formatScore}}</div>
+                    <div class="divider">{{data.team1Try | formatScore}}</div>
                     <div>Conversions</div>
-                    <div class="divider">{{team1Conversion | formatScore}}</div>
+                    <div class="divider">{{data.team1Conversion | formatScore}}</div>
                     <div>Drop Goals</div>
-                    <div class="divider">{{team1DropGoal | formatScore}}</div>
+                    <div class="divider">{{data.team1DropGoal | formatScore}}</div>
                     <div>Penalty</div>
-                    <div class="divider">{{team1Penalty | formatScore}}</div>
+                    <div class="divider">{{data.team1Penalty | formatScore}}</div>
                 </div>
                 <div class="col">
                     <div class="ion-minus-round divider"></div>
@@ -32,15 +32,15 @@
                 </div>
                 <div class="col-50" style="padding-left: 10px;padding-right: 10px;">
                     <div class="label-score divider" ng-bind="team2Score() | formatScore" ></div>
-                    <div class="divider team-name"><strong>{{team2}}</strong></div>
+                    <div class="divider team-name"><strong>{{data.team2}}</strong></div>
                     <div>Trys</div>
-                    <div class="divider">{{team2Try | formatScore}}</div>
+                    <div class="divider">{{data.team2Try | formatScore}}</div>
                     <div>Conversions</div>
-                    <div class="divider">{{team2Conversion | formatScore}}</div>
+                    <div class="divider">{{data.team2Conversion | formatScore}}</div>
                     <div>Drop Goals</div>
-                    <div class="divider">{{team2DropGoal | formatScore}}</div>
+                    <div class="divider">{{data.team2DropGoal | formatScore}}</div>
                     <div>Penalty</div>
-                    <div class="divider">{{team2Penalty | formatScore}}</div>
+                    <div class="divider">{{data.team2Penalty | formatScore}}</div>
                 </div>
             </div>
 
@@ -49,19 +49,19 @@
             <div class="row">
                 <div class="col-50 no-padding">
                     <div>Match Date</div>
-                    <div class="divider">{{matchDate}}</div>
+                    <div class="divider">{{data.matchDate}}</div>
                 </div>
                 <div class="col">
                 </div>
                 <div class="col-50 no-padding">
                     <div class="">Match Time</div>
-                    <div>{{matchTime}}</div>
+                    <div>{{data.matchTime}}</div>
                 </div>
             </div>
             <div class="row">
                 <div class="col no-padding">
                     <div>Match Location</div>
-                    <div>{{location}}</div>
+                    <div>{{data.location}}</div>
                 </div>
             </div>
         </div>  

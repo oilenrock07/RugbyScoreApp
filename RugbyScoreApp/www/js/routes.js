@@ -68,7 +68,8 @@ angular.module('rugbyapp.routes', [])
                 cache: false,               
                 views: {
                     'results': {
-                        templateUrl: 'templates/match/editresult.html'
+                        templateUrl: 'templates/match/editresult.html',
+                        controller: 'MatchController'
                     }
                 }
             })
@@ -92,8 +93,8 @@ angular.module('rugbyapp.routes', [])
                 cache: false,               
                 views: {
                     'match': {
-                        templateUrl: 'templates/match/newmatch.html'
-                        //controller: 'MatchController'
+                        templateUrl: 'templates/match/newmatch.html',
+                        controller: 'MatchController'
                     }
                 }
             })
@@ -104,8 +105,8 @@ angular.module('rugbyapp.routes', [])
                 cache: false,
                 views: {
                     'match': {
-                        templateUrl: 'templates/match/match.html'
-                        //controller: 'MatchController'
+                        templateUrl: 'templates/match/match.html',
+                        controller: 'MatchController'
                     }
                 }
             })
