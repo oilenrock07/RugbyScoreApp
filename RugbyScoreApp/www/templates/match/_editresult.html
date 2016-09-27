@@ -1,5 +1,5 @@
 <ion-content class="edit-result">
-        <div class="content">
+        <div class="content divider-top">
             <div class="row">
                 <div class="col-40" style="padding-right: 10px;">
                     <div class="label-score align-right divider" ng-bind="team1Score() | formatScore"></div>
@@ -34,22 +34,24 @@
 
             <hr>
 
-            <div class="row match-details">
-                <div class="col-40 no-padding">
-                    <div>Match Date</div>
-                    <div><input type="text" ng-model="data.matchDate"/></div>
+            <div class="sub-content">
+                <div class="row divider">
+                    <div class="col-40 no-padding">
+                        <div>Match Date</div>
+                        <div><input type="text" ng-model="data.matchDate"/></div>
+                    </div>
+                    <div class="col">
+                    </div>
+                    <div class="col-40 no-padding">
+                        <div class="">Match Time</div>
+                        <div><input type="text" ng-model="data.matchTime"/></div>
+                    </div>
                 </div>
-                <div class="col">
-                </div>
-                <div class="col-40 no-padding">
-                    <div class="">Match Time</div>
-                    <div><input type="text" ng-model="data.matchTime"/></div>
-                </div>
-            </div>
-            <div class="row match-details">
-                <div class="col col-100 no-padding">
-                    <div>Match Location</div>
-                    <div><input type="text" ng-model="data.location"/></div>
+                <div class="row">
+                    <div class="col col-100 no-padding">
+                        <div>Match Location</div>
+                        <div><input type="text" ng-model="data.location"/></div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -2,15 +2,29 @@
 @font-face {
     font-family: 'sf-compact';
     src: url('../fonts/SF-Compact-Text-Regular.otf');
-    font-weight: normal;
+    font-weight: bolder;
     font-style: normal;
 }
 
 * {
     font-family: 'sf-compact' !important;
+    font-size: 16px !important;
+    font-weight: bolder !important;
 }
 
 /** Generics **/
+.small{
+    font-size: 12px !important;
+}
+
+.large{
+    font-size: 18px !important;
+}
+
+.extra-large{
+    font-size: 28px !important;
+}
+
 .pull-right {
     float: right;
 }
@@ -41,11 +55,20 @@
 }
 
 .divider{
-    padding-bottom: 10px;
+    padding-bottom: 15px;
+}
+
+.divider-top{
+    padding-top: 10px;
 }
 
 hr{
     margin: 0;
+    height: 0px !important;
+}
+
+.item hr{
+    margin-top: 5px;
 }
 
 .item{
@@ -57,25 +80,41 @@ hr{
     font: 12px;
 }
 
+.bar.bar-stable .title{
+    text-align: center !important;
+}
+
+.tab-title{
+    /* small */
+    font-size: 12px !important;
+}
+
 .item-checkbox-right .checkbox input,
 .item-checkbox-right .checkbox-icon {
-  float: right;
+    float: right;
 }
 
 .item-checkbox.item-checkbox-right {
   /*the default item padding*/
-  padding: 15px;
+    padding: 15px;
+}
+
+.item .row,
+.item .col{
+    margin: 0;
+    padding: 0;
 }
 
 .label-score {
-    font-size: 24px;
-    font-weight: bold
+    /* Extra Large */
+    font-size: 28px !important;
 }
 
 .item-stacked-label, 
 .item-checkbox{
     border: none;
     padding: 0;
+    margin: 5px 0;
 }
 
 input[type="text"], input[type="number"]{
@@ -85,12 +124,13 @@ input[type="text"], input[type="number"]{
     border-width: 1px;
     border-style: solid;
     text-align: center;
+    /*Large */
+    font-size: 18px !important;
 }
 
 .about-content {
     margin: 15px
 }
-
 
 /** Footer **/
 .keyboard-open .tabs{
@@ -163,6 +203,17 @@ input[type="text"], input[type="number"]{
 
 
 /** Headers **/
+@media not all, (-webkit-min-device-pixel-ratio: 1.5), not all, (min-resolution: 144dpi), (min-resolution: 1.5dppx)
+{
+    .bar.bar-stable{
+        border-color: #FBAE17 !important;
+        border-bottom-width: 1px !important;
+        border-bottom-style: solid !important;
+        background-color: #ffffff;
+        background-image: none !important;
+    }
+}
+
 .bar-subheader button:first-child{
     padding-left: 15px !important;
 }
@@ -171,9 +222,10 @@ input[type="text"], input[type="number"]{
 }
 
 .bar.bar-stable{
-    border-color: #FBAE17;
-    border-bottom-width: 1px;
+    border-color: #FBAE17 !important;
+    border-bottom-width: 1px !important;
     background-color: #ffffff;
+    background-image: none !important;
 }
 
 .bar-stable .button.button-icon{
@@ -199,9 +251,16 @@ input[type="text"], input[type="number"]{
 }
 
 /** Buttons **/
+.link{
+    color: #0071BC;
+    float: right;
+    cursor: pointer;
+}
+
 i.icon.ion-chevron-left::before{
-    font-size: 15px !important;
     line-height: 33px !important;
+    /** Small **/
+    font-size: 12px !important;
 }
 
 .button-footer-wrap{
@@ -217,7 +276,6 @@ div.button-footer{
 }
 
 .button-footer-wrap div.button-footer button{
-    font-size: 25px !important;
     width: 100%;
     color: #92185d !important;
     text-align: right;
@@ -229,7 +287,8 @@ div.button-footer{
     border-right: none !important;
     border-radius: 0 !important;
     padding-top: 10px;
-    font-weight: normal;
+    /* Extra Large */
+    font-size: 28px !important;
 }
 
 .button.icon-right:before{
@@ -261,7 +320,6 @@ div.button-footer{
     color: #fff;
     background: url(../img/pitch-line.jpg) repeat center;
     line-height: 22px;
-    font-size: 35px;
     margin: 5px 0;
 }
 
@@ -273,35 +331,38 @@ div.button-footer{
     padding: 3px;
 }
 
-.match-label {
-    font-size: 11px;
-}
-
 .match-score, 
 .match-title {
     border: 2px solid #FFF;
     background-color: rgba(0, 0, 0, 0.68);
     height: 45px;
     vertical-align: middle;
-    font-size: 30px;
     color: white;
     border-radius: 5px;
 }
 
 .match-title{
     text-align: center;
-    font-size: 23px;
     width: 90%;
 }
 
 .match-score div{
-    padding-top: 4px;
+    padding-top: 7px;
+}
+
+.match-label strong{
+    /** Small **/
+    font-size: 12px !important;
+}
+
+.match input{
+    /** Large **/
+    font-size: 18px !important;
 }
 
 .button.button-points{
     border: 2px solid white;
     background-color: rgba(0, 0, 0, 0.44);
-    font-size: 18px;
     padding: 0px 4px;
 }
 
@@ -361,30 +422,12 @@ div.button-footer{
 
 
 /** Teams **/
-.teams hr{
-    margin-top: 5px;
-}
-
-.teams .item .row,
-.teams .item .col{
-    margin: 0;
-    padding: 0;
-}
-
-.teams .item .edit,
-.teams .item .results{
-    color: #0071BC;
-    float: right;
-    cursor: pointer;
-}
-
 .team-label {
     color: #1B1464;
 }
 
 .team-list-result {
     float: right;
-    font-size: 14px;
 }
 
 .team-location {
@@ -404,7 +447,7 @@ ion-content .scroll{
 
 /** Score **/
 .score .vertical-divider{
-    height: 82%;
+    height: 76%;
     background: url(../img/vertical-bar.png) repeat center;
 }
 
@@ -421,7 +464,6 @@ ion-content .scroll{
 .edit-result input[type="text"]{
     width: 100%;
     padding: 5px;
-    font-size: 14px;
     height: 28px
 }
 
@@ -444,7 +486,8 @@ ion-content .scroll{
     height: 20px;
     width: 50%;
     padding: 5px 5px;
-    height: 28px;
+    /** larger **/
+    height: 24px;
     text-align: right;
 }
 
@@ -454,6 +497,11 @@ ion-content .scroll{
 
 .edit-result .row.match-location{
     padding: 5px 20px 5px 30px;
+}
+
+/** Results **/
+.results .vertical-divider-wrap{
+    padding: 0 3%;
 }
 
 @media screen and (max-width:767px) {

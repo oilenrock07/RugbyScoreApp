@@ -1,5 +1,4 @@
 <ion-view view-title="Final Score" hide-back-button="true" class="score">
-
     <ion-header-bar class="bar-positive"></ion-header-bar>
     <ion-header-bar class="bar-stable bar-subheader">
         <button class="button button-clear button-positive" ng-click="deleteScore()">
@@ -11,7 +10,7 @@
     </ion-header-bar>
 
     <ion-content>
-        <div class="content">
+        <div class="content divider-top">
             <div class="row">
                 <div class="col-50" style="padding-right: 10px;">
                     <div class="label-score align-right divider" ng-bind="team1Score() | formatScore"></div>
@@ -46,22 +45,24 @@
 
             <hr>
 
-            <div class="row">
-                <div class="col-50 no-padding">
-                    <div>Match Date</div>
-                    <div class="divider">{{data.matchDate}}</div>
+            <div class="sub-content">
+                <div class="row">
+                    <div class="col-50 no-padding">
+                        <div>Match Date</div>
+                        <div class="divider">{{data.matchDate}}</div>
+                    </div>
+                    <div class="col">
+                    </div>
+                    <div class="col-50 no-padding">
+                        <div class="">Match Time</div>
+                        <div>{{data.matchTime}}</div>
+                    </div>
                 </div>
-                <div class="col">
-                </div>
-                <div class="col-50 no-padding">
-                    <div class="">Match Time</div>
-                    <div>{{data.matchTime}}</div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col no-padding">
-                    <div>Match Location</div>
-                    <div>{{data.location}}</div>
+                <div class="row">
+                    <div class="col no-padding">
+                        <div>Match Location</div>
+                        <div>{{data.location}}</div>
+                    </div>
                 </div>
             </div>
         </div>  

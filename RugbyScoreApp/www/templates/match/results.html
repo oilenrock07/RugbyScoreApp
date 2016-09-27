@@ -1,5 +1,4 @@
-<ion-view view-title="Match Results" hide-back-button="true">
-
+<ion-view view-title="Match Results" hide-back-button="true" class="results">
     <ion-header-bar class="bar-positive"></ion-header-bar>
     <ion-header-bar class="bar-stable bar-subheader">
         <button class="button button-clear button-positive pull-right" ng-click="search()">
@@ -7,28 +6,33 @@
         </button>
     </ion-header-bar>
 
-    <ion-content ng-controller="MatchController">
+    <ion-content class="content" ng-controller="MatchController">
+        <div class="list">
+            <div class="item" ng-repeat="match in matchFactory.searchMatch | orderBy: '-matchDateTime'">
+                <div class="row">
+                    <div class="col-50">
+                        <div class="align-right">{{(match.team1Try + match.team1Conversion + match.team1Penalty + match.team1DropGoal) | formatScore}}</div>
+                        <div class="align-right">{{match.team1}}</div>
+                    </div>
+                    <div class="col vertical-divider-wrap">
+                        <div> - </div>
+                        <strong>v</strong>
+                    </div>
+                    <div class="col-50">
+                        <div>{{(match.team2Try + match.team2Conversion + match.team2Penalty + match.team2DropGoal) | formatScore}}</div>
+                        <div>{{match.team2}}</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">{{match.matchTime}} - {{match.matchDate}}</div>
+                    <div class="col align-right link" ng-click="matchDetail({{match.matchId}})">
+                        Detail
+                        <i class="icon ion-chevron-right"></i>
+                    </div>
+                </div>
 
-        <div class="list" ng-repeat="match in matchFactory.searchMatch | orderBy: '-matchDateTime'">
-            <div class="row">
-                <div class="col">
-                    <div class="align-right">{{(match.team1Try + match.team1Conversion + match.team1Penalty + match.team1DropGoal) | formatScore}}</div>
-                    <div class="align-right">{{match.team1}}</div>
-                </div>
-                <div class="col">
-                    <div>{{(match.team2Try + match.team2Conversion + match.team2Penalty + match.team2DropGoal) | formatScore}}</div>
-                    <div>{{match.team2}}</div>
-                </div>
+                <hr/>
             </div>
-            <div class="row">
-                <div class="col">{{match.matchTime}} - {{match.matchDate}}</div>
-                <div class="col align-right" ng-click="matchDetail({{match.matchId}})">
-                    Detail
-                    <i class="icon ion-chevron-right"></i>
-                </div>
-            </div>
-
-            <hr/>
         </div>
 
         <script id="popup-template.html" type="text/ng-template">
