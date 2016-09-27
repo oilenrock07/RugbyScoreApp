@@ -1,6 +1,6 @@
-<ion-content ng-controller="MatchController">
+<ion-content>
 
-    <div class="list" ng-repeat="match in teamResults | orderBy: '-matchDateTime'">
+    <div class="list" ng-repeat="match in matchFactory.searchMatch | orderBy: '-matchDateTime'">
         <div class="row">
             <div class="col">
                 <div class="align-right">{{(match.team1Try + match.team1Conversion + match.team1Penalty + match.team1DropGoal) | formatScore}}</div>

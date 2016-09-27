@@ -25,8 +25,8 @@ angular.module('rugbyapp.factories', ['ngCordova'])
     var matches = [];
     var searchMatch = [];
 
-    var updateMatch = function (param) {
-      DataFactory.team.updateMatch(param, function (rs) {
+    var updateMatch = function (param, callBack) {
+      DataFactory.match.updateMatch(param, function (rs) {
 
         for (var i in matches) {
 
@@ -157,10 +157,18 @@ angular.module('rugbyapp.factories', ['ngCordova'])
       return null;
     }
 
-    var searchMatch = function (teamName) {
+    var teamSearchResult = function (team, oposition) {
+      var teamMatches = [];
 
+      for (var i = 0; i < matches.length; i++) {
+        if ((matches[i].team1.toLowerCase() == team.toLowerCase() && (matches[i].team2.toLowerCase() == oposition.toLowerCase()))
+        || (matches[i].team2.toLowerCase() == team.toLowerCase() && matches[i].team1.toLowerCase() == oposition.toLowerCase())) {
+          teamMatches.push(matches[i]);
+        }
+      }
+
+      return teamMatches;
     }
-
 
     return {
       match: match,
@@ -173,7 +181,8 @@ angular.module('rugbyapp.factories', ['ngCordova'])
       getMatch: getMatch,
       getTeamMatches: getTeamMatches,
       getLastMatch: getLastMatch,
-      searchMatch: searchMatch
+      searchMatch: searchMatch,
+      teamSearchResult: teamSearchResult
     };
   })
 
@@ -310,12 +319,10 @@ angular.module('rugbyapp.factories', ['ngCordova'])
 
     var search = function (teamName) {
       var searchResult = [];
-
-      if (teams.length > 0) {
-        for (var i in teams) {
-          if (teams[i].fullTeamName.toLowerCase().indexOf(teamName) >= 0) {
-            searchResult.push(teams[i]);
-          }
+      for (var i = 0; i < teams.length; i++) {
+        if (teams[i].fullTeamName.toLowerCase().indexOf(teamName.toLowerCase()) >= 0 
+        || teams[i].fullTeamName.toLowerCase().indexOf(teamName.toLowerCase()) >= 0) {
+          searchResult.push(teams[i]);
         }
       }
       return searchResult;

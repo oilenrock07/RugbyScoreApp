@@ -26,7 +26,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
 
             MatchFactory.match.team1 = '';
             MatchFactory.match.team2 = '';
-
+            MatchFactory.resetEntity();
             $state.go('app.newmatch');
         };
 
@@ -59,21 +59,13 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
 
     .controller('MatchController', function ($scope, $rootScope, $state, $filter, $ionicPopup, $ionicHistory, $cordovaSocialSharing, MatchFactory, TeamFactory, SettingFactory) {
         $rootScope.page = $state.current.name == 'app.match' ? 'start-match' : 'new-match';
-        //Binding functions
-        $scope.teamGames = function () {
-            var team = $state.params.team;
-
-            if (team !== undefined) {
-                return MatchFactory.getTeamMatches(team);;
-            }
-            else
-                return [];
-        }
 
         //properties
-        MatchFactory.searchMatch = MatchFactory.matches;
+        if ($state.params.resetSearchMatch == undefined || $state.params.resetSearchMatch == true)
+            MatchFactory.searchMatch = MatchFactory.matches;
+
         $scope.matchFactory = MatchFactory;
-        $scope.teamResults = $scope.teamGames();
+        $scope.searchTeamName = $state.params.team;
 
         $scope.data = {
             search: '',
@@ -87,7 +79,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
             team1DropGoal: MatchFactory.match.team1DropGoal,
             team2Try: MatchFactory.match.team2Try,
             team2Penalty: MatchFactory.match.team2Penalty,
-            team2Conversion:  MatchFactory.match.team2Conversion,
+            team2Conversion: MatchFactory.match.team2Conversion,
             team2DropGoal: MatchFactory.match.team2DropGoal,
             matchDate: MatchFactory.match.matchDate,
             matchTime: MatchFactory.match.matchTime,
@@ -97,6 +89,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
         //functions
         var getScopeMatch = function () {
             return {
+                matchId: $scope.data.matchId,
                 team1: $scope.data.team1,
                 team2: $scope.data.team2,
                 location: $scope.data.location,
@@ -251,7 +244,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
             $state.go(route);
         };
 
-        $scope.saveScore = function () {
+        $scope.saveScore = function (id) {
             var match = getScopeMatch();
 
             //validate inputted score
@@ -366,6 +359,27 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
 
         }
 
+        $scope.teamSearch = function (teamName) {
+            $ionicPopup.show({
+                templateUrl: 'popup-template.html',
+                title: 'Enter team name to search',
+                scope: $scope,
+                buttons: [
+                    { text: 'Cancel' },
+                    {
+                        text: '<b>Search</b>',
+                        type: 'button-positive',
+                        onTap: function (e) {
+                            if ($scope.data.search.length > 0) {
+                                var searchResult = MatchFactory.teamSearchResult(teamName, $scope.data.search);
+                                MatchFactory.searchMatch = searchResult;
+                            }
+                        }
+                    }
+                ]
+            });
+        }
+
         $scope.search = function () {
             $ionicPopup.show({
                 templateUrl: 'popup-template.html',
@@ -374,7 +388,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
                 buttons: [
                     { text: 'Cancel' },
                     {
-                        text: '<b>Save</b>',
+                        text: '<b>Search</b>',
                         type: 'button-positive',
                         onTap: function (e) {
 
@@ -429,24 +443,6 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
             TeamFactory.resetEntity();
             $state.go('app.addteam');
         };
-
-        $scope.myTeamSearch = function () {
-            $ionicPopup.show({
-                templateUrl: 'popup-template.html',
-                title: 'Enter team name to search',
-                scope: $scope,
-                buttons: [
-                    { text: 'Cancel' },
-                    {
-                        text: '<b>Search</b>',
-                        type: 'button-positive',
-                        onTap: function (e) {
-
-                        }
-                    }
-                ]
-            });
-        }
 
         $scope.searchTeam = function () {
             $ionicPopup.show({
@@ -517,8 +513,10 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
 
         $scope.teamResult = function (team) {
             var route = $state.current.tabGroup == 'myteam' ? 'app.myteamresult' : 'app.teamresult';
+            var searchResult = MatchFactory.getTeamMatches(team);
+            MatchFactory.searchMatch = searchResult;
 
-            $state.go(route, { team: team });
+            $state.go(route, { team: team, resetSearchMatch: false });
         };
 
         $scope.teamDetail = function (id) {
@@ -545,6 +543,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
                             SettingFactory.updateMyTeam(0, function () {
                                 TeamFactory.resetEntity();
                                 SettingFactory.myTeam = 0;
+                                $state.go('app.myteam');
                             });
                         }
 
@@ -566,8 +565,6 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
                 country: $scope.data.country,
                 postCode: $scope.data.postCode
             };
-
-            alert(JSON.stringify(team));
 
             var isEdit = $state.current.name == 'app.editmyteam' || $state.current.name == 'app.editteam';
             if (isMyTeam && SettingFactory.myTeam == 0) isEdit = false;

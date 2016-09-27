@@ -169,7 +169,8 @@ angular.module('rugbyapp.routes', [])
                 cache: false,               
                 views: {
                     'teams': {
-                        templateUrl: 'templates/team/editteamresult.html'
+                        templateUrl: 'templates/team/editteamresult.html',
+                        controller: 'MatchController'
                     }
                 }
             })
@@ -214,11 +215,13 @@ angular.module('rugbyapp.routes', [])
                 tabGroup: 'teams',
                 cache: false,
                 params: {
-                    team: ''
+                    team: '',
+                    resetSearchMatch: true
                 },
                 views: {
                     'teams': {
-                        templateUrl: 'templates/team/teamresult.html'
+                        templateUrl: 'templates/team/teamresult.html',
+                        controller: 'MatchController'
                     }
                 }
             })
@@ -264,12 +267,13 @@ angular.module('rugbyapp.routes', [])
                 cache: false,
                 tabGroup: 'myteam',
                 params: {
-                    team: ''
+                    team: '',
+                    resetSearchMatch: true
                 },
                 views: {
                     'myteam': {
                         templateUrl: 'templates/team/myteamresult.html',
-                        controller: 'TeamController',                                     
+                        controller: 'MatchController'                                  
                     }
                 }
             })
