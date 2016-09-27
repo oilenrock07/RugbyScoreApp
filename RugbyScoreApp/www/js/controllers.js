@@ -288,7 +288,14 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
                 return;
             }
 
-            //add validation for time and date here
+            if (new Date($scope.data.matchDate) == 'Invalid Date') {
+                alert('Invalid Date');
+                return;
+            }
+            if (new Date($scope.data.matchDate + ' ' + $scope.data.matchTime) == 'Invalid Date') {
+                alert('Invalid Time');
+                return;
+            }
 
             MatchFactory.mapEntity(match);
             if ($state.current.tabGroup == 'score') {
