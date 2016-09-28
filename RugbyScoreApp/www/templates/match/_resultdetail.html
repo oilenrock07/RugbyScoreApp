@@ -1,9 +1,9 @@
 <ion-content>
-    <div class="content">
+    <div class="content divider-top result-detail">
         <div class="row">
             <div class="col-50" style="padding-right: 10px;">
                 <div class="label-score align-right divider" ng-bind="team1Score() | formatScore"></div>
-                <div class="divider"><strong>{{data.team1}}</strong></div>
+                <div class="divider team-name"><strong>{{data.team1}}</strong></div>
                 <div>Trys</div>
                 <div class="divider">{{data.team1Try | formatScore}}</div>
                 <div>Conversions</div>
@@ -13,13 +13,14 @@
                 <div>Penalty</div>
                 <div class="divider">{{data.team1Penalty | formatScore}}</div>
             </div>
-            <div class="col">
+            <div class="col vertical-divider-wrap">
                 <div class="ion-minus-round divider"></div>
                 <div class="divider"><strong>V</strong></div>
+                <div class="vertical-divider"></div>
             </div>
             <div class="col-50" style="padding-left: 10px;">
                 <div class="label-score divider" ng-bind="team2Score() | formatScore"></div>
-                <div class="divider"><strong>{{data.team2}}</strong></div>
+                <div class="divider team-name"><strong>{{data.team2}}</strong></div>
                 <div>Trys</div>
                 <div class="divider">{{data.team2Try | formatScore}}</div>
                 <div>Conversions</div>
@@ -33,21 +34,23 @@
 
         <hr>
 
-        <div class="row">
-            <div class="col">
+        <div class="row sub-content">
+            <div class="col-50 no-padding">
                 <div>Match Date</div>
                 <div class="divider">{{data.matchDate}}</div>
                 <div>Match Location</div>
                 <div>{{data.location}}</div>
             </div>
             <div class="col">
+            </div>
+            <div class="col-50">
                 <div class="">Match Time</div>
                 <div>{{data.matchTime}}</div>
             </div>
         </div>
 
-        <div class="row">
-            <span ng-click="deleteMatch(data.matchId)">Delete Result</span>
+        <div class="row divider-top">
+            <span class="link" ng-click="deleteMatch(data.matchId)">Delete Result</span>
         </div>
     </div>
 </ion-content>
