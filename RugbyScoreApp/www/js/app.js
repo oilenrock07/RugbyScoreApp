@@ -6,6 +6,14 @@
 var app = angular.module('rugbyapp', ['ionic', 'rugbyapp.controllers', 'rugbyapp.factories', 'rugbyapp.routes', 'rugbyapp.data', 'rugbyapp.data', 'ngCordova'])
 
   .run(function ($ionicPlatform, $cordovaSQLite, DataFactory, SettingFactory, MatchFactory, TeamFactory) {
+
+    if (!ionic.Platform.is('browser')) {
+      setTimeout(function () {
+        navigator.splashscreen.hide();
+      }, 3000);
+    }
+
+
     $ionicPlatform.ready(function () {
       if (window.cordova && window.cordova.plugins.Keyboard) {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
