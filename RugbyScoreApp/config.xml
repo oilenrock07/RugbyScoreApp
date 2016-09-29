@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <!--<widget id="com.ionicframework.myapp371743" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">-->
 <widget id="com.ionicframework.rugbyscoretracker" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>RugbyScoreTracker</name>
+  <name>Rugby Score Tracker</name>
   <description>
-        An Ionic Framework and Cordova project.
+        Simply record the score during a rugby match with Rugby Score Tracker. With large clearly defined try, conversion, penalty and dropped goal buttons you can accurately add scores for both teams. No more having to ask the score. You can now confidently tell them the score. Ideal for parents, coaches and teachers. With the Pro version you can save the score at the end of each game and build team profiles to reference next time you play them.
     </description>
-  <author email="app@bravebrands.co.uk" href="">
+  <author email="app@bravebrands.co.uk" href="http://example.com/">
       Christopher Bigsby
     </author>
   <content src="index.html"/>

@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 var app = angular.module('rugbyapp', ['ionic', 'rugbyapp.controllers', 'rugbyapp.factories', 'rugbyapp.routes', 'rugbyapp.data', 'rugbyapp.data', 'ngCordova'])
 
-  .run(function ($ionicPlatform, $cordovaSQLite, DataFactory, SettingFactory, MatchFactory, TeamFactory) {
+  .run(function ($ionicPlatform, $cordovaSQLite, $filter, DataFactory, SettingFactory, MatchFactory, TeamFactory) {
 
     setTimeout(function () {
       navigator.splashscreen.hide();
@@ -52,6 +52,9 @@ var app = angular.module('rugbyapp', ['ionic', 'rugbyapp.controllers', 'rugbyapp
           }
         }
       });
+
+      MatchFactory.match.matchTime = $filter('date')(new Date(), 'HH:mm');
+      MatchFactory.match.matchDate = $filter('date')(new Date(), 'MM/dd/yyyy');
 
     });
   });

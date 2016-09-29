@@ -12,10 +12,14 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
             $rootScope.page = "my-team";
             $scope.icon = 'my-team-icon';
 
+
             var myTeam = SettingFactory.myTeam;
             if (myTeam != 0) {
                 var team = TeamFactory.get(myTeam);
                 TeamFactory.mapEntity(team);
+            }
+            else {
+                TeamFactory.resetEntity();
             }
             $state.go('app.myteam');
         };
@@ -308,7 +312,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
             var route = '';
             if ($state.current.tabGroup == 'results')
                 route = 'app.resultdetail';
-            else if ($state.current.tabGroup == 'team')
+            else if ($state.current.tabGroup == 'teams')
                 route = 'app.teamresultdetail';
             else
                 route = 'app.myteamresultdetail';
