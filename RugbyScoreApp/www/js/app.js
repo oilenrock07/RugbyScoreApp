@@ -5,7 +5,16 @@
 // the 2nd parameter is an array of 'requires'
 var app = angular.module('rugbyapp', ['ionic','ngCordova', 'rugbyapp.controllers', 'rugbyapp.factories', 'rugbyapp.routes'])
 
+
+
   .run(function ($ionicPlatform, $cordovaSQLite) {
+
+    if (!ionic.Platform.is('browser')) {
+      setTimeout(function () {
+        navigator.splashscreen.hide();
+      }, 3000);
+    }
+
     $ionicPlatform.ready(function () {
       if (window.cordova && window.cordova.plugins.Keyboard) {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard

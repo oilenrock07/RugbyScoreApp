@@ -7,9 +7,14 @@ angular.module('rugbyapp.controllers', ['rugbyapp.factories'])
             $state.go('app.using');
         };
 
+        $scope.openMarket = function () {
+            var src = 'market://details?id=ph.com.digify.smphi'//'https://play.google.com/store/apps/details?id=ph.com.digify.smphi';
+            window.open(src, '_system', null);
+        }
+
         $scope.showMatch = function () {
 
-            if ($state.current.tabGroup == 'about') {                
+            if ($state.current.tabGroup == 'about') {
                 $state.go('app.match');
                 return;
             }
