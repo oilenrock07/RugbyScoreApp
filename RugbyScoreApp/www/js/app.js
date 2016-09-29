@@ -7,11 +7,9 @@ var app = angular.module('rugbyapp', ['ionic', 'rugbyapp.controllers', 'rugbyapp
 
   .run(function ($ionicPlatform, $cordovaSQLite, DataFactory, SettingFactory, MatchFactory, TeamFactory) {
 
-    if (!ionic.Platform.is('browser')) {
-      setTimeout(function () {
-        navigator.splashscreen.hide();
-      }, 3000);
-    }
+    setTimeout(function () {
+      navigator.splashscreen.hide();
+    }, 3000);
 
 
     $ionicPlatform.ready(function () {
