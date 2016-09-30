@@ -138,6 +138,10 @@ input[type="text"], input[type="number"]{
     font-weight: normal !important;
 }
 
+.about-content i{
+    font-style: italic !important;
+}
+
 .about-content-wrap.content{
     height: 82% !important;
 }
