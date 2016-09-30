@@ -134,8 +134,12 @@ input[type="text"], input[type="number"]{
 }
 
 /** About **/
-.about-content {
-    margin-top: 15px;
+.about-content-wrap.content{
+    height: 82% !important;
+}
+
+.about-content{
+    margin: 15px 0 20px 0;
 }
 
 .about-list{
