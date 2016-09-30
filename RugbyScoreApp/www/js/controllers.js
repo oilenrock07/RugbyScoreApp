@@ -1,9 +1,11 @@
 angular.module('rugbyapp.controllers', ['rugbyapp.factories'])
 
     .controller('MatchController', function ($scope, $rootScope, $state, $ionicPopup, MatchFactory) {
-
+        $rootScope.page = "start-match";
         $scope.factory = MatchFactory;
+        
         $scope.showMyTeam = function () {
+            $rootScope.page = "my-team";
             $state.go('app.using');
         };
 
@@ -13,6 +15,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.factories'])
         }
 
         $scope.showMatch = function () {
+            $rootScope.page = "start-match";
 
             if ($state.current.tabGroup == 'about') {
                 $state.go('app.match');
@@ -43,10 +46,12 @@ angular.module('rugbyapp.controllers', ['rugbyapp.factories'])
         };
 
         $scope.showTeams = function () {
+            $rootScope.page = "team";
             $state.go('app.using');
         };
 
         $scope.showAboutMain = function () {
+            $rootScope.page = "about";
             $state.go('app.aboutmain');
         };
 

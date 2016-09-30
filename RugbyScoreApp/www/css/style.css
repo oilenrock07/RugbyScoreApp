@@ -21,6 +21,10 @@
     font-size: 18px !important;
 }
 
+.larger{
+    font-size: 20px !important;
+}
+
 .extra-large{
     font-size: 28px !important;
 }
@@ -51,7 +55,8 @@
 }
 
 .sub-content{
-    margin-top: 10px !important;
+    margin: 10px 0 !important;
+    
 }
 
 .divider{
@@ -59,7 +64,7 @@
 }
 
 .divider-top{
-    padding-top: 10px;
+    padding-top: 10px !important;
 }
 
 hr{
@@ -128,19 +133,56 @@ input[type="text"], input[type="number"]{
     font-size: 18px !important;
 }
 
-.about-content {
-    margin: 15px
+/** About **/
+.about-content-wrap.content{
+    height: 82% !important;
+}
+
+.about-content{
+    margin: 15px 0 20px 0;
+}
+
+.about-list{
+    padding-top: 20px;
+}
+
+.about-list .text-center{
+    /** Larger **/
+    font-size: 20px !important;
+}  
+
+.about-list .item{
+    padding: 15px 0px;
+}
+
+/** Keyboard Open **/
+.keyboard-open .tabs{
+    display:none !important;
+}
+
+.keyboard-open .has-tabs
+{
+    bottom:-43px !important;
+}
+
+.keyboard-open div.button-footer
+{
+    bottom:0px !important;
+}
+
+.keyboard-open .content{
+    height: 150% !important;
+}
+
+.keyboard-open .match{
+    height: 130% !important;
+}
+
+.keyboard-open .sub-content{
+    height:50%
 }
 
 /** Footer **/
-.keyboard-open .tabs{
-    display:none;
-  }
-.keyboard-open .has-tabs
-{
-    bottom:0;
-}
-
 .has-footer.has-tabs {
     bottom: 120px;
 }
@@ -286,7 +328,7 @@ div.button-footer{
     border-left: none !important;
     border-right: none !important;
     border-radius: 0 !important;
-    padding-top: 10px;
+    padding-top: 5px;
     /* Extra Large */
     font-size: 28px !important;
 }
@@ -298,7 +340,7 @@ div.button-footer{
 }
 
 .has-tabs, .bar-footer.has-tabs{
-    bottom: 70px;
+    bottom: 65px;
 }
 
 /** Match **/
@@ -319,8 +361,10 @@ div.button-footer{
 .match h2{
     color: #fff;
     background: url(../img/pitch-line.jpg) repeat center;
-    line-height: 22px;
+    line-height: 18px;
     margin: 5px 0;
+    /** Extra Large**/
+    font-size: 28px !important;
 }
 
 .match .row{
@@ -335,7 +379,7 @@ div.button-footer{
 .match-title {
     border: 2px solid #FFF;
     background-color: rgba(0, 0, 0, 0.68);
-    height: 45px;
+    height: 42px;
     vertical-align: middle;
     color: white;
     border-radius: 5px;
@@ -347,7 +391,9 @@ div.button-footer{
 }
 
 .match-score div{
-    padding-top: 7px;
+    padding-top: 4px;
+    /** Extra Large **/
+    font-size: 28px !important;
 }
 
 .match-label strong{
@@ -364,6 +410,11 @@ div.button-footer{
     border: 2px solid white;
     background-color: rgba(0, 0, 0, 0.44);
     padding: 0px 4px;
+}
+
+.button.button-points icon{
+    /** Larger **/
+    font-size: 20px !important;
 }
 
 .button.button-circle{
@@ -447,7 +498,7 @@ ion-content .scroll{
 
 /** Score **/
 .score .vertical-divider{
-    height: 76%;
+    height: 76.5%;
     background: url(../img/vertical-bar.png) repeat center;
 }
 
@@ -455,7 +506,8 @@ ion-content .scroll{
     margin-top: -10px;
 }
 
-.score .team-name{
+.score .team-name,
+.result-detail .team-name{
     max-height: 50px;
     min-height: 50px;
 }
@@ -502,6 +554,17 @@ ion-content .scroll{
 /** Results **/
 .results .vertical-divider-wrap{
     padding: 0 3%;
+}
+
+/** Result Detail **/
+.result-detail .vertical-divider{
+    height: 76.5%;
+    background: url(../img/vertical-bar.png) repeat center;
+}
+
+/** Team Result **/
+.team-result-template .vertical-divider-wrap{
+    padding-top: 0px;
 }
 
 @media screen and (max-width:767px) {
