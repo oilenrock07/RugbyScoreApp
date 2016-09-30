@@ -56,6 +56,7 @@
 
 .sub-content{
     margin: 10px 0 !important;
+    
 }
 
 .divider{
@@ -132,25 +133,56 @@ input[type="text"], input[type="number"]{
     font-size: 18px !important;
 }
 
-.about-content {
-    margin: 15px
+/** About **/
+.about-content-wrap.content{
+    height: 82% !important;
 }
 
-/** Footer **/
+.about-content{
+    margin: 15px 0 20px 0;
+}
+
+.about-list{
+    padding-top: 20px;
+}
+
+.about-list .text-center{
+    /** Larger **/
+    font-size: 20px !important;
+}  
+
+.about-list .item{
+    padding: 15px 0px;
+}
+
+/** Keyboard Open **/
 .keyboard-open .tabs{
-    display:none;
+    display:none !important;
 }
 
 .keyboard-open .has-tabs
 {
-    bottom:0;
+    bottom:-43px !important;
 }
 
 .keyboard-open div.button-footer
 {
-    bottom:0;
+    bottom:0px !important;
 }
 
+.keyboard-open .content{
+    height: 150% !important;
+}
+
+.keyboard-open .match{
+    height: 130% !important;
+}
+
+.keyboard-open .sub-content{
+    height:50%
+}
+
+/** Footer **/
 .has-footer.has-tabs {
     bottom: 120px;
 }
@@ -296,7 +328,7 @@ div.button-footer{
     border-left: none !important;
     border-right: none !important;
     border-radius: 0 !important;
-    padding-top: 10px;
+    padding-top: 5px;
     /* Extra Large */
     font-size: 28px !important;
 }
@@ -308,7 +340,7 @@ div.button-footer{
 }
 
 .has-tabs, .bar-footer.has-tabs{
-    bottom: 70px;
+    bottom: 65px;
 }
 
 /** Match **/
@@ -466,7 +498,7 @@ ion-content .scroll{
 
 /** Score **/
 .score .vertical-divider{
-    height: 76%;
+    height: 76.5%;
     background: url(../img/vertical-bar.png) repeat center;
 }
 
@@ -526,8 +558,13 @@ ion-content .scroll{
 
 /** Result Detail **/
 .result-detail .vertical-divider{
-    height: 76%;
+    height: 76.5%;
     background: url(../img/vertical-bar.png) repeat center;
+}
+
+/** Team Result **/
+.team-result-template .vertical-divider-wrap{
+    padding-top: 0px;
 }
 
 @media screen and (max-width:767px) {
