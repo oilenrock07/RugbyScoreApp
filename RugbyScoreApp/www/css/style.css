@@ -152,17 +152,17 @@ input[type="text"], input[type="number"]{
 
 /** Footer **/
 .keyboard-open .tabs{
-    display:none;
+    display:none !important;
 }
 
 .keyboard-open .has-tabs
 {
-    bottom:0;
+    bottom:-1000px !important;
 }
 
 .keyboard-open div.button-footer
 {
-    bottom:0;
+    bottom:-1000px !important;
 }
 
 .has-footer.has-tabs {
