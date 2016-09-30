@@ -64,7 +64,6 @@ angular.module('rugbyapp.data', ['ngCordova'])
             executeQuery('DELETE FROM settings', null, function () {
                 var query = "INSERT INTO settings (teamId) VALUES (?)";
                 insert(query, [teamId], callBack);
-                alert('finally');
             })
         }
 
