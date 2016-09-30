@@ -76,6 +76,9 @@ angular.module('rugbyapp.routes', [])
 
             .state('app.resultdetail', {
                 url: '/resultdetail', 
+                params: {
+                    resetSearchMatch: true
+                },
                 tabGroup: 'results',
                 cache: false,               
                 views: {
@@ -142,6 +145,9 @@ angular.module('rugbyapp.routes', [])
             .state('app.teamresultdetail', {
                 url: '/teamresultdetail', 
                 tabGroup: 'teams',
+                params: {
+                    resetSearchMatch: true
+                },
                 cache: false,               
                 views: {
                     'teams': {
@@ -190,6 +196,7 @@ angular.module('rugbyapp.routes', [])
             .state('app.addteam', {
                 url: '/addteam',
                 tabGroup: 'teams',
+                cache: false, 
                 views: {
                     'teams': {
                         templateUrl: 'templates/team/addteam.html',
@@ -243,6 +250,7 @@ angular.module('rugbyapp.routes', [])
             .state('app.addmyteam', {
                 url: '/addmyteam',
                 tabGroup: 'myteam',
+                cache: false, 
                 views: {
                     'myteam': {
                         templateUrl: 'templates/team/addmyteam.html',
@@ -253,6 +261,7 @@ angular.module('rugbyapp.routes', [])
 
             .state('app.editmyteam', {
                 url: '/editmyteam',
+                cache: false, 
                 tabGroup: 'myteam',
                 views: {
                     'myteam': {
@@ -280,6 +289,9 @@ angular.module('rugbyapp.routes', [])
 
             .state('app.myteamresultdetail', {
                 url: '/myteamresultdetail', 
+                params: {
+                    resetSearchMatch: true
+                },
                 tabGroup: 'teams',
                 cache: false,               
                 views: {

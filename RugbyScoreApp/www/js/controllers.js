@@ -306,6 +306,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
         };
 
         $scope.matchDetail = function (id) {
+
             var match = MatchFactory.getMatch(id);
             MatchFactory.mapEntity(match);
 
@@ -317,7 +318,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
             else
                 route = 'app.myteamresultdetail';
 
-            $state.go(route);
+            $state.go(route, { resetSearchMatch: false });
         };
 
         $scope.deleteScore = function () {
@@ -349,6 +350,10 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
 
             var team1Score = $filter('formatScore')($scope.team1Score());
             var team2Score = $filter('formatScore')($scope.team2Score());
+
+            //if draw
+            if (parseInt($scope.team1Score()) == parseInt($scope.team2Score()))
+                message = "A draw between " + $scope.data.team1 + ' vs ' + $scope.data.team2;
 
             message = message + ' with score of ' + (team1Wins ? team1Score + ' - ' + team2Score
                 : team2Score + ' - ' + team1Score);
@@ -542,16 +547,21 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
                     var isMyTeam = id == SettingFactory.myTeam;
                     TeamFactory.deleteTeam(id, function () {
 
+
+                        var route = $state.current.tabGroup == 'myteam' ? 'app.myteam' : 'app.teams';
                         if (isMyTeam) {
 
                             SettingFactory.updateMyTeam(0, function () {
                                 TeamFactory.resetEntity();
                                 SettingFactory.myTeam = 0;
-                                $state.go('app.myteam');
+                                $state.go(route);
                             });
+
+                            return;
                         }
 
-                        $ionicHistory.goBack();
+                        $state.go(route);
+
                     });
                 }
             });
