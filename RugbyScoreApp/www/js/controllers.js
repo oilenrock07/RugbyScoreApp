@@ -336,7 +336,15 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
             }).then(function (res) {
                 if (res) {
                     MatchFactory.deleteMatch(id, function () {
-                        $ionicHistory.goBack();
+
+                        var route = '';
+                        if ($state.current.tabGroup == 'results')
+                            route = 'app.results';
+                        else if ($state.current.tabGroup == 'teams')
+                            route = 'app.teamresult';
+                        else
+                            route = 'app.myteamresult';
+                        $state.go(route);
                     });
                 }
             });
@@ -440,7 +448,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
             clubAddress: TeamFactory.team.clubAddress,
             townCity: TeamFactory.team.townCity,
             country: TeamFactory.team.country,
-            postCode: TeamFactory.team.postCode,            
+            postCode: TeamFactory.team.postCode,
         };
         $scope.teamLastMatch = $scope.lastMatch();
 
