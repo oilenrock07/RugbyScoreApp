@@ -56,6 +56,7 @@
 
 .sub-content{
     margin: 10px 0 !important;
+    
 }
 
 .divider{
@@ -150,21 +151,34 @@ input[type="text"], input[type="number"]{
     padding: 15px 0px;
 }
 
-/** Footer **/
+/** Keyboard Open **/
 .keyboard-open .tabs{
     display:none !important;
 }
 
 .keyboard-open .has-tabs
 {
-    bottom:-1000px !important;
+    bottom:-43px !important;
 }
 
 .keyboard-open div.button-footer
 {
-    bottom:-1000px !important;
+    bottom:0px !important;
 }
 
+.keyboard-open .content{
+    height: 130% !important;
+}
+
+.keyboard-open .match{
+    height: 130% !important;
+}
+
+.keyboard-open .sub-content{
+    height:50%
+}
+
+/** Footer **/
 .has-footer.has-tabs {
     bottom: 120px;
 }
