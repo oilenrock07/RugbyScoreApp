@@ -306,6 +306,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
         };
 
         $scope.matchDetail = function (id) {
+
             var match = MatchFactory.getMatch(id);
             MatchFactory.mapEntity(match);
 
@@ -317,7 +318,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
             else
                 route = 'app.myteamresultdetail';
 
-            $state.go(route);
+            $state.go(route, { resetSearchMatch: false });
         };
 
         $scope.deleteScore = function () {
@@ -335,7 +336,15 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
             }).then(function (res) {
                 if (res) {
                     MatchFactory.deleteMatch(id, function () {
-                        $ionicHistory.goBack();
+
+                        var route = '';
+                        if ($state.current.tabGroup == 'results')
+                            route = 'app.results';
+                        else if ($state.current.tabGroup == 'teams')
+                            route = 'app.teamresult';
+                        else
+                            route = 'app.myteamresult';
+                        $state.go(route);
                     });
                 }
             });
@@ -349,6 +358,10 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
 
             var team1Score = $filter('formatScore')($scope.team1Score());
             var team2Score = $filter('formatScore')($scope.team2Score());
+
+            //if draw
+            if (parseInt($scope.team1Score()) == parseInt($scope.team2Score()))
+                message = "A draw between " + $scope.data.team1 + ' vs ' + $scope.data.team2;
 
             message = message + ' with score of ' + (team1Wins ? team1Score + ' - ' + team2Score
                 : team2Score + ' - ' + team1Score);
@@ -436,8 +449,8 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
             townCity: TeamFactory.team.townCity,
             country: TeamFactory.team.country,
             postCode: TeamFactory.team.postCode,
-            teamLastMatch: $scope.lastMatch()
         };
+        $scope.teamLastMatch = $scope.lastMatch();
 
         $scope.teamResultText = $state.current.tabGroup == 'myteam' ? 'My Team Result' : 'Team Result';
         $scope.myTeamId = SettingFactory.myTeam;
@@ -542,16 +555,21 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
                     var isMyTeam = id == SettingFactory.myTeam;
                     TeamFactory.deleteTeam(id, function () {
 
+
+                        var route = $state.current.tabGroup == 'myteam' ? 'app.myteam' : 'app.teams';
                         if (isMyTeam) {
 
                             SettingFactory.updateMyTeam(0, function () {
                                 TeamFactory.resetEntity();
                                 SettingFactory.myTeam = 0;
-                                $state.go('app.myteam');
+                                $state.go(route);
                             });
+
+                            return;
                         }
 
-                        $ionicHistory.goBack();
+                        $state.go(route);
+
                     });
                 }
             });
