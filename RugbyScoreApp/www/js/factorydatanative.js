@@ -61,8 +61,11 @@ angular.module('rugbyapp.data', ['ngCordova'])
 
         //SETTINGS****************************************************************
         var createSetting = function (teamId, callBack) {
-            var query = "INSERT INTO settings (teamId) VALUES (?)";
-            insert(query, [teamId], callBack);
+            executeQuery('DELETE FROM settings', null, function () {
+                var query = "INSERT INTO settings (teamId) VALUES (?)";
+                insert(query, [teamId], callBack);
+                alert('finally');
+            })
         }
 
         var loadSetting = function (callBack) {

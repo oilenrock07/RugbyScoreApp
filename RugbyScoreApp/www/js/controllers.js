@@ -440,9 +440,9 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
             clubAddress: TeamFactory.team.clubAddress,
             townCity: TeamFactory.team.townCity,
             country: TeamFactory.team.country,
-            postCode: TeamFactory.team.postCode,
-            teamLastMatch: $scope.lastMatch()
+            postCode: TeamFactory.team.postCode,            
         };
+        $scope.teamLastMatch = $scope.lastMatch();
 
         $scope.teamResultText = $state.current.tabGroup == 'myteam' ? 'My Team Result' : 'Team Result';
         $scope.myTeamId = SettingFactory.myTeam;

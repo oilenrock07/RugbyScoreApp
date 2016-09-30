@@ -145,7 +145,6 @@ angular.module('rugbyapp.factories', ['ngCordova'])
     var getLastMatch = function (teamName) {
       var teamMatches = getTeamMatches(teamName);
 
-
       if (teamMatches.length > 0) {
         var sortedMatches = teamMatches.sort(function (a, b) {
           return a.matchDateTime - b.matchDateTime;
