@@ -61,7 +61,7 @@
 
 .col-divider{
     width: 1% !important;
-    margin: 0 10px;
+    margin: 6px 10px 0 10px;
 }
 
 .divider{
@@ -214,9 +214,9 @@ input[type="text"], input[type="number"]{
     background-image: linear-gradient(0deg, #92145c, #92145c 50%, transparent 50%) !important;
 }
 
-.tabs-icon-top > .tabs .tab-item{
+/*.tabs-icon-top > .tabs .tab-item{
     opacity: 0.4;
-}
+}*/
 
 .tabs-icon-top > .tabs .tab-item-active{
     opacity: 1;
@@ -507,7 +507,7 @@ ion-content .scroll{
 
 /** Score **/
 .score .vertical-divider{
-    padding: 5px 0;
+    padding: 4.7px 0;
     background: url(../img/vertical-bar.png) repeat center;
 }
 
@@ -562,12 +562,13 @@ ion-content .scroll{
 
 /** Results **/
 .results .vertical-divider-wrap{
-    padding: 0 3%;
+    padding: 0;
+    margin: 0 10px;
 }
 
 /** Result Detail **/
 .result-detail .vertical-divider{
-    padding: 5px 0;
+    padding: 4.7px 0;
     background: url(../img/vertical-bar.png) repeat center;
 }
 
@@ -578,6 +579,7 @@ ion-content .scroll{
 /** Team Result **/
 .team-result-template .vertical-divider-wrap{
     padding-top: 0px;
+    margin: 0 10px;
 }
 
 @media screen and (max-width:767px) {
