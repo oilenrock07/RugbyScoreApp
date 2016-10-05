@@ -33,6 +33,11 @@ angular.module('rugbyapp.data', [])
                 teamId:3,
                 fullTeamName: 'ABCD1234',
                 townCity: 'Baras'
+            },
+            {
+                teamId: 4,
+                fullTeamName: 'Chicago Balls',
+                townCity: 'Balls'
             }];
 
             return selectCallBack(teams, callBack);

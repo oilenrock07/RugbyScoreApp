@@ -87,8 +87,9 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
             team2DropGoal: MatchFactory.match.team2DropGoal,
             matchDate: MatchFactory.match.matchDate,
             matchTime: MatchFactory.match.matchTime,
-            isMyTeam: MatchFactory.match.isMyTeam,
+            isMyTeam: MatchFactory.match.isMyTeam
         };
+
 
         //functions
         var getScopeMatch = function () {
@@ -108,6 +109,46 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
                 matchDate: $scope.data.matchDate,
                 matchTime: $scope.data.matchTime
             };
+        };
+
+        $scope.showAutoCompleteTeam1 = false;
+        $scope.showAutoCompleteTeam2 = false;
+
+        $scope.hideAutoComplete = function () {
+            $scope.showAutoCompleteTeam1 = false;
+            $scope.showAutoCompleteTeam2 = false;
+        }
+
+        $scope.selectAutoCompleteTeam = function (team, teamName) {
+            if (team == 'team1') {
+                $scope.data.team1 = teamName;
+                $scope.showAutoCompleteTeam1 = false;
+
+                if ($state.current.name == 'app.match') MatchFactory.match.team1 = teamName;
+            }
+            else {
+                $scope.data.team2 = teamName;
+                $scope.showAutoCompleteTeam2 = false;
+
+                if ($state.current.name == 'app.match') MatchFactory.match.team2 = teamName;
+            }
+
+        };
+
+
+        $scope.searchTeam = function (team, teamName) {
+
+            if (teamName.length > 0) {
+                var searchResult = MatchFactory.autoCompleteTeam(teamName);
+                MatchFactory.autoCompleteTeamResult = searchResult;
+
+                if (team == 'team1')
+                    $scope.showAutoCompleteTeam1 = true;
+                else
+                    $scope.showAutoCompleteTeam2 = true;
+            }
+            else
+                MatchFactory.autoCompleteTeamResult = [];
         };
 
         $scope.startMatch = function () {

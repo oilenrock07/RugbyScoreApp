@@ -1,6 +1,6 @@
 
 angular.module('rugbyapp.factories', ['ngCordova'])
-  .factory('MatchFactory', function ($cordovaSQLite, DataFactory) {
+  .factory('MatchFactory', function ($cordovaSQLite, DataFactory, TeamFactory) {
 
     //entities
     match = {};
@@ -24,6 +24,7 @@ angular.module('rugbyapp.factories', ['ngCordova'])
 
     var matches = [];
     var searchMatch = [];
+    var searchTeam = [];
 
     var updateMatch = function (param, callBack) {
       DataFactory.match.updateMatch(param, function (rs) {
@@ -161,12 +162,24 @@ angular.module('rugbyapp.factories', ['ngCordova'])
 
       for (var i = 0; i < matches.length; i++) {
         if ((matches[i].team1.toLowerCase() == team.toLowerCase() && (matches[i].team2.toLowerCase() == oposition.toLowerCase()))
-        || (matches[i].team2.toLowerCase() == team.toLowerCase() && matches[i].team1.toLowerCase() == oposition.toLowerCase())) {
+          || (matches[i].team2.toLowerCase() == team.toLowerCase() && matches[i].team1.toLowerCase() == oposition.toLowerCase())) {
           teamMatches.push(matches[i]);
         }
       }
 
       return teamMatches;
+    }
+
+    var autoCompleteTeamResult = [];
+    var autoCompleteTeam = function (team) {
+      var teams = TeamFactory.search(team).sort(function (a, b) {
+        return a.fullTeamName > b.fullTeamName;
+      });
+
+      if (teams.length > 0)
+        return teams.splice(0, 3);
+      else
+        return [];
     }
 
     return {
@@ -181,7 +194,9 @@ angular.module('rugbyapp.factories', ['ngCordova'])
       getTeamMatches: getTeamMatches,
       getLastMatch: getLastMatch,
       searchMatch: searchMatch,
-      teamSearchResult: teamSearchResult
+      teamSearchResult: teamSearchResult,
+      autoCompleteTeam: autoCompleteTeam,
+      autoCompleteTeamResult: autoCompleteTeamResult
     };
   })
 
@@ -319,8 +334,8 @@ angular.module('rugbyapp.factories', ['ngCordova'])
     var search = function (teamName) {
       var searchResult = [];
       for (var i = 0; i < teams.length; i++) {
-        if (teams[i].fullTeamName.toLowerCase().indexOf(teamName.toLowerCase()) >= 0 
-        || teams[i].fullTeamName.toLowerCase().indexOf(teamName.toLowerCase()) >= 0) {
+        if (teams[i].fullTeamName.toLowerCase().indexOf(teamName.toLowerCase()) >= 0
+          || teams[i].fullTeamName.toLowerCase().indexOf(teamName.toLowerCase()) >= 0) {
           searchResult.push(teams[i]);
         }
       }
