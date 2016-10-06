@@ -160,7 +160,7 @@ angular.module('rugbyapp.factories', ['ngCordova'])
     var teamSearchResult = function (team, oposition) {
       var teamMatches = [];
 
-      //since this is the last changes, and it is not designed for this, brute force the search
+      //brute force searching
       //get all the possible abbreviation
       var possibleAbbr = [];
       for (var i = 0; i < TeamFactory.teams.length; i++) {
