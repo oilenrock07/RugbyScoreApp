@@ -160,19 +160,42 @@ angular.module('rugbyapp.factories', ['ngCordova'])
     var teamSearchResult = function (team, oposition) {
       var teamMatches = [];
 
+      //since this is the last changes, and it is not designed for this, brute force the search
+      //get all the possible abbreviation
+      var possibleAbbr = [];
+      for (var i = 0; i < TeamFactory.teams.length; i++) {
+        if (TeamFactory.teams[i].abbrTeamName.toLowerCase().indexOf(oposition.toLowerCase()) >= 0)
+          possibleAbbr.push(TeamFactory.teams[i]);
+      }
+
+      //get the matches for the team
       for (var i = 0; i < matches.length; i++) {
-        if ((matches[i].team1.toLowerCase() == team.toLowerCase() && (matches[i].team2.toLowerCase() == oposition.toLowerCase()))
-          || (matches[i].team2.toLowerCase() == team.toLowerCase() && matches[i].team1.toLowerCase() == oposition.toLowerCase())) {
+        if ((matches[i].team1.toLowerCase() == team.toLowerCase() && (matches[i].team2.toLowerCase().indexOf(oposition.toLowerCase()) >= 0)) ||
+          (matches[i].team2.toLowerCase() == team.toLowerCase() && matches[i].team1.toLowerCase().indexOf(oposition.toLowerCase()) >= 0)) {
           teamMatches.push(matches[i]);
+          continue;
+        }
+
+        for (var j = 0; j < possibleAbbr.length; j++) {
+          if ((matches[i].team1.toLowerCase() == team.toLowerCase() && (matches[i].team2.toLowerCase().indexOf(possibleAbbr[j].fullTeamName.toLowerCase()) >= 0)) ||
+            (matches[i].team2.toLowerCase() == team.toLowerCase() && matches[i].team1.toLowerCase().indexOf(possibleAbbr[j].fullTeamName.toLowerCase()) >= 0)) {
+            teamMatches.push(matches[i]);
+          }
         }
       }
 
       return teamMatches;
     }
 
+    var autoCompleteTeamSearch = function (team, oposition) {
+      var teamMatches = teamSearchResult(team, oposition);
+
+      return teamMatches.splice(0, 3);
+    }
+
     var autoCompleteTeamResult = [];
     var autoCompleteTeam = function (team) {
-      var teams = TeamFactory.search(team).sort(function (a, b) {
+      var teams = TeamFactory.searchTeamIncludingAbbr(team).sort(function (a, b) {
         return a.fullTeamName > b.fullTeamName;
       });
 
@@ -196,7 +219,8 @@ angular.module('rugbyapp.factories', ['ngCordova'])
       searchMatch: searchMatch,
       teamSearchResult: teamSearchResult,
       autoCompleteTeam: autoCompleteTeam,
-      autoCompleteTeamResult: autoCompleteTeamResult
+      autoCompleteTeamResult: autoCompleteTeamResult,
+      autoCompleteTeamSearch: autoCompleteTeamSearch
     };
   })
 
@@ -334,8 +358,18 @@ angular.module('rugbyapp.factories', ['ngCordova'])
     var search = function (teamName) {
       var searchResult = [];
       for (var i = 0; i < teams.length; i++) {
+        if (teams[i].fullTeamName.toLowerCase().indexOf(teamName.toLowerCase()) >= 0) {
+          searchResult.push(teams[i]);
+        }
+      }
+      return searchResult;
+    }
+    var autoCompleteTeam = [];
+    var searchTeamIncludingAbbr = function (teamName) {
+      var searchResult = [];
+      for (var i = 0; i < teams.length; i++) {
         if (teams[i].fullTeamName.toLowerCase().indexOf(teamName.toLowerCase()) >= 0
-          || teams[i].fullTeamName.toLowerCase().indexOf(teamName.toLowerCase()) >= 0) {
+          || teams[i].abbrTeamName.toLowerCase().indexOf(teamName.toLowerCase()) >= 0) {
           searchResult.push(teams[i]);
         }
       }
@@ -350,8 +384,10 @@ angular.module('rugbyapp.factories', ['ngCordova'])
       saveTeam: saveTeam,
       mapEntity: mapTeam,
       search: search,
+      searchTeamIncludingAbbr: searchTeamIncludingAbbr,
       resetEntity: resetEntity,
-      searchTeams: searchTeams
+      searchTeams: searchTeams,
+      autoCompleteTeam: autoCompleteTeam
     }
 
 

@@ -22,21 +22,25 @@ angular.module('rugbyapp.data', [])
             var teams = [{
                 teamId: 1,
                 fullTeamName: 'Chicago Bulls',
-                townCity: 'Chicago'
+                townCity: 'Chicago',
+                abbrTeamName: 'cb'
             },
             {
                 teamId: 2,
                 fullTeamName: 'XYZ Team',
-                townCity: 'Planet X'
+                townCity: 'Planet X',
+                abbrTeamName: 'xxx'
             },
             {
                 teamId:3,
                 fullTeamName: 'ABCD1234',
-                townCity: 'Baras'
+                townCity: 'Baras',
+                abbrTeamName: 'a1'
             },
             {
                 teamId: 4,
                 fullTeamName: 'Chicago Balls',
+                abbrTeamName: 'bl',
                 townCity: 'Balls'
             }];
 
@@ -96,8 +100,8 @@ angular.module('rugbyapp.data', [])
             },
             {
                 matchId:2,
-                team1: 'Chicago Bulls',
-                team2: 'XYZ Team',
+                team1: 'XYZ Team',
+                team2: 'Chicago Bulls',
                 team1Try: 0,
                 team1DropGoal: 3,
                 team1Penalty: 3,

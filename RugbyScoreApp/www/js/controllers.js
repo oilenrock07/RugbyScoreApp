@@ -113,10 +113,12 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
 
         $scope.showAutoCompleteTeam1 = false;
         $scope.showAutoCompleteTeam2 = false;
+        $scope.showAutoCompleteTeamResult = false;
 
         $scope.hideAutoComplete = function () {
             $scope.showAutoCompleteTeam1 = false;
             $scope.showAutoCompleteTeam2 = false;
+            $scope.showAutoCompleteTeamResult = false;
         }
 
         $scope.selectAutoCompleteTeam = function (team, teamName) {
@@ -135,6 +137,11 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
 
         };
 
+        $scope.selectAutoCompleteSearchTeam = function (teamName) {
+            $scope.data.search = teamName;
+            $scope.showAutoCompleteTeamResult = false;
+        };
+
 
         $scope.searchTeam = function (team, teamName) {
 
@@ -147,9 +154,25 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
                 else
                     $scope.showAutoCompleteTeam2 = true;
             }
-            else
+            else {
                 MatchFactory.autoCompleteTeamResult = [];
+                $scope.hideAutoComplete();
+            }
         };
+
+        $scope.searchTeamResult = function (teamName) {
+
+            if ($scope.data.search.length > 0) {
+                var searchResult = MatchFactory.autoCompleteTeamSearch(teamName, $scope.data.search);
+                MatchFactory.autoCompleteTeamResult = searchResult;
+                $scope.showAutoCompleteTeamResult = true;
+            }
+            else {
+                MatchFactory.autoCompleteTeamResult = [];
+                $scope.hideAutoComplete();
+            }
+        };
+
 
         $scope.startMatch = function () {
             $rootScope.page = "start-match";
@@ -495,6 +518,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
 
         $scope.teamResultText = $state.current.tabGroup == 'myteam' ? 'My Team Result' : 'Team Result';
         $scope.myTeamId = SettingFactory.myTeam;
+        $scope.showSearch = false;
 
         //redirects to add new team page
         $scope.addNewTeam = function () {
@@ -614,6 +638,23 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
                     });
                 }
             });
+        };
+
+        $scope.selectAutoCompleteTeam = function (teamName) {
+            $scope.data.search = teamName;
+            $scope.showSearch = false;
+        };
+
+        $scope.searchTeamAutoComplete = function () {
+
+            if ($scope.data.search.length > 0) {
+                TeamFactory.autoCompleteTeam = TeamFactory.searchTeamIncludingAbbr($scope.data.search);
+                $scope.showSearch = true;
+            }
+            else {
+                TeamFactory.autoCompleteTeam = [];
+                $scope.showSearch = false;
+            }
         };
 
         $scope.saveTeam = function () {

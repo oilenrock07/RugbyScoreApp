@@ -27,7 +27,8 @@
         </div>
     </div>
     <script id="popup-template.html" type="text/ng-template">
-      <input ng-model="data.search" type="text" placeholder="Search">
+      <input ng-model="data.search" type="text" placeholder="Search" ng-change="searchTeamResult(searchTeamName)">
+      <div ng-include="'templates/team/_searchresult.html'"></div>
     </script>
 
 </ion-content>
