@@ -50,6 +50,11 @@
     padding: 0px 20px;
 }
 
+/** tabs with sub header**/
+.results .list{
+    margin-bottom: 130px;
+}
+
 .content .row{
     padding-left: 0;
 }
@@ -576,18 +581,16 @@ ion-content .scroll{
     margin: 0 10px;
 }
 
-@media screen and (max-width:767px) {
-    .match ion-content{
-         height: 82% !important;
-     }
 
+.match ion-content{
+     height: 82% !important;
 }
 
 /** Tablets **/
 @media screen and (min-width:320px) and (orientation:landscape) {
     .match ion-content{
-         height: 73% !important;
-     }
+        height: 82% !important;
+    }
 
     .new-match input[type="text"], input[type="number"]{
          height: 40px !important;
@@ -597,4 +600,11 @@ ion-content .scroll{
         padding: 11px 0;
     }
 
+}
+
+/** Landscape phones**/
+@media (min-width:480px) and (orientation:landscape){
+    .match ion-content{
+        height: 70% !important;
+    }
 }
