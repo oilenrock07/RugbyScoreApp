@@ -7,11 +7,9 @@
                     <span class="input-label">Team A</span>
                     <input type="text" maxlength="30" placeholder="Enter Team Name A" ng-model="data.team1" ng-change="searchTeam('team1', data.team1)" autocomplete="off">
                 </label>
-                <div ng-include="'templates/match/_autocompleteteam1.html'"></div>
-
+                <div class="autocomplete" ng-include="'templates/match/_autocompleteteam1.html'"></div>
 
                 <ion-checkbox ng-change="useMyTeam()" ng-model="data.isMyTeam" class="item-checkbox-right">My Team</ion-checkbox>
-
 
                 <label class="item item-input item-stacked-label">
                     <span class="input-label">Team B</span>
