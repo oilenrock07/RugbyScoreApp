@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col col-100 text-center">
                 <input class="match-title" maxlength="30" placeholder="Enter Team A" ng-model="data.team1" ng-keyup="team1KeyUp()" ng-change="searchTeam('team1', data.team1)" autocomplete="off"></input>
-                <div ng-include="'templates/match/_autocompleteteam1.html'"></div>
+                <div class="autocomplete" ng-include="'templates/match/_autocompleteteam1.html'"></div>
             </div>
         </div>
         <div class="row">
@@ -59,7 +59,7 @@
         <div class="row">
             <div class="col text-center">
                 <input class="match-title" maxlength="30" placeholder="Enter Team B" ng-model="data.team2" ng-keyup="team2KeyUp()" ng-change="searchTeam('team2', data.team2)" autocomplete="off"></input>
-                <div ng-include="'templates/match/_autocompleteteam2.html'"></div>
+                <div class="autocomplete" ng-include="'templates/match/_autocompleteteam2.html'"></div>
             </div>
         </div>
         <div class="row">
