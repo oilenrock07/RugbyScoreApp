@@ -95,8 +95,8 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
         var getScopeMatch = function () {
             return {
                 matchId: $scope.data.matchId,
-                team1: $scope.data.team1,
-                team2: $scope.data.team2,
+                team1: $scope.data.team1.trim(),
+                team2: $scope.data.team2.trim(),
                 location: $scope.data.location,
                 team1Try: $scope.data.team1Try,
                 team1Penalty: $scope.data.team1Penalty,
@@ -673,7 +673,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
             var isEdit = $state.current.name == 'app.editmyteam' || $state.current.name == 'app.editteam';
             if (isMyTeam && SettingFactory.myTeam == 0) isEdit = false;
 
-            TeamFactory.saveTeam(team, isEdit, function () {
+            TeamFactory.saveTeam(team, isEdit, function (oldTeamName, updateMatchTeams) {
                 if (isMyTeam) {
                     var myTeam = TeamFactory.get(SettingFactory.myTeam);
                     TeamFactory.mapEntity(team);
@@ -681,6 +681,10 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
                 }
                 else {
                     $state.go('app.teams');
+                }
+
+                if (updateMatchTeams) {
+                    MatchFactory.updateTeamNames(oldTeamName, $scope.data.fullTeamName);
                 }
             });
         };

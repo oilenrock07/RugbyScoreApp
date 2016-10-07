@@ -63,6 +63,39 @@ angular.module('rugbyapp.factories', ['ngCordova'])
           matches.push(match);
         }
 
+        //if team does not exists, insert
+        var isTeam1Exists = TeamFactory.isTeamExists(match.team1);
+        var isTeam2Exists = !TeamFactory.isTeamExists(match.team2);
+        if (!isTeam1Exists || !isTeam2Exists) {
+
+          var newTeam = {
+            teamId: 0,
+            isMyTeam: false,
+            fullTeamName: '',
+            abbrTeamName: '',
+            clubAddress: '',
+            townCity: '',
+            country: '',
+            postCode: ''
+          };
+
+          if (!isTeam1Exists) {
+            DataFactory.team.createTeam(newTeam, function (id) {
+              newTeam.teamId = id;
+              newTeam.fullTeamName = match.team1;
+              TeamFactory.teams.push(newTeam);
+            });
+          }
+
+          if (!isTeam2Exists) {
+            DataFactory.team.createTeam(newTeam, function (id) {
+              newTeam.teamId = id;
+              newTeam.fullTeamName = match.team2;
+              TeamFactory.teams.push(newTeam);
+            });
+          }
+        }
+
         callBack();
       });
     }
@@ -205,6 +238,21 @@ angular.module('rugbyapp.factories', ['ngCordova'])
         return [];
     }
 
+    var updateTeamNames = function (oldTeamName, teamName) {
+      alert('updating team names');
+      for (var i = 0; i < matches.length; i++) {
+        if (matches[i].team1.toLowerCase() == oldTeamName.toLowerCase()) {
+          matches[i].team1 = teamName;
+        }
+
+        if (matches[i].team2.toLowerCase() == oldTeamName.toLowerCase()) {
+          matches[i].team2 = teamName;
+        }
+      }
+
+      DataFactory.match.updateMatchTeamName(oldTeamName, teamName);
+    }
+
     return {
       match: match,
       matches: matches,
@@ -220,7 +268,8 @@ angular.module('rugbyapp.factories', ['ngCordova'])
       teamSearchResult: teamSearchResult,
       autoCompleteTeam: autoCompleteTeam,
       autoCompleteTeamResult: autoCompleteTeamResult,
-      autoCompleteTeamSearch: autoCompleteTeamSearch
+      autoCompleteTeamSearch: autoCompleteTeamSearch,
+      updateTeamNames: updateTeamNames
     };
   })
 
@@ -317,15 +366,22 @@ angular.module('rugbyapp.factories', ['ngCordova'])
               SettingFactory.myTeam = id;
             }
 
-            callBack();
+            callBack(false);
           }
         });
       }
       else {
         DataFactory.team.updateTeam(param, function (rs) {
 
+          var isTeamNameChanged = false;
+          var oldTeamName = '';
+
           for (var i in teams) {
             if (teams[i].teamId == param.teamId) {
+
+              isTeamNameChanged = teams[i].fullTeamName != param.fullTeamName;
+              oldTeamName = teams[i].fullTeamName;
+              
               teams[i].fullTeamName = param.fullTeamName;
               teams[i].abbrTeamName = param.abbrTeamName;
               teams[i].clubAddress = param.clubAddress;
@@ -336,7 +392,7 @@ angular.module('rugbyapp.factories', ['ngCordova'])
             }
           }
 
-          callBack();
+          callBack(oldTeamName, isTeamNameChanged);
         });
       }
 
@@ -376,11 +432,22 @@ angular.module('rugbyapp.factories', ['ngCordova'])
       return searchResult;
     }
 
+    var isTeamExists = function (teaName) {
+      for (var i = 0; i < teams.length; i++) {
+        if (teams[i].fullTeamName.toLowerCase() == teamName) {
+          return true;
+        }
+      }
+
+      return false;
+    }
+
     return {
       teams: teams,
       team: team,
       get: getbyTeamId,
       deleteTeam: deleteTeam,
+      isTeamExists: isTeamExists,
       saveTeam: saveTeam,
       mapEntity: mapTeam,
       search: search,

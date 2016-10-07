@@ -91,6 +91,14 @@ angular.module('rugbyapp.data', ['ngCordova'])
             executeQuery(query, [team.abbrTeamName, team.fullTeamName, team.clubAddress, team.townCity, team.country, team.postCode, team.teamId], callBack);
         }
 
+        var updateMatchTeamName = function (oldTeamName, newTeamName) {
+            var query = "UPDATE match SET team1 = ? WHERE team1=?";
+            executeQuery(query, [newTeamName, oldTeamName]);
+
+            var query = "UPDATE match SET team2 = ? WHERE team2=?";
+            executeQuery(query, [newTeamName, oldTeamName]);
+        }
+
         var deleteTeam = function (id, callBack) {
             var query = 'DELETE FROM team WHERE teamId = ?';
             executeQuery(query, [id], callBack);
@@ -114,7 +122,8 @@ angular.module('rugbyapp.data', ['ngCordova'])
                 loadMatches: loadMatches,
                 updateMatch: updateMatch,
                 createMatch: createMatch,
-                deleteMatch: deleteMatch
+                deleteMatch: deleteMatch,
+                updateMatchTeamName: updateMatchTeamName
             }
         };
     })
