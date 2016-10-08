@@ -319,6 +319,18 @@ input[type="text"], input[type="number"]{
     background-size: 25px;
 }
 
+.bar-stable .button.button-icon.score-icon{
+    width: 40px;
+    background: url(../img/save-score.png) no-repeat center;
+    background-size: 25px;
+}
+
+.bar-stable .button.button-icon.result-icon{
+    width: 40px;
+    background: url(../img/results.png) no-repeat center;
+    background-size: 25px;
+}
+
 /** Buttons **/
 .link{
     color: #0071BC;

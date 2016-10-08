@@ -35,7 +35,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
         };
 
         $scope.showTeams = function () {
-
+            TeamFactory.searchTeams = TeamFactory.teams;
             $rootScope.page = "team";
             $scope.icon = 'team-icon';
             $state.go('app.teams');
@@ -51,12 +51,16 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
             if ($rootScope.page != 'start-match')
                 return;
 
+            $scope.icon = 'score-icon';
             $rootScope.page = "score";
             $state.go('app.score');
         };
 
         $scope.showResults = function () {
+            $scope.icon = 'result-icon';
             $rootScope.page = "results";
+
+            MatchFactory.searchMatch = MatchFactory.matches;
             $state.go('app.results');
         };
     })
@@ -164,6 +168,19 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
 
             if ($scope.data.search.length > 0) {
                 var searchResult = MatchFactory.autoCompleteTeamSearch(teamName, $scope.data.search);
+                MatchFactory.autoCompleteTeamResult = searchResult;
+                $scope.showAutoCompleteTeamResult = true;
+            }
+            else {
+                MatchFactory.autoCompleteTeamResult = [];
+                $scope.hideAutoComplete();
+            }
+        };
+
+        $scope.searchMatchResult = function () {
+
+            if ($scope.data.search.length > 0) {
+                var searchResult = MatchFactory.autoCompleteResultSearch($scope.data.search);
                 MatchFactory.autoCompleteTeamResult = searchResult;
                 $scope.showAutoCompleteTeamResult = true;
             }

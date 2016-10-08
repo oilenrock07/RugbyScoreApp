@@ -65,7 +65,8 @@ angular.module('rugbyapp.factories', ['ngCordova'])
 
         //if team does not exists, insert
         var isTeam1Exists = TeamFactory.isTeamExists(match.team1);
-        var isTeam2Exists = !TeamFactory.isTeamExists(match.team2);
+        var isTeam2Exists = TeamFactory.isTeamExists(match.team2);
+
         if (!isTeam1Exists || !isTeam2Exists) {
 
           var newTeam = {
@@ -80,17 +81,17 @@ angular.module('rugbyapp.factories', ['ngCordova'])
           };
 
           if (!isTeam1Exists) {
+            newTeam.fullTeamName = match.team1;
             DataFactory.team.createTeam(newTeam, function (id) {
               newTeam.teamId = id;
-              newTeam.fullTeamName = match.team1;
               TeamFactory.teams.push(newTeam);
             });
           }
 
           if (!isTeam2Exists) {
+            newTeam.fullTeamName = match.team2;
             DataFactory.team.createTeam(newTeam, function (id) {
               newTeam.teamId = id;
-              newTeam.fullTeamName = match.team2;
               TeamFactory.teams.push(newTeam);
             });
           }
@@ -220,10 +221,95 @@ angular.module('rugbyapp.factories', ['ngCordova'])
       return teamMatches;
     }
 
+    var autoCompleteResultSearch = function (team) {
+      var teamMatches = [];
+
+      //brute force searching
+      //get all the possible abbreviation
+      var possibleAbbr = [];
+      var teamDistinct = [];
+      for (var i = 0; i < TeamFactory.teams.length; i++) {
+        if (TeamFactory.teams[i].abbrTeamName.toLowerCase().indexOf(team.toLowerCase()) >= 0)
+          possibleAbbr.push(TeamFactory.teams[i]);
+      }
+
+      // var existsInTeam = function (t) {
+      //   for (var i = 0; i < teamDistinct.length; i++) {
+      //     if (teamDistinct[i] == t) {
+      //       return true;
+      //     }
+      //   }
+
+      //   return false;
+      // };
+
+      //get the matches for the team
+      for (var i = 0; i < matches.length; i++) {
+        var inTeam1 = (matches[i].team1.toLowerCase().indexOf(team.toLowerCase()) >= 0)
+        var inTeam2 = (matches[i].team2.toLowerCase().indexOf(team.toLowerCase()) >= 0);
+
+        if (inTeam1 || inTeam2) {
+
+          var t = inTeam1 ? matches[i].team1 : matches[i].team2;
+          teamDistinct.push(t);
+          matches[i].display = t;
+          teamMatches.push(matches[i]);
+          continue;
+        }
+
+        for (var j = 0; j < possibleAbbr.length; j++) {
+          var inTeam1 = (matches[i].team2.toLowerCase().indexOf(possibleAbbr[j].fullTeamName.toLowerCase()) >= 0);
+          var inTeam2 = (matches[i].team1.toLowerCase().indexOf(possibleAbbr[j].fullTeamName.toLowerCase()) >= 0);
+
+          if (inTeam1 || inTeam2) {
+            var t = inTeam1 ? matches[i].team1 : matches[i].team2;
+            teamDistinct.push(t);
+            matches[i].display = t;
+            teamMatches.push(matches[i]);
+          }
+        }
+      }
+
+
+      //remove duplicate
+      var distinct = [];
+      for (var i = 0; i < teamMatches.length; i++) {
+        var exists = false;
+        for (var j = 0; j < distinct.length; j++) {
+          if (distinct[j].display.toLowerCase() == teamMatches[i].display.toLowerCase()) {
+            exists = true;
+            break;
+          }
+        }
+
+        if (!exists)
+          distinct.push(teamMatches[i]);
+      }
+
+      return distinct.splice(0, 3);
+    }
+
+
     var autoCompleteTeamSearch = function (team, oposition) {
       var teamMatches = teamSearchResult(team, oposition);
+      var teamDistinct = [];
 
-      return teamMatches.splice(0, 3);
+      for (var i = 0; i < teamMatches.length; i++) {
+        var exists = false;
+        for (var j = 0; j < teamDistinct.length; j++) {
+          if ((teamDistinct[j].team1 == teamMatches[i].team1 && teamDistinct[j].team2 == teamMatches[i].team2) ||
+            (teamDistinct[j].team1 == teamMatches[i].team2 && teamDistinct[j].team2 == teamMatches[i].team1)) {
+            exists = true;
+            break;
+          }
+        }
+
+        if (!exists) {
+          teamDistinct.push(teamMatches[i]);
+        }
+      }
+
+      return teamDistinct.splice(0, 3);
     }
 
     var autoCompleteTeamResult = [];
@@ -239,7 +325,6 @@ angular.module('rugbyapp.factories', ['ngCordova'])
     }
 
     var updateTeamNames = function (oldTeamName, teamName) {
-      alert('updating team names');
       for (var i = 0; i < matches.length; i++) {
         if (matches[i].team1.toLowerCase() == oldTeamName.toLowerCase()) {
           matches[i].team1 = teamName;
@@ -269,6 +354,7 @@ angular.module('rugbyapp.factories', ['ngCordova'])
       autoCompleteTeam: autoCompleteTeam,
       autoCompleteTeamResult: autoCompleteTeamResult,
       autoCompleteTeamSearch: autoCompleteTeamSearch,
+      autoCompleteResultSearch: autoCompleteResultSearch,
       updateTeamNames: updateTeamNames
     };
   })
@@ -381,7 +467,7 @@ angular.module('rugbyapp.factories', ['ngCordova'])
 
               isTeamNameChanged = teams[i].fullTeamName != param.fullTeamName;
               oldTeamName = teams[i].fullTeamName;
-              
+
               teams[i].fullTeamName = param.fullTeamName;
               teams[i].abbrTeamName = param.abbrTeamName;
               teams[i].clubAddress = param.clubAddress;
@@ -432,9 +518,9 @@ angular.module('rugbyapp.factories', ['ngCordova'])
       return searchResult;
     }
 
-    var isTeamExists = function (teaName) {
+    var isTeamExists = function (teamName) {
       for (var i = 0; i < teams.length; i++) {
-        if (teams[i].fullTeamName.toLowerCase() == teamName) {
+        if (teams[i].fullTeamName.toLowerCase() == teamName.toLowerCase()) {
           return true;
         }
       }
