@@ -439,6 +439,13 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
             canvas.height = 130;
             var ctx = canvas.getContext('2d');
 
+            ctx.beginPath();
+            ctx.fillStyle = "white";
+            ctx.rect(1, 1, 398, 128);
+            ctx.fill();
+            ctx.stroke();
+
+            ctx.fillStyle = "black";
             ctx.font = "28px Arial";
             ctx.textAlign = "right";
             ctx.fillText($filter('formatScore')($scope.team1Score()), 180, 50);
