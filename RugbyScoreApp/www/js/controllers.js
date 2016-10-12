@@ -65,7 +65,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
         };
     })
 
-    .controller('MatchController', function ($scope, $rootScope, $state, $filter, $ionicPopup, $ionicHistory, $cordovaSocialSharing, MatchFactory, TeamFactory, SettingFactory) {
+    .controller('MatchController', function ($q, $scope, $rootScope, $state, $filter, $ionicPopup, $ionicHistory, $cordovaSocialSharing, MatchFactory, TeamFactory, SettingFactory) {
         $rootScope.page = $state.current.name == 'app.match' ? 'start-match' : 'new-match';
 
         //properties
@@ -431,30 +431,46 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
             });
         };
 
+        var buildImage = function () {
+            var deferred = $q.defer();
+
+            var canvas = document.createElement('canvas');
+            canvas.width = 400;
+            canvas.height = 130;
+            var ctx = canvas.getContext('2d');
+
+            ctx.font = "28px Arial";
+            ctx.textAlign = "right";
+            ctx.fillText($filter('formatScore')($scope.team1Score()), 180, 50);
+            ctx.textAlign = "center";
+            ctx.fillText("-", 200, 50);
+            ctx.textAlign = "left";
+            ctx.fillText($filter('formatScore')($scope.team2Score()), 220, 50);
+
+            ctx.font = "16px Arial";
+            ctx.textAlign = "right";
+            ctx.fillText($scope.data.team1, 180, 80);
+            ctx.textAlign = "center";
+            ctx.fillText("V", 200, 80);
+            ctx.textAlign = "left";
+            ctx.fillText($scope.data.team2, 220, 80);
+
+
+            var img = new Image();
+            img.onload = function () {
+                ctx.drawImage(img, 10, 10, 100, 100);
+                deferred.resolve(canvas);
+            };
+
+            img.src = 'img/spacer.png';
+            return deferred.promise;
+        };
+
+
         $scope.shareResult = function () {
-
-            var team1Wins = parseInt($scope.team1Score()) > parseInt($scope.team2Score());
-            var message = team1Wins ? $scope.data.team1 + ' beats ' + $scope.data.team2
-                : $scope.data.team2 + ' beats ' + $scope.data.team1;
-
-            var team1Score = $filter('formatScore')($scope.team1Score());
-            var team2Score = $filter('formatScore')($scope.team2Score());
-
-            //if draw
-            if (parseInt($scope.team1Score()) == parseInt($scope.team2Score()))
-                message = "A draw between " + $scope.data.team1 + ' vs ' + $scope.data.team2;
-
-            message = message + ' with score of ' + (team1Wins ? team1Score + ' - ' + team2Score
-                : team2Score + ' - ' + team1Score);
-
-            $cordovaSocialSharing
-                .share(message, 'RugbyAppScore', null, null) // Share via native share sheet
-                .then(function (result) {
-                    // Success!
-                }, function (err) {
-                    // An error occured. Show a message to the user
-                });
-
+            buildImage().then(function (canvas) {
+                return $cordovaSocialSharing.share(null, null, canvas.toDataURL());
+            })
         }
 
         $scope.teamSearch = function (teamName) {

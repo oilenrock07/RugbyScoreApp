@@ -258,11 +258,12 @@ angular.module('rugbyapp.factories', ['ngCordova'])
         }
 
         for (var j = 0; j < possibleAbbr.length; j++) {
-          var inTeam1 = (matches[i].team2.toLowerCase().indexOf(possibleAbbr[j].fullTeamName.toLowerCase()) >= 0);
-          var inTeam2 = (matches[i].team1.toLowerCase().indexOf(possibleAbbr[j].fullTeamName.toLowerCase()) >= 0);
+          var inTeam1 = (matches[i].team1.toLowerCase().indexOf(possibleAbbr[j].fullTeamName.toLowerCase()) >= 0);
+          var inTeam2 = (matches[i].team2.toLowerCase().indexOf(possibleAbbr[j].fullTeamName.toLowerCase()) >= 0);
 
           if (inTeam1 || inTeam2) {
             var t = inTeam1 ? matches[i].team1 : matches[i].team2;
+            //alert('isinteam1: ' + inTeam1 + ' team1:' + matches[i].team1 + ' team2: ' + matches[i].team2);
             teamDistinct.push(t);
             matches[i].display = t;
             teamMatches.push(matches[i]);
