@@ -448,11 +448,11 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
             ctx.fillStyle = "black";
             ctx.font = "28px Arial";
             ctx.textAlign = "right";
-            ctx.fillText($filter('formatScore')($scope.team1Score()), 180, 50);
+            ctx.fillText($scope.team1Score(), 180, 50);
             ctx.textAlign = "center";
             ctx.fillText("-", 200, 50);
             ctx.textAlign = "left";
-            ctx.fillText($filter('formatScore')($scope.team2Score()), 220, 50);
+            ctx.fillText($scope.team2Score(), 220, 50);
 
             ctx.font = "16px Arial";
             ctx.textAlign = "right";
