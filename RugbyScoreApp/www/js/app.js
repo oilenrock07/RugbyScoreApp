@@ -73,6 +73,21 @@ app.directive('selectOnClick', ['$window', function ($window) {
     };
 }]);
 
+app.directive('ngHideOnEnter', function() {
+        return function(scope, element, attrs) {
+            element.bind("keydown keypress", function(event) {
+                if(event.which === 13) {
+                        scope.$apply(function(){
+                                scope.$eval(attrs.ngEnter);
+                        });
+                        
+                        cordova.plugins.Keyboard.close();
+                        event.preventDefault();
+                }
+            });
+        };
+});
+
 app.config(function ($ionicConfigProvider) {
   $ionicConfigProvider.tabs.position('bottom');
 });

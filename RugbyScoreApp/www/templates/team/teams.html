@@ -37,7 +37,7 @@
         <br>
 
         <script id="popup-template.html" type="text/ng-template">
-            <input ng-model="data.search" type="text" placeholder="Search" ng-change="searchTeamAutoComplete()">
+            <input ng-model="data.search" ng-hide-on-enter type="text" placeholder="Search" ng-change="searchTeamAutoComplete()">
             <div class="autocomplete" ng-include="'templates/team/_search.html'"></div>
         </script>
 
