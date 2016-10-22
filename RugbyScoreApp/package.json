@@ -23,8 +23,7 @@
     "ionic-plugin-keyboard",
     "cordova-plugin-appavailability",
     "cordova-plugin-inappbrowser",
-    "cordova-plugin-wkwebview-engine",
-    "cordova-plugin-x-socialsharing"
+    "cordova-plugin-wkwebview-engine"
   ],
   "cordovaPlatforms": []
 }

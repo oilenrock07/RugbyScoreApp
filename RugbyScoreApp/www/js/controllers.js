@@ -595,7 +595,16 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
 
         $scope.shareResult = function () {
             buildImage().then(function (canvas) {
-                return $cordovaSocialSharing.share(null, null, canvas.toDataURL());
+
+                var team1Wins = parseInt($scope.team1Score()) > parseInt($scope.team2Score());
+                var message = team1Wins ? $scope.data.team1 + ' beats ' + $scope.data.team2 : $scope.data.team2 + ' beats ' + $scope.data.team1;
+
+                if (parseInt($scope.team1Score()) == parseInt($scope.team2Score()))
+                    message = 'A draw between ' + $scope.data.team1 + ' vs ' + $scope.data.team2;
+
+                message += ' with a score of ' + (team1Wins ? $scope.team1Score() + ' - ' + $scope.team2Score() : $scope.team2Score() + ' - ' + $scope.team1Score());
+
+                return $cordovaSocialSharing.share(message, 'RugbyScoreTracker', canvas.toDataURL('image/jpeg', 1), 'www.rugbyscoretracker.co.uk');
             })
         }
 
