@@ -115,6 +115,22 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
             };
         };
 
+        var spliceTeamName = function (teamName) {
+            var team1Array = teamName.split(' ');
+            var team11stLine = '';
+            var team12ndLine = '';
+            for (var i = 0; i < team1Array.length; i++) {
+                if (team11stLine.length <= 18) {
+                    team11stLine = team11stLine + team1Array[i] + ' ';
+                }
+                else {
+                    team12ndLine = team12ndLine + team1Array[i] + ' ';
+                }
+            }
+
+            return {team11stLine, team12ndLine}
+        }
+
         $scope.showAutoCompleteTeam1 = false;
         $scope.showAutoCompleteTeam2 = false;
         $scope.showAutoCompleteTeamResult = false;
@@ -467,14 +483,21 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
             ctx.textAlign = "left";
             ctx.fillText($scope.team2Score(), 220, 150);
 
+            var team1Name = spliceTeamName($scope.data.team1);
+            var team2Name = spliceTeamName($scope.data.team2);
+
             ctx.font = "bold 16px Arial";
             ctx.textAlign = "right";
-            ctx.fillText($scope.data.team1, 180, 180);
+            ctx.fillText(team1Name[0], 180, 180);
+            ctx.fillText(team1Name[1], 180, 200);
+
             ctx.textAlign = "center";
             ctx.fillText("V", 200, 180);
             ctx.textAlign = "left";
-            ctx.fillText($scope.data.team2, 220, 180);
 
+            ctx.fillText(team2Name[0], 220, 180);
+            ctx.fillText(team2Name[1], 220, 200);
+            
             /*Vertical Line*/
             ctx.moveTo(200, 200);
             ctx.lineTo(200, 415);
