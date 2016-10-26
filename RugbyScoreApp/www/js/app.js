@@ -56,22 +56,40 @@ var app = angular.module('rugbyapp', ['ionic', 'rugbyapp.controllers', 'rugbyapp
       MatchFactory.match.matchTime = $filter('date')(new Date(), 'HH:mm');
       MatchFactory.match.matchDate = $filter('date')(new Date(), 'MM/dd/yyyy');
 
+     
+
     });
+
   });
 
 app.directive('selectOnClick', ['$window', function ($window) {
-    return {
-        restrict: 'A',
-        link: function (scope, element, attrs) {
-            element.on('click', function () {
-                if (!$window.getSelection().toString()) {
-                    // Required for mobile Safari
-                    this.setSelectionRange(0, this.value.length)
-                }
-            });
+  return {
+    restrict: 'A',
+    link: function (scope, element, attrs) {
+      element.on('click', function () {
+        if (!$window.getSelection().toString()) {
+          // Required for mobile Safari
+          this.setSelectionRange(0, this.value.length)
         }
-    };
+      });
+    }
+  };
 }]);
+
+app.directive('ngHideOnEnter', function () {
+  return function (scope, element, attrs) {
+    element.bind("keydown keypress", function (event) {
+      if (event.which === 13) {
+        scope.$apply(function () {
+          scope.$eval(attrs.ngEnter);
+        });
+
+        cordova.plugins.Keyboard.close();
+        event.preventDefault();
+      }
+    });
+  };
+});
 
 app.config(function ($ionicConfigProvider) {
   $ionicConfigProvider.tabs.position('bottom');
