@@ -128,7 +128,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
                 }
             }
 
-            return {team11stLine, team12ndLine}
+            return [ team11stLine, team12ndLine ];
         }
 
         $scope.showAutoCompleteTeam1 = false;
@@ -207,7 +207,10 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
         };
 
 
+
         $scope.startMatch = function () {
+
+
             $rootScope.page = "start-match";
 
             MatchFactory.resetEntity();
@@ -451,163 +454,163 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
             var deferred = $q.defer();
 
             var canvas = document.createElement('canvas');
-            canvas.width = 400;
-            canvas.height = 580;
+            canvas.width = 612;
+            canvas.height = 612;
             var ctx = canvas.getContext('2d');
 
             ctx.beginPath();
             ctx.fillStyle = "white";
-            ctx.rect(1, 1, 398, 578);
+            ctx.rect(1, 1, 610, 610);
             ctx.fill();
             ctx.stroke();
 
             // Header
             ctx.fillStyle = "black";
-            ctx.font = "bold 25px Arial";
+            ctx.font = "bold 27px Arial";
             ctx.textAlign = "left";
-            ctx.fillText('Rugby Score Tracker', 115, 65);
+            ctx.fillText('Rugby Score Tracker',185, 65);
 
-            ctx.font = "16px Arial";
+            ctx.font = "18px Arial";
             ctx.textAlign = "left";
-            ctx.fillText('Track match scores and share results', 115, 85);
+            ctx.fillText('Track match scores and share results', 185, 85);
             ctx.fillStyle = "blue";
-            ctx.fillText('www.rugbyscoretracker.co.uk', 115, 105);
-
+            ctx.fillText('www.rugbyscoretracker.co.uk', 185, 105);
             ctx.fillStyle = "black";
+            ctx.fillText('Download FREE from the app store', 185, 125);
+
             //Final Scores            
-            ctx.font = "28px Arial";
+            ctx.font = "30px Arial";
             ctx.textAlign = "right";
-            ctx.fillText($scope.team1Score(), 180, 150);
+            ctx.fillText($scope.team1Score(), 275, 170);
             ctx.textAlign = "center";
-            ctx.fillText("-", 200, 150);
+            ctx.fillText("-", 305, 170);
             ctx.textAlign = "left";
-            ctx.fillText($scope.team2Score(), 220, 150);
+            ctx.fillText($scope.team2Score(), 335, 170);
 
             var team1Name = spliceTeamName($scope.data.team1);
             var team2Name = spliceTeamName($scope.data.team2);
 
-            ctx.font = "bold 16px Arial";
+            ctx.font = "bold 18px Arial";
             ctx.textAlign = "right";
-            ctx.fillText(team1Name[0], 180, 180);
-            ctx.fillText(team1Name[1], 180, 200);
+            ctx.fillText(team1Name[0], 275, 200);
+            ctx.fillText(team1Name[1], 275, 220);
 
             ctx.textAlign = "center";
-            ctx.fillText("V", 200, 180);
+            ctx.fillText("V", 305, 200);
             ctx.textAlign = "left";
 
-            ctx.fillText(team2Name[0], 220, 180);
-            ctx.fillText(team2Name[1], 220, 200);
-            
+            ctx.fillText(team2Name[0], 335, 200);
+            ctx.fillText(team2Name[1], 335, 220);
+
             /*Vertical Line*/
-            ctx.moveTo(200, 200);
-            ctx.lineTo(200, 415);
+            ctx.moveTo(305, 230);
+            ctx.lineTo(305, 435);
             ctx.stroke();
 
             /*Horizontal Line*/
-            ctx.moveTo(30, 415);
-            ctx.lineTo(370, 415);
+            ctx.moveTo(30, 435);
+            ctx.lineTo(580, 435);
             ctx.stroke();
 
             /*Team 1*/
-            ctx.font = "16px Arial";
+            ctx.font = "18px Arial";
             ctx.textAlign = "left";
-            ctx.fillText('Trys', 30, 220);
+            ctx.fillText('Trys', 30, 240);
 
-            ctx.font = "bold 16px Arial";
+            ctx.font = "bold 18px Arial";
             ctx.textAlign = "left";
-            ctx.fillText($scope.data.team1Try, 30, 240);
+            ctx.fillText($scope.data.team1Try, 30, 260);
 
 
-            ctx.font = "16px Arial";
+            ctx.font = "18px Arial";
             ctx.textAlign = "left";
-            ctx.fillText('Conversion', 30, 275);
+            ctx.fillText('Conversion', 30, 295);
 
-            ctx.font = "bold 16px Arial";
+            ctx.font = "bold 18px Arial";
             ctx.textAlign = "left";
-            ctx.fillText($scope.data.team1Conversion, 30, 295);
+            ctx.fillText($scope.data.team1Conversion, 30, 315);
 
-            ctx.font = "16px Arial";
+            ctx.font = "18px Arial";
             ctx.textAlign = "left";
-            ctx.fillText('Drop Goals', 30, 330);
+            ctx.fillText('Drop Goals', 30, 350);
 
-            ctx.font = "bold 16px Arial";
+            ctx.font = "bold 18px Arial";
             ctx.textAlign = "left";
-            ctx.fillText($scope.data.team1DropGoal, 30, 350);
+            ctx.fillText($scope.data.team1DropGoal, 30, 370);
 
-            ctx.font = "16px Arial";
+            ctx.font = "18px Arial";
             ctx.textAlign = "left";
-            ctx.fillText('Penalty', 30, 385);
+            ctx.fillText('Penalty', 30, 405);
 
-            ctx.font = "bold 16px Arial";
+            ctx.font = "bold 18px Arial";
             ctx.textAlign = "left";
-            ctx.fillText($scope.data.team1Penalty, 30, 405);
+            ctx.fillText($scope.data.team1Penalty, 30, 425);
 
 
-            ctx.font = "16px Arial";
+            ctx.font = "18px Arial";
             ctx.textAlign = "left";
-            ctx.fillText('Match Date', 30, 450);
+            ctx.fillText('Match Date', 30, 470);
 
-            ctx.font = "bold 16px Arial";
+            ctx.font = "bold 18px Arial";
             ctx.textAlign = "left";
-            ctx.fillText($scope.data.matchDate, 30, 470);
+            ctx.fillText($scope.data.matchDate, 30, 490);
 
 
             /*Team 2*/
-            ctx.font = "16px Arial";
+            ctx.font = "18px Arial";
             ctx.textAlign = "left";
-            ctx.fillText('Trys', 220, 220);
+            ctx.fillText('Trys', 335, 240);
 
-            ctx.font = "bold 16px Arial";
+            ctx.font = "bold 18px Arial";
             ctx.textAlign = "left";
-            ctx.fillText($scope.data.team2Try, 220, 240);
+            ctx.fillText($scope.data.team2Try, 335, 260);
 
 
-            ctx.font = "16px Arial";
+            ctx.font = "18px Arial";
             ctx.textAlign = "left";
-            ctx.fillText('Conversion', 220, 275);
+            ctx.fillText('Conversion', 335, 295);
 
-            ctx.font = "bold 16px Arial";
+            ctx.font = "bold 18px Arial";
             ctx.textAlign = "left";
-            ctx.fillText($scope.data.team2Conversion, 220, 295);
+            ctx.fillText($scope.data.team2Conversion, 335, 315);
 
-
-            ctx.font = "16px Arial";
+            ctx.font = "18px Arial";
             ctx.textAlign = "left";
-            ctx.fillText('Drop Goals', 220, 330);
+            ctx.fillText('Drop Goals', 335, 350);
 
-            ctx.font = "bold 16px Arial";
+            ctx.font = "bold 18px Arial";
             ctx.textAlign = "left";
-            ctx.fillText($scope.data.team2DropGoal, 220, 350);
+            ctx.fillText($scope.data.team2DropGoal, 335, 370);
 
-            ctx.font = "16px Arial";
+            ctx.font = "18px Arial";
             ctx.textAlign = "left";
-            ctx.fillText('Penalty', 220, 385);
+            ctx.fillText('Penalty', 335, 405);
 
-            ctx.font = "bold 16px Arial";
+            ctx.font = "bold 18px Arial";
             ctx.textAlign = "left";
-            ctx.fillText($scope.data.team2Penalty, 220, 405);
+            ctx.fillText($scope.data.team2Penalty, 335, 425);
 
-            ctx.font = "16px Arial";
+            ctx.font = "18px Arial";
             ctx.textAlign = "left";
-            ctx.fillText('Match Time', 220, 450);
+            ctx.fillText('Match Time', 335, 470);
 
-            ctx.font = "bold 16px Arial";
+            ctx.font = "bold 18px Arial";
             ctx.textAlign = "left";
-            ctx.fillText($scope.data.matchTime, 220, 470);
+            ctx.fillText($scope.data.matchTime, 335, 490);
 
 
             //Bottom
-            ctx.font = "16px Arial";
+            ctx.font = "18px Arial";
             ctx.textAlign = "left";
-            ctx.fillText('Match Location', 30, 505);
+            ctx.fillText('Match Location', 30, 525);
 
-            ctx.font = "bold 16px Arial";
+            ctx.font = "bold 18px Arial";
             ctx.textAlign = "left";
-            ctx.fillText($scope.data.location, 30, 525);
+            ctx.fillText($scope.data.location, 30, 545);
 
             var img = new Image();
             img.onload = function () {
-                ctx.drawImage(img, 10, 25, 100, 100);
+                ctx.drawImage(img, 35, 15, 125, 125);
                 deferred.resolve(canvas);
             };
 

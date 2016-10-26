@@ -551,6 +551,7 @@ ion-content .scroll{
 
 .edit-result .vertical-divider-wrap{
     padding: 0 9%;
+    text-align: center;
 }
 
 @media (min-width:801px) {
@@ -560,11 +561,10 @@ ion-content .scroll{
 }
 
 .edit-result input[type="number"]{
-    height: 20px;
     width: 50%;
     padding: 5px 5px;
     /** larger **/
-    height: 24px;
+    height: 28px;
     text-align: right;
 }
 
@@ -579,7 +579,7 @@ ion-content .scroll{
 /** Results **/
 .results .vertical-divider-wrap{
     padding: 0;
-    margin: 0 10px;
+    margin: 0 18px 0 15px;
 }
 
 /** Result Detail **/
