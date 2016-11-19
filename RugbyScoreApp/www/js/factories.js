@@ -5,8 +5,11 @@ angular.module('rugbyapp.factories', ['ngCordova'])
     //entities
     match = {};
     match.matchId = 0;
-    match.team1 = '';
-    match.team2 = '';
+    match.team1 = 0;
+    match.team2 = 0;
+    match.teamName1 = '';
+    match.teamName2 = '';
+
     match.location = '';
     match.matchDate = '';
     match.matchTime = '';
@@ -27,88 +30,108 @@ angular.module('rugbyapp.factories', ['ngCordova'])
     var searchTeam = [];
 
     var updateMatch = function (param, callBack) {
-      DataFactory.match.updateMatch(param, function (rs) {
+      Promise.all([createTeam1(param), createTeam2(param)]).then(function (data) {
+        DataFactory.match.updateMatch(param, function (rs) {
+          for (var i in matches) {
 
-        for (var i in matches) {
-
-          if (matches[i].teamId == param.teamId) {
-            matches[i].team1 = param.team1;
-            matches[i].team2 = param.team2;
-            matches[i].matchDate = param.matchDate;
-            matches[i].matchTime = param.matchTime;
-            matches[i].location = param.location;
-            matches[i].team1Try = param.team1Try;
-            matches[i].team1Penalty = param.team1Penalty;
-            matches[i].team1Conversion = param.team1Conversion;
-            matches[i].team1DropGoal = param.team1DropGoal;
-            matches[i].team2Penalty = param.team2Penalty;
-            matches[i].team2Conversion = param.team2Conversion;
-            matches[i].team2DropGoal = param.team2DropGoal;
-            matches[i].team2Try = param.team2Try;
-            matches[i].matchDateTime = new Date(param.matchDate + ' ' + param.matchTime);
-            break;
+            if (matches[i].teamId == param.teamId) {
+              matches[i].team1 = data[0].teamName;
+              matches[i].team2 = data[1].teamName;
+              matches[i].teamName1 = param.teamName1;
+              matches[i].teamName2 = param.teamName2;
+              matches[i].matchDate = param.matchDate;
+              matches[i].matchTime = param.matchTime;
+              matches[i].location = param.location;
+              matches[i].team1Try = param.team1Try;
+              matches[i].team1Penalty = param.team1Penalty;
+              matches[i].team1Conversion = param.team1Conversion;
+              matches[i].team1DropGoal = param.team1DropGoal;
+              matches[i].team2Penalty = param.team2Penalty;
+              matches[i].team2Conversion = param.team2Conversion;
+              matches[i].team2DropGoal = param.team2DropGoal;
+              matches[i].team2Try = param.team2Try;
+              matches[i].matchDateTime = new Date(param.matchDate + ' ' + param.matchTime);
+              break;
+            }
           }
-        }
 
-        callBack();
+          callBack();
+        });
+      })
+    };
+
+    var createTeam1 = function (match) {
+      return new Promise(function (resolve, reject) {
+        var team1 = TeamFactory.getByTeamName(match.teamName1);
+        if (team1 == null) {
+          var teamA = {
+            teamId: 0,
+            isMyTeam: false,
+            teamName: match.teamName1,
+            fullClubName: '',
+            clubAddress: '',
+            townCity: '',
+            country: '',
+            postCode: ''
+          };
+          DataFactory.team.createTeam(teamA, function (id) {
+            teamA.teamId = id;
+            TeamFactory.teams.push(teamA);
+            resolve(teamA);
+          });
+        }
+        else {
+          resolve(team1);
+        }
       });
-    }
+    };
+
+    var createTeam2 = function (match) {
+      return new Promise(function (resolve, reject) {
+        var team2 = TeamFactory.getByTeamName(match.teamName2);
+        if (team2 == null) {
+          var teamB = {
+            teamId: 0,
+            isMyTeam: false,
+            fullClubName: '',
+            teamName: match.teamName2,
+            clubAddress: '',
+            townCity: '',
+            country: '',
+            postCode: ''
+          };
+
+          DataFactory.team.createTeam(teamB, function (id) {
+            teamB.teamId = id;
+            TeamFactory.teams.push(teamB);
+            resolve(teamB);
+          });
+        }
+        else {
+          resolve(team2);
+        }
+      });
+    };
+
 
     var createMatch = function (match, callBack) {
-      DataFactory.match.createMatch(match, function (id) {
+      Promise.all([createTeam1(match), createTeam2(match)]).then(function (data) {
+        match.team1 = data[0].teamId;
+        match.team2 = data[1].teamId;
+        match.teamName1 = data[0].teamName;
+        match.teamName2 = data[1].teamName;
 
-        if (id > 0) {
-          match.matchId = id;
-          match.matchDateTime = new Date(match.matchDate + ' ' + match.matchTime);
-          matches.push(match);
-        }
-
-        //if team does not exists, insert
-        var isTeam1Exists = TeamFactory.isTeamExists(match.team1);
-        var isTeam2Exists = TeamFactory.isTeamExists(match.team2);
-
-        if (!isTeam1Exists || !isTeam2Exists) {
-
-          if (!isTeam1Exists) {
-            var teamA = {
-              teamId: 0,
-              isMyTeam: false,
-              fullTeamName: match.team1,
-              abbrTeamName: '',
-              clubAddress: '',
-              townCity: '',
-              country: '',
-              postCode: ''
-            };
-            DataFactory.team.createTeam(teamA, function (id) {
-              teamA.teamId = id;
-              TeamFactory.teams.push(teamA);
-            });
+        DataFactory.match.createMatch(match, function (id) {
+          if (id > 0) {
+            match.matchId = id;
+            match.matchDateTime = new Date(match.matchDate + ' ' + match.matchTime);
+            matches.push(match);
           }
 
-          if (!isTeam2Exists) {
-            var teamB = {
-              teamId: 0,
-              isMyTeam: false,
-              fullTeamName: match.team2,
-              abbrTeamName: '',
-              clubAddress: '',
-              townCity: '',
-              country: '',
-              postCode: ''
-            };
-
-            DataFactory.team.createTeam(teamB, function (id) {
-              teamB.teamId = id;
-              TeamFactory.teams.push(teamB);
-            });
-          }
-        }
-
-
-        callBack();
-      });
-    }
+          callBack();
+        });
+      })
+    };
 
     var deleteMatch = function (id, callBack) {
       DataFactory.match.deleteMatch(id, function (rs) {
@@ -127,6 +150,8 @@ angular.module('rugbyapp.factories', ['ngCordova'])
       match.matchId = 0;
       match.team1 = '';
       match.team2 = '';
+      match.teamName1 = '';
+      match.teamName2 = '';
       match.location = '';
       match.matchDate = '';
       match.matchTime = '';
@@ -148,6 +173,8 @@ angular.module('rugbyapp.factories', ['ngCordova'])
       match.matchId = param.matchId;
       match.team1 = param.team1;
       match.team2 = param.team2;
+      match.teamName1 = param.teamName1;
+      match.teamName2 = param.teamName2;
       match.location = param.location;
       match.matchDate = param.matchDate;
       match.matchTime = param.matchTime;
@@ -174,11 +201,11 @@ angular.module('rugbyapp.factories', ['ngCordova'])
       return null;
     }
 
-    var getTeamMatches = function (team) {
+    var getTeamMatches = function (teamId) {
       var teamMatches = [];
 
       for (var i = 0; i < matches.length; i++) {
-        if (matches[i].team1.toLowerCase() == team.toLowerCase() || matches[i].team2.toLowerCase() == team.toLowerCase()) {
+        if (matches[i].team1 == teamId || matches[i].team2 == teamId) {
           teamMatches.push(matches[i]);
         }
       }
@@ -186,8 +213,8 @@ angular.module('rugbyapp.factories', ['ngCordova'])
       return teamMatches;
     }
 
-    var getLastMatch = function (teamName) {
-      var teamMatches = getTeamMatches(teamName);
+    var getLastMatch = function (teamId) {
+      var teamMatches = getTeamMatches(teamId);
 
       if (teamMatches.length > 0) {
         var sortedMatches = teamMatches.sort(function (a, b) {
@@ -207,7 +234,7 @@ angular.module('rugbyapp.factories', ['ngCordova'])
       //get all the possible abbreviation
       var possibleAbbr = [];
       for (var i = 0; i < TeamFactory.teams.length; i++) {
-        if (TeamFactory.teams[i].abbrTeamName.toLowerCase().indexOf(oposition.toLowerCase()) >= 0)
+        if (TeamFactory.teams[i].teamName.toLowerCase().indexOf(oposition.toLowerCase()) >= 0)
           possibleAbbr.push(TeamFactory.teams[i]);
       }
 
@@ -220,8 +247,8 @@ angular.module('rugbyapp.factories', ['ngCordova'])
         }
 
         for (var j = 0; j < possibleAbbr.length; j++) {
-          if ((matches[i].team1.toLowerCase() == team.toLowerCase() && (matches[i].team2.toLowerCase().indexOf(possibleAbbr[j].fullTeamName.toLowerCase()) >= 0)) ||
-            (matches[i].team2.toLowerCase() == team.toLowerCase() && matches[i].team1.toLowerCase().indexOf(possibleAbbr[j].fullTeamName.toLowerCase()) >= 0)) {
+          if ((matches[i].team1.toLowerCase() == team.toLowerCase() && (matches[i].team2.toLowerCase().indexOf(possibleAbbr[j].fullClubName.toLowerCase()) >= 0)) ||
+            (matches[i].team2.toLowerCase() == team.toLowerCase() && matches[i].team1.toLowerCase().indexOf(possibleAbbr[j].fullClubName.toLowerCase()) >= 0)) {
             teamMatches.push(matches[i]);
           }
         }
@@ -238,19 +265,9 @@ angular.module('rugbyapp.factories', ['ngCordova'])
       var possibleAbbr = [];
       var teamDistinct = [];
       for (var i = 0; i < TeamFactory.teams.length; i++) {
-        if (TeamFactory.teams[i].abbrTeamName.toLowerCase().indexOf(team.toLowerCase()) >= 0)
+        if (TeamFactory.teams[i].teamName.toLowerCase().indexOf(team.toLowerCase()) >= 0)
           possibleAbbr.push(TeamFactory.teams[i]);
       }
-
-      // var existsInTeam = function (t) {
-      //   for (var i = 0; i < teamDistinct.length; i++) {
-      //     if (teamDistinct[i] == t) {
-      //       return true;
-      //     }
-      //   }
-
-      //   return false;
-      // };
 
       //get the matches for the team
       for (var i = 0; i < matches.length; i++) {
@@ -267,12 +284,11 @@ angular.module('rugbyapp.factories', ['ngCordova'])
         }
 
         for (var j = 0; j < possibleAbbr.length; j++) {
-          var inTeam1 = (matches[i].team1.toLowerCase().indexOf(possibleAbbr[j].fullTeamName.toLowerCase()) >= 0);
-          var inTeam2 = (matches[i].team2.toLowerCase().indexOf(possibleAbbr[j].fullTeamName.toLowerCase()) >= 0);
+          var inTeam1 = (matches[i].team1.toLowerCase().indexOf(possibleAbbr[j].fullClubName.toLowerCase()) >= 0);
+          var inTeam2 = (matches[i].team2.toLowerCase().indexOf(possibleAbbr[j].fullClubName.toLowerCase()) >= 0);
 
           if (inTeam1 || inTeam2) {
             var t = inTeam1 ? matches[i].team1 : matches[i].team2;
-            //alert('isinteam1: ' + inTeam1 + ' team1:' + matches[i].team1 + ' team2: ' + matches[i].team2);
             teamDistinct.push(t);
             matches[i].display = t;
             teamMatches.push(matches[i]);
@@ -325,7 +341,7 @@ angular.module('rugbyapp.factories', ['ngCordova'])
     var autoCompleteTeamResult = [];
     var autoCompleteTeam = function (team) {
       var teams = TeamFactory.searchTeamIncludingAbbr(team).sort(function (a, b) {
-        return a.fullTeamName > b.fullTeamName;
+        return a.fullClubName > b.fullClubName;
       });
 
       if (teams.length > 0)
@@ -410,8 +426,8 @@ angular.module('rugbyapp.factories', ['ngCordova'])
     //entities
     var team = {};
     team.teamId = 0;
-    team.abbrTeamName = '';
-    team.fullTeamName = '';
+    team.teamName = '';
+    team.fullClubName = '';
     team.clubAddress = '';
     team.townCity = '';
     team.country = '';
@@ -430,8 +446,8 @@ angular.module('rugbyapp.factories', ['ngCordova'])
 
     var resetEntity = function () {
       team.teamId = 0;
-      team.abbrTeamName = '';
-      team.fullTeamName = '';
+      team.teamName = '';
+      team.fullClubName = '';
       team.clubAddress = '';
       team.townCity = '';
       team.country = '';
@@ -441,8 +457,8 @@ angular.module('rugbyapp.factories', ['ngCordova'])
 
     var mapTeam = function (param) {
       team.teamId = param.teamId;
-      team.abbrTeamName = param.abbrTeamName;
-      team.fullTeamName = param.fullTeamName;
+      team.teamName = param.teamName;
+      team.fullClubName = param.fullClubName;
       team.clubAddress = param.clubAddress;
       team.townCity = param.townCity;
       team.country = param.country;
@@ -475,11 +491,11 @@ angular.module('rugbyapp.factories', ['ngCordova'])
           for (var i in teams) {
             if (teams[i].teamId == param.teamId) {
 
-              isTeamNameChanged = teams[i].fullTeamName != param.fullTeamName;
-              oldTeamName = teams[i].fullTeamName;
+              isTeamNameChanged = teams[i].fullClubName != param.fullClubName;
+              oldTeamName = teams[i].fullClubName;
 
-              teams[i].fullTeamName = param.fullTeamName;
-              teams[i].abbrTeamName = param.abbrTeamName;
+              teams[i].fullClubName = param.fullClubName;
+              teams[i].teamName = param.teamName;
               teams[i].clubAddress = param.clubAddress;
               teams[i].townCity = param.townCity;
               teams[i].country = param.country;
@@ -510,7 +526,7 @@ angular.module('rugbyapp.factories', ['ngCordova'])
     var search = function (teamName) {
       var searchResult = [];
       for (var i = 0; i < teams.length; i++) {
-        if (teams[i].fullTeamName.toLowerCase().indexOf(teamName.toLowerCase()) >= 0) {
+        if (teams[i].fullClubName.toLowerCase().indexOf(teamName.toLowerCase()) >= 0) {
           searchResult.push(teams[i]);
         }
       }
@@ -520,30 +536,30 @@ angular.module('rugbyapp.factories', ['ngCordova'])
     var searchTeamIncludingAbbr = function (teamName) {
       var searchResult = [];
       for (var i = 0; i < teams.length; i++) {
-        if (teams[i].fullTeamName.toLowerCase().indexOf(teamName.toLowerCase()) >= 0
-          || teams[i].abbrTeamName.toLowerCase().indexOf(teamName.toLowerCase()) >= 0) {
+        if (teams[i].fullClubName.toLowerCase().indexOf(teamName.toLowerCase()) >= 0
+          || teams[i].teamName.toLowerCase().indexOf(teamName.toLowerCase()) >= 0) {
           searchResult.push(teams[i]);
         }
       }
       return searchResult;
     }
 
-    var isTeamExists = function (teamName) {
+    var getByTeamName = function (teamName) {
       for (var i = 0; i < teams.length; i++) {
-        if (teams[i].fullTeamName.toLowerCase() == teamName.toLowerCase()) {
-          return true;
+        if (teams[i].teamName.toLowerCase() == teamName.toLowerCase()) {
+          return teams[i];
         }
       }
 
-      return false;
+      return null;
     }
 
     return {
       teams: teams,
       team: team,
       get: getbyTeamId,
+      getByTeamName: getByTeamName,
       deleteTeam: deleteTeam,
-      isTeamExists: isTeamExists,
       saveTeam: saveTeam,
       mapEntity: mapTeam,
       search: search,
