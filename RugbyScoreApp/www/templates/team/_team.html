@@ -6,13 +6,13 @@
         <div class="team-label row">Full Club Name&nbsp;</div>
         <div class="row divider item-text-wrap" ng-bind-html="data.fullClubName"></div>
 
-        <div class="row team-label">Location&nbsp;</div>
-        <div class="row divider" ng-bind-html="data.townCity"></div>
-
         <div class="row team-label">Club Address&nbsp;</div>
         <div class="row divider" ng-bind-html="data.clubAddress"></div>
 
-        <div class="row team-label">Post Code&nbsp;</div>
+        <div class="row team-label">Town/City&nbsp;</div>
+        <div class="row divider" ng-bind-html="data.townCity"></div>
+
+        <div class="row team-label">Post/Zip Code&nbsp;</div>
         <div class="row divider" ng-bind-html="data.postCode"></div>
 
         <hr/>
@@ -42,7 +42,7 @@
 </ion-content>
 <ion-footer-bar align-title="left" class="button-footer-wrap">
     <div class="button-footer">
-        <button class="button icon icon-right ion-chevron-right hide-on-keyboard-open" ng-click="teamResult(data.fullClubName)">
+        <button class="button icon icon-right ion-chevron-right hide-on-keyboard-open" ng-click="teamResult(data.teamId)">
            {{teamResultText}}
         </button>
     </div>

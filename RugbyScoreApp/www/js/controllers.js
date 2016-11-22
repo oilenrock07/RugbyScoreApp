@@ -182,16 +182,16 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
 
         $scope.selectAutoCompleteTeam = function (team, teamName) {
             if (team == 'team1') {
-                $scope.data.team1 = teamName;
+                $scope.data.teamName1 = teamName;
                 $scope.showAutoCompleteTeam1 = false;
 
-                if ($state.current.name == 'app.match') MatchFactory.match.team1 = teamName;
+                if ($state.current.name == 'app.match') MatchFactory.match.teamName1 = teamName;
             }
             else {
-                $scope.data.team2 = teamName;
+                $scope.data.teamName2 = teamName;
                 $scope.showAutoCompleteTeam2 = false;
 
-                if ($state.current.name == 'app.match') MatchFactory.match.team2 = teamName;
+                if ($state.current.name == 'app.match') MatchFactory.match.teamName2 = teamName;
             }
 
         };
@@ -219,10 +219,10 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
             }
         };
 
-        $scope.searchTeamResult = function (teamName) {
+        $scope.searchTeamResult = function (teamId) {
 
             if ($scope.data.search.length > 0) {
-                var searchResult = MatchFactory.autoCompleteTeamSearch(teamName, $scope.data.search);
+                var searchResult = MatchFactory.autoCompleteTeamSearch(teamId, $scope.data.search);
                 MatchFactory.autoCompleteTeamResult = searchResult;
                 $scope.showAutoCompleteTeamResult = true;
             }
@@ -673,7 +673,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
             })
         }
 
-        $scope.teamSearch = function (teamName) {
+        $scope.teamSearch = function (teamId) {
             $ionicPopup.show({
                 templateUrl: 'popup-template.html',
                 title: 'Enter team name to search',
@@ -685,7 +685,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
                         type: 'button-positive',
                         onTap: function (e) {
                             if ($scope.data.search.length > 0) {
-                                var searchResult = MatchFactory.teamSearchResult(teamName, $scope.data.search);
+                                var searchResult = MatchFactory.teamSearchResult(teamId, $scope.data.search);
                                 MatchFactory.searchMatch = searchResult;
                             }
                         }
@@ -707,7 +707,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
                         onTap: function (e) {
 
                             if ($scope.data.search.length > 0) {
-                                var searchResult = MatchFactory.getTeamMatches($scope.data.search);
+                                var searchResult = MatchFactory.getTeamMatchesByName($scope.data.search);
                                 MatchFactory.searchMatch = searchResult;
                             }
                             else
@@ -917,7 +917,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
                 }
 
                 if (updateMatchTeams) {
-                    MatchFactory.updateTeamNames(oldTeamName, $scope.data.fullClubName);
+                    MatchFactory.updateTeamNames(oldTeamName, $scope.data.teamName);
                 }
             });
         };
