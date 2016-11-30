@@ -28,6 +28,7 @@ var app = angular.module('rugbyapp', ['ionic', 'rugbyapp.controllers', 'rugbyapp
         StatusBar.styleDefault();
       }
 
+      SettingFactory.device = device.platform;
       DataFactory.initialize();
 
       //load data
