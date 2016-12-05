@@ -2,8 +2,8 @@ angular.module('rugbyapp.factories', ['ngCordova'])
     .factory('MatchFactory', function () {
 
         var match = {};
-        match.team1 = '';
-        match.team2 = '';
+        match.teamName1 = '';
+        match.teamName2 = '';
         match.team1Try = 0;
         match.team1Penalty = 0;
         match.team1Conversion = 0;

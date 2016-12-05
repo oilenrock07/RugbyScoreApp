@@ -3,10 +3,31 @@ angular.module('rugbyapp.controllers', ['rugbyapp.factories'])
     .controller('MatchController', function ($scope, $rootScope, $state, $ionicPopup, MatchFactory) {
         $rootScope.page = "start-match";
         $scope.factory = MatchFactory;
-        
+
+        var showPopUp = function (tab) {
+            $ionicPopup.show({
+                templateUrl: 'popup-template.html',
+                title: tab + ' function available on Pro version only.<br/>Purchase Pro version',
+                scope: $scope,
+                buttons: [
+                    { text: 'No' },
+                    {
+                        text: '<b>Yes</b>',
+                        type: 'button-positive',
+                        onTap: function (e) {
+                            var src = 'market://details?id=ph.com.digify.smphi'//'https://play.google.com/store/apps/details?id=ph.com.digify.smphi';
+                            window.open(src, '_system', null);
+                        }
+                    }
+                ]
+            });
+        }
+
+
         $scope.showMyTeam = function () {
-            $rootScope.page = "my-team";
-            $state.go('app.using');
+            //$rootScope.page = "my-team";
+            showPopUp('My Team');
+            //$state.go('app.using');
         };
 
         $scope.openMarket = function () {
@@ -15,7 +36,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.factories'])
         }
 
         $scope.showMatch = function () {
-            $rootScope.page = "start-match";
+            //$rootScope.page = "start-match";
 
             if ($state.current.tabGroup == 'about') {
                 $state.go('app.match');
@@ -30,8 +51,8 @@ angular.module('rugbyapp.controllers', ['rugbyapp.factories'])
 
             confirmPopup.then(function (res) {
                 if (res) {
-                    MatchFactory.team1 = '';
-                    MatchFactory.team2 = '';
+                    MatchFactory.teamName1 = '';
+                    MatchFactory.teamName2 = '';
                     MatchFactory.team1Try = 0;
                     MatchFactory.team1Penalty = 0;
                     MatchFactory.team1Conversion = 0;
@@ -46,21 +67,24 @@ angular.module('rugbyapp.controllers', ['rugbyapp.factories'])
         };
 
         $scope.showTeams = function () {
-            $rootScope.page = "team";
-            $state.go('app.using');
+            //$rootScope.page = "team";
+            showPopUp('Teams');
+            //$state.go('app.using');
         };
 
         $scope.showAboutMain = function () {
-            $rootScope.page = "about";
+            //$rootScope.page = "about";
             $state.go('app.aboutmain');
         };
 
         $scope.showScore = function () {
-            $state.go('app.using');
+            showPopUp('Save');
+            //$state.go('app.using');
         };
 
         $scope.showResults = function () {
-            $state.go('app.using');
+            showPopUp('Results');
+            //$state.go('app.using');
         };
 
         $scope.addScoreTry = function (team, point) {

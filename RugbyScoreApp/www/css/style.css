@@ -41,6 +41,10 @@
     text-align: right
 }
 
+.align-left {
+    text-align: left
+}
+
 .no-padding{
     padding: 0;
 }
@@ -50,6 +54,12 @@
     padding: 0px 20px;
 }
 
+/** tabs with sub header**/
+.results .list,
+.teams .list{
+    margin-bottom: 130px;
+}
+
 .content .row{
     padding-left: 0;
 }
@@ -57,6 +67,11 @@
 .sub-content{
     margin: 10px 0 !important;
     
+}
+
+.col-divider{
+    width: 1% !important;
+    margin: 6px 10px 0 10px;
 }
 
 .divider{
@@ -133,13 +148,17 @@ input[type="text"], input[type="number"]{
     font-size: 18px !important;
 }
 
+.autocomplete{
+    position: absolute;
+    z-index: 100;
+    width: 100%;
+    text-align: center;
+    left: 0px;
+}
+
 /** About **/
 .about-content p{
     font-weight: normal !important;
-}
-
-.about-content i{
-    font-style: italic !important;
 }
 
 .about-content-wrap.content{
@@ -213,9 +232,9 @@ input[type="text"], input[type="number"]{
     background-image: linear-gradient(0deg, #92145c, #92145c 50%, transparent 50%) !important;
 }
 
-.tabs-icon-top > .tabs .tab-item{
+/*.tabs-icon-top > .tabs .tab-item{
     opacity: 0.4;
-}
+}*/
 
 .tabs-icon-top > .tabs .tab-item-active{
     opacity: 1;
@@ -300,11 +319,32 @@ input[type="text"], input[type="number"]{
     background-size: 25px;
 }
 
+.bar-stable .button.button-icon.score-icon{
+    width: 40px;
+    background: url(../img/save-score.png) no-repeat center;
+    background-size: 25px;
+}
+
+.bar-stable .button.button-icon.result-icon{
+    width: 40px;
+    background: url(../img/results.png) no-repeat center;
+    background-size: 25px;
+}
+
 /** Buttons **/
 .link{
-    color: #0071BC;
+    color: #387ef5;
     float: right;
     cursor: pointer;
+}
+
+.link-color{
+    color: #387ef5 !important;
+    cursor: pointer;
+}
+
+.color-pink {
+    color: #92145c;
 }
 
 i.icon.ion-chevron-left::before{
@@ -327,7 +367,7 @@ div.button-footer{
 
 .button-footer-wrap div.button-footer button{
     width: 100%;
-    color: #92185d !important;
+    color: #387ef5 !important;
     text-align: right;
     border-color: #FBAE17 !important;
     background-color: #ffffff;
@@ -406,7 +446,7 @@ div.button-footer{
 
 .match-label strong{
     /** Small **/
-    font-size: 12px !important;
+    font-size: 14px !important;
 }
 
 .match input{
@@ -443,39 +483,22 @@ div.button-footer{
     background-color: rgba(0, 232, 66, 0.9);
 }
 
+.match .autocomplete .autocomplete-result{
+    margin: 0 auto;
+    width: 87.5%;
+}
+
+.match .autocomplete .autocomplete-result .item{
+    background: #0c2104;
+    color: white;
+    border: .5px solid #465441;
+    border-radius: 5px;
+}
+
 .error {
     color: #f53d3d;
 }
 
-/*@media screen and (max-width:767px) {
-    .match .col{
-        text-align:center !important;
-    }
-
-    .match .scroll{
-        height: 100% !important;
-        display: -webkit-box !important;
-        display: -moz-box !important;
-        display: -ms-flexbox !important;
-        display: -webkit-flex !important;
-        display: flex !important;
-        -webkit-box-direction: normal !important;
-        -moz-box-direction: normal !important;
-        -webkit-box-orient: vertical !important;
-        -moz-box-orient: vertical !important;
-        -webkit-flex-direction: column !important;
-        -ms-flex-direction: column !important;
-        flex-direction: column !important;
-    }
-
-    .match .row{
-        -webkit-box-flex: 0 !important;
-        -moz-box-flex: 0 !important;
-        -webkit-flex: 0 1 50% !important;
-        -ms-flex: 0 1 50% !important;
-        flex: 0 1 50% !important;
-    }
-}*/
 
 /** My Team **/
 
@@ -493,7 +516,10 @@ div.button-footer{
     margin-top: 25px;
 }
 
-
+.autocomplete-result-search{
+    margin: 0px auto;
+    width: 92%;
+}
 /** New Match **/
 .new-match .item-checkbox-right{
     text-align: right;
@@ -506,7 +532,7 @@ ion-content .scroll{
 
 /** Score **/
 .score .vertical-divider{
-    height: 76.5%;
+    padding: 4.7px 0;
     background: url(../img/vertical-bar.png) repeat center;
 }
 
@@ -528,12 +554,13 @@ ion-content .scroll{
 }
 
 .edit-result .vertical-divider{
-    height: 77.5%;
+    padding: 6px 0;
     background: url(../img/vertical-bar.png) repeat center;
 }
 
 .edit-result .vertical-divider-wrap{
     padding: 0 9%;
+    text-align: center;
 }
 
 @media (min-width:801px) {
@@ -543,11 +570,10 @@ ion-content .scroll{
 }
 
 .edit-result input[type="number"]{
-    height: 20px;
     width: 50%;
     padding: 5px 5px;
     /** larger **/
-    height: 24px;
+    height: 28px;
     text-align: right;
 }
 
@@ -561,28 +587,68 @@ ion-content .scroll{
 
 /** Results **/
 .results .vertical-divider-wrap{
-    padding: 0 3%;
+    padding: 0;
+    margin: 0 18px 0 15px;
 }
 
 /** Result Detail **/
 .result-detail .vertical-divider{
-    height: 76.5%;
+    padding: 4.7px 0;
     background: url(../img/vertical-bar.png) repeat center;
+}
+
+.result-detail hr{
+    margin: -10px !important;
 }
 
 /** Team Result **/
 .team-result-template .vertical-divider-wrap{
     padding-top: 0px;
+    margin: 0 10px;
 }
 
-@media screen and (max-width:767px) {
-    .match ion-content{
-         height: 82% !important;
-     }
+
+.match ion-content{
+     height: 82% !important;
 }
 
-@media screen and (min-width:320px) and (max-width:767px) and (orientation:landscape) {
+/** iPhone 4/4s **/
+/*@media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-device-pixel-ratio: 2) and (device-aspect-ratio: 2/3) and (orientation:portrait)
+{
+    .match-label strong{
+        font-size: 10px !important;
+    }
+}*/
+
+/** iPhone 5/5s **/
+/*@media only screen 
+and (min-device-width : 320px) 
+and (max-device-width : 568px) 
+and (orientation : portrait) { 
+        .match-label strong{
+        font-size: 10px !important;
+    }
+}*/
+
+/** Tablets **/
+@media screen and (min-width:320px) and (orientation:landscape) {
     .match ion-content{
-         height: 73% !important;
+        height: 82% !important;
+    }
+
+    .new-match input[type="text"], input[type="number"]{
+         height: 40px !important;
      }
+
+    .edit-result .vertical-divider{
+        padding: 11px 0;
+    }
+
+}
+
+/** Landscape phones**/
+@media (min-width:480px) and (orientation:landscape){
+    .match ion-content{
+        height: 70% !important;
+    }
 }
