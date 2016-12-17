@@ -22,26 +22,50 @@ angular.module('rugbyapp.data', [])
             var teams = [{
                 teamId: 1,
                 fullClubName: 'Chicago Bulls',
-                townCity: 'Chicago',
-                teamName: 'cb'
+                townCity: 'Northampton',
+                teamName: 'Northampton U15',
+                clubAddress: '',
+                postCode: ''
             },
             {
                 teamId: 2,
                 fullClubName: 'XYZ Team',
-                townCity: 'Planet X',
-                teamName: 'xxx'
+                townCity: 'Cirencester',
+                teamName: 'Cirencester U15',
+                clubAddress: '',
+                postCode: ''
             },
             {
                 teamId:3,
                 fullClubName: 'ABCD1234',
-                townCity: 'Baras',
-                teamName: 'a1'
+                townCity: 'Rugby',
+                teamName: 'Laurentians U15',
+                clubAddress: '',
+                postCode: ''
             },
             {
                 teamId: 4,
                 fullClubName: 'Chicago Balls',
-                teamName: 'bl',
-                townCity: 'Balls'
+                teamName: 'Horston U15',
+                townCity: 'Horsten',
+                clubAddress: '',
+                postCode: ''
+            },
+            {
+                teamId:5,
+                fullClubName: 'ABCD1234',
+                townCity: 'Rugby',
+                teamName: 'Kettering U15',
+                clubAddress: '',
+                postCode: ''
+            },
+            {
+                teamId:6,
+                fullClubName: 'Old Northamptonians RFC',
+                townCity: 'Northampton',
+                teamName: 'ONs U15',
+                clubAddress: 'Billing Road',
+                postCode: 'NN1 5RX'
             }];
 
             return selectCallBack(teams, callBack);
@@ -61,7 +85,7 @@ angular.module('rugbyapp.data', [])
 
         var loadSetting = function (callBack) {
             var settings = [{
-                teamId: 1
+                teamId: 6
             }];
 
             return selectCallBack(settings, callBack);
@@ -85,80 +109,86 @@ angular.module('rugbyapp.data', [])
         var loadMatches = function(callBack) {
             var matches = [{
                 matchId: 1,
-                team1: 'Chicago Bulls',
-                team2: 'Test',
+                teamName1: 'ONs U15',
+                teamName2: 'Kington U15',
+                team1Try: 10,
+                team1DropGoal: 3,
+                team1Penalty: 0,
+                team1Conversion:0,
+                team2Try: 5,
+                team2DropGoal: 0,
+                team2Penalty: 0,
+                team2Conversion: 0,
+                matchDate: '12/16/2016',
+                matchTime: '14:57',
+                location: ''
+            },
+            {
+                matchId: 2,
+                teamName1: 'ONs U15',
+                teamName2: 'Kethlan',
                 team1Try: 5,
-                team1DropGoal: 3,
+                team1DropGoal: 0,
                 team1Penalty: 3,
-                team1Conversion: 2,
+                team1Conversion:2,
                 team2Try: 5,
-                team2DropGoal: 3,
+                team2DropGoal: 0,
                 team2Penalty: 3,
                 team2Conversion: 2,
-                matchDate: '09/20/2010',
-                matchTime: '13:00',
+                matchDate: '12/16/2016',
+                matchTime: '14:55',
+                location: 'Northampton'
             },
             {
-                matchId:2,
-                team1: 'XYZ Team',
-                team2: 'Chicago Bulls',
-                team1Try: 0,
-                team1DropGoal: 3,
-                team1Penalty: 3,
-                team1Conversion: 2,
-                team2Try: 5,
-                team2DropGoal: 3,
-                team2Penalty: 3,
-                team2Conversion: 2,
-                matchDate: '09/20/2010',
-                matchTime: '08:00',
+                matchId: 3,
+                teamName1: 'Northampton',
+                teamName2: 'Horston U15',
+                team1Try: 15,
+                team1DropGoal: 0,
+                team1Penalty: 0,
+                team1Conversion:0,
+                team2Try: 15,
+                team2DropGoal: 0,
+                team2Penalty: 0,
+                team2Conversion: 0,
+                matchDate: '12/16/2016',
+                matchTime: '14:52',
+                location: ''
             },
             {
-                matchId:3,
-                team1: 'Test Team',
-                team2: 'XYZ Team',
-                team1Try: 0,
-                team1DropGoal: 3,
-                team1Penalty: 3,
-                team1Conversion: 2,
-                team2Try: 5,
-                team2DropGoal: 3,
-                team2Penalty: 3,
-                team2Conversion: 2,
-                matchDate: '09/20/2010',
-                matchTime: '10:00',
+                matchId: 4,
+                team1: 6,
+                team2:2,
+                teamName1: 'ONs U15',
+                teamName2: 'Cirencester U15',
+                team1Try: 15,
+                team1DropGoal: 0,
+                team1Penalty: 0,
+                team1Conversion:0,
+                team2Try: 15,
+                team2DropGoal: 0,
+                team2Penalty: 0,
+                team2Conversion: 0,
+                matchDate: '12/16/2016',
+                matchTime: '14:29',
+                location: ''
             },
             {
-                matchId:4,
-                team1: 'Test Team',
-                team2: 'Rugby',
-                team1Try: 0,
-                team1DropGoal: 3,
-                team1Penalty: 3,
-                team1Conversion: 2,
-                team2Try: 5,
-                team2DropGoal: 3,
-                team2Penalty: 3,
-                team2Conversion: 2,
-                matchDate: '09/20/2010',
-                matchTime: '10:00',
-            },
-            {
-                matchId:5,
-                team1: 'Test Team',
-                team2: 'New Tram',
-                team1Try: 0,
-                team1DropGoal: 3,
-                team1Penalty: 3,
-                team1Conversion: 2,
-                team2Try: 5,
-                team2DropGoal: 3,
-                team2Penalty: 3,
-                team2Conversion: 2,
-                matchDate: '09/20/2010',
-                matchTime: '10:00',
-            }
-            ];
+                matchId: 5,
+                teamName1: 'Northampton U15',
+                teamName2: 'Cirencester U15',
+                team1Try: 15,
+                team1DropGoal: 0,
+                team1Penalty: 0,
+                team1Conversion:0,
+                team2Try: 15,
+                team2DropGoal: 0,
+                team2Penalty: 0,
+                team2Conversion: 0,
+                matchDate: '12/16/2016',
+                matchTime: '14:29',
+                location: ''   
+            }];
 
             return selectCallBack(matches, callBack);
         }
