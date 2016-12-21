@@ -3,7 +3,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.factories'])
     .controller('MatchController', function ($scope, $rootScope, $state, $ionicPopup, MatchFactory) {
         $rootScope.page = "start-match";
         $scope.factory = MatchFactory;
-
+        $scope.marketUrl = 'market://details?id=com.ionicframework.rugbyscoretracker';
         var showPopUp = function (tab) {
             $ionicPopup.show({
                 templateUrl: 'popup-template.html',
@@ -15,8 +15,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.factories'])
                         text: '<b>Yes</b>',
                         type: 'button-positive',
                         onTap: function (e) {
-                            var src = 'market://details?id=ph.com.digify.smphi'//'https://play.google.com/store/apps/details?id=ph.com.digify.smphi';
-                            window.open(src, '_system', null);
+                            window.open($scope.marketUrl, '_system', null);
                         }
                     }
                 ]
@@ -25,19 +24,14 @@ angular.module('rugbyapp.controllers', ['rugbyapp.factories'])
 
 
         $scope.showMyTeam = function () {
-            //$rootScope.page = "my-team";
             showPopUp('My Team');
-            //$state.go('app.using');
         };
 
         $scope.openMarket = function () {
-            var src = 'market://details?id=ph.com.digify.smphi'//'https://play.google.com/store/apps/details?id=ph.com.digify.smphi';
-            window.open(src, '_system', null);
+            window.open($scope.marketUrl, '_system', null);
         }
 
         $scope.showMatch = function () {
-            //$rootScope.page = "start-match";
-
             if ($state.current.tabGroup == 'about') {
                 $state.go('app.match');
                 return;
