@@ -287,7 +287,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.filters'])
             MatchFactory.match.team2Conversion = $scope.data.team2Conversion;
             MatchFactory.match.team2DropGoal = $scope.data.team2DropGoal;
             MatchFactory.match.matchTime = $filter('date')(new Date(), 'HH:mm');
-            MatchFactory.match.matchDate = $filter('date')(new Date(), 'MM/dd/yyyy');
+            MatchFactory.match.matchDate = $filter('date')(new Date(), 'dd/MM/yyyy');
 
             $state.go('app.match');
         };

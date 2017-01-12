@@ -55,7 +55,7 @@ var app = angular.module('rugbyapp', ['ionic', 'rugbyapp.controllers', 'rugbyapp
       });
 
       MatchFactory.match.matchTime = $filter('date')(new Date(), 'HH:mm');
-      MatchFactory.match.matchDate = $filter('date')(new Date(), 'MM/dd/yyyy');
+      MatchFactory.match.matchDate = $filter('date')(new Date(), 'dd/MM/yyyy');
 
      
 
