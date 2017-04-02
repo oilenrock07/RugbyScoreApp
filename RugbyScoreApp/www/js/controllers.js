@@ -270,6 +270,7 @@ angular.module('rugbyapp.controllers', ['rugbyapp.factories'])
             })
         }
 
+
         $scope.showScore = function () {
 
             $ionicPopup.show({
@@ -287,7 +288,13 @@ angular.module('rugbyapp.controllers', ['rugbyapp.factories'])
                         text: '<b>Upgrade</b>',
                         type: 'button-positive',
                         onTap: function (e) {
-                            window.open($scope.marketUrl, '_system', null);
+                            var alertPopup = $ionicPopup.alert({
+                                title: 'Rugby Score Tracker',
+                                template: 'Upgrading to Pro version will lose your current score. Note your score before upgrading'
+                            });
+                            alertPopup.then(function (res) {
+                                window.open($scope.marketUrl, '_system', null);
+                            });
                         }
                     }
                 ]
